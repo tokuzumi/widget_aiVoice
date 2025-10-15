@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight, Mic, Send, X, Volume2, Phone, MessageSquare } from 'lucide-react';
+import { ArrowUpRight, Mic, Send, X, Volume2, Phone, MessageSquare, ArrowUp } from 'lucide-react';
 
 // URL do logo para consistência com o projeto
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
@@ -105,7 +105,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         <div className="flex justify-between items-center p-2 border-b border-gray-800 mb-2">
             <div className="flex items-center gap-2">
                 <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={24} height={24} className="w-6 h-6" />
-                <span className="text-sm font-semibold text-white">Thais - Agente de Voz</span>
+                {/* Removido o texto ' - Agente de Voz' */}
+                <span className="text-sm font-semibold text-white">Thais</span>
             </div>
             <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Fechar chat">
                 <X className="h-5 w-5" />
@@ -145,13 +146,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
               disabled={inputMessage.trim() === ''}
               className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
+                // Estilo para botão de envio transparente com ícone branco
                 inputMessage.trim() === '' 
-                  ? 'bg-gray-700 text-gray-500 cursor-not-allowed' 
-                  : 'bg-accent text-black hover:bg-yellow-500'
+                  ? 'bg-transparent text-gray-500 cursor-not-allowed' 
+                  : 'bg-transparent text-white hover:text-accent'
               )}
               aria-label="Enviar mensagem"
             >
-              <Send className="h-4 w-4" />
+              <ArrowUp className="h-5 w-5" />
             </button>
           </form>
         </div>
