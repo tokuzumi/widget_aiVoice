@@ -63,29 +63,29 @@ export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose })
 
 
   return (
-    <div className="flex flex-col overflow-hidden p-2 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
+    <div className="flex flex-col overflow-hidden p-4 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
       
       {/* Header */}
-      <div className="flex justify-between items-center p-2 border-b border-gray-800 mb-2">
+      <div className="flex justify-between items-center pb-4 border-b border-gray-800 mb-4">
           <div className="flex items-center gap-2">
-              <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={24} height={24} className="w-6 h-6" />
-              <span className="text-sm font-semibold text-white">Thais (Live)</span>
+              <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={28} height={28} className="w-7 h-7" />
+              <span className="text-base font-semibold text-white">Thais (Live)</span>
           </div>
           <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Minimizar chat">
-              <Minus className="h-5 w-5" />
+              <Minus className="h-6 w-6" />
           </button>
       </div>
 
       {/* Messages Area */}
-      <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
+      <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-3 p-1 av-custom-scrollbar">
         {chatMessages.map((msg, index) => (
           <div 
             key={index} 
             className={cn(
               "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
               msg.from.isLocal 
-                ? 'bg-gray-800 text-white self-end rounded-br-none'
-                : 'bg-accent text-black self-start rounded-tl-none'
+                ? 'bg-gray-800 text-white self-end rounded-br-lg'
+                : 'bg-accent text-black self-start rounded-tl-lg'
             )}
           >
             {msg.message}
@@ -95,7 +95,7 @@ export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose })
         {/* Exibe a transcrição em tempo real do agente de IA */}
         {currentTranscriptionText && (
             <div 
-                className="av-message-bubble p-3 rounded-xl max-w-[85%] text-sm bg-accent text-black self-start rounded-tl-none opacity-70 animate-pulse"
+                className="av-message-bubble p-3 rounded-xl max-w-[85%] text-sm bg-accent text-black self-start rounded-tl-lg opacity-70 animate-pulse"
             >
                 {currentTranscriptionText}
             </div>
@@ -105,55 +105,55 @@ export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose })
       </div>
       
       {/* Input Area */}
-      <div className="p-2 mt-auto">
+      <div className="pt-4 mt-auto">
         <form onSubmit={handleSendMessage} className="flex gap-2 items-center">
           <input
             type="text"
             placeholder="Digite sua mensagem..."
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            className="flex-1 min-w-0 px-3 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-gray-700"
+            className="flex-1 min-w-0 px-4 py-3 border border-gray-700 rounded-full bg-gray-900 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-gray-700"
           />
           <button 
             type="submit" 
             disabled={inputMessage.trim() === ''}
             className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
+              "w-10 h-10 rounded-full flex items-center justify-center transition-colors",
               inputMessage.trim() === '' 
                 ? 'bg-transparent text-gray-500 cursor-not-allowed' 
                 : 'bg-transparent text-white hover:text-accent'
             )}
             aria-label="Enviar mensagem"
           >
-            <ArrowUp className="h-4 w-4" />
+            <ArrowUp className="h-5 w-5" />
           </button>
         </form>
       </div>
       
       {/* Action Buttons (Controles de Mídia) */}
-      <div className="flex justify-around p-2 border-t border-gray-800 mt-2">
+      <div className="flex justify-around p-4 border-t border-gray-800 mt-4">
         {/* Botão de Volume (Placeholder) */}
-        <button className="w-10 h-10 rounded-full bg-gray-900 border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Controle de volume">
-          <Volume2 className="h-5 w-5" />
+        <button className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center" aria-label="Controle de volume">
+          <Volume2 className="h-6 w-6" />
         </button>
         
         {/* Botão de Telefone (Placeholder) */}
-        <button className="w-10 h-10 rounded-full bg-gray-900 border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Encerrar chamada">
-          <Phone className="h-5 w-5" />
+        <button className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center" aria-label="Encerrar chamada">
+          <Phone className="h-6 w-6" />
         </button>
         
         {/* Microphone Button (Accent quando ativo) */}
         <button 
           onClick={handleMicToggle}
           className={cn(
-            "w-10 h-10 rounded-full border transition-colors flex items-center justify-center",
+            "w-12 h-12 rounded-full border transition-colors flex items-center justify-center",
             isMicEnabled 
-              ? 'bg-accent hover:bg-accent/90 text-black border-black' // ATIVO: ACCENT + BORDER-BLACK
-              : 'bg-gray-900 border-gray-700 text-white hover:bg-gray-800' // Inativo: Padrão
+              ? 'bg-accent hover:bg-accent/90 text-black border-accent' // ATIVO: ACCENT + BORDER-ACCENT
+              : 'bg-black border-white text-white hover:bg-gray-900' // Inativo: Padrão
           )}
           aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
         >
-          <Mic className="h-5 w-5" />
+          <Mic className="h-6 w-6" />
         </button>
       </div>
     </div>
