@@ -69,8 +69,8 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
         // Posicionamento fixo: 77px acima do bottom, 4px à direita
         "av-action-buttons-container fixed bottom-[77px] right-4 z-[1001]",
         "flex flex-col gap-2 flex-shrink-0 w-12",
-        // Mobile responsiveness: centralizado horizontalmente
-        "max-md:right-1/2 max-md:transform max-md:translate-x-1/2"
+        // REMOVIDAS as classes de centralização horizontal em mobile.
+        // O right-4 já garante o alinhamento à direita em todas as telas.
       )}
     >
       {/* Botões de Ação Padrão (Preto/Branco) */}
@@ -147,9 +147,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     <div 
       className={cn(
         // Posicionamento fixo: 77px acima do bottom, 400px de largura
-        "av-full-chat-container fixed bottom-[77px] right-[72px] z-[1001]", // Ajustado right para 72px (4px do viewport + 68px da largura dos botões + gap)
+        "av-full-chat-container fixed bottom-[77px] right-[72px] z-[1001]", // right-[72px] para alinhar ao lado dos ActionButtons
         "flex flex-row gap-2 items-end w-[400px] h-[70vh]",
-        // Mobile responsiveness
+        // Mobile responsiveness: centralizado horizontalmente, mantendo o bottom
         "max-md:w-[calc(100vw-2rem)] max-md:h-[50vh] max-md:left-1/2 max-md:transform max-md:-translate-x-1/2 max-md:right-auto"
       )}
     >
@@ -235,11 +235,6 @@ export const AiVoiceWidget = () => {
         setIsActionButtonsOpen(true);
     }
   }, [isActionButtonsOpen]);
-
-  // Ajuste de posicionamento:
-  // O ChatWindow precisa estar posicionado à esquerda dos ActionButtons.
-  // ActionButtons: largura 48px (w-12) + right-4 (16px) = 64px total.
-  // ChatWindow: right deve ser 64px + 8px (gap) = 72px.
 
   return (
     <>
