@@ -222,16 +222,23 @@ export const AiVoiceWidget = () => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(false);
 
   const handleToggleActionButtons = useCallback(() => {
-    setIsActionButtonsOpen(prev => !prev);
-    // Se fechar os botões de ação, fecha a janela de chat também
-    if (isChatWindowOpen) {
-        setIsChatWindowOpen(false);
+    // Se estiver fechado, abre tudo
+    if (!isActionButtonsOpen) {
+      setIsActionButtonsOpen(true);
+      setIsChatWindowOpen(true); // Abre a janela de chat por padrão
+    } else {
+      // Se estiver aberto, fecha tudo
+      setIsActionButtonsOpen(false);
+      setIsChatWindowOpen(false);
     }
-  }, [isChatWindowOpen]);
+  }, [isActionButtonsOpen]);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
-    // Se a janela de chat for aberta, garante que os botões de ação estejam visíveis
+    // Se a janela de chat for aberta/fechada pelo botão de mensagem,
+    // os botões de ação devem permanecer abertos se o chat for aberto,
+    // ou permanecer no estado atual se o chat for fechado.
+    // A lógica de fechar o chat não deve fechar os botões de ação.
     if (!isActionButtonsOpen) {
         setIsActionButtonsOpen(true);
     }
