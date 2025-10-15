@@ -114,7 +114,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
 
         {/* Messages Area */}
-        <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 scrollbar-hide">
+        <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {messages.map((msg) => (
             <div 
               key={msg.id} 
