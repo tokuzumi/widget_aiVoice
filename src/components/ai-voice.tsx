@@ -3,8 +3,9 @@
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Mic, Volume2, Phone } from 'lucide-react';
 import { LiveKitSession } from './livekit-session';
+import { ChatWindowContent } from './chat-window-content'; // Importado para uso no layout
 
 // URL do logo para consistência com o projeto
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
@@ -51,9 +52,55 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
   );
 };
 
+// --- Action Buttons Component (Recriado para o layout original) ---
+interface ActionButtonsProps {
+  isMicEnabled: boolean;
+  onMicToggle: () => void;
+  onClose: () => void;
+}
+
+const ActionButtons: React.FC<ActionButtonsProps> = ({ isMicEnabled, onMicToggle, onClose }) => {
+  return (
+    <div className="flex flex-col gap-4 p-4 lg:p-0 lg:ml-4">
+      {/* Botão de Volume (Placeholder) */}
+      <button className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center" aria-label="Controle de volume">
+        <Volume2 className="h-6 w-6" />
+      </button>
+      
+      {/* Botão de Telefone (Placeholder) */}
+      <button className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center" aria-label="Encerrar chamada">
+        <Phone className="h-6 w-6" />
+      </button>
+      
+      {/* Microphone Button (Accent quando ativo) */}
+      <button 
+        onClick={onMicToggle}
+        className={cn(
+          "w-12 h-12 rounded-full border transition-colors flex items-center justify-center",
+          isMicEnabled 
+            ? 'bg-accent hover:bg-accent/90 text-black border-accent' // ATIVO: ACCENT + BORDER-ACCENT
+            : 'bg-black border-white text-white hover:bg-gray-900' // Inativo: Padrão
+        )}
+        aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
+      >
+        <Mic className="h-6 w-6" />
+      </button>
+
+      {/* Botão de Fechar (Minimizar) - Adicionado para fechar a sessão */}
+      <button 
+        onClick={onClose}
+        className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center mt-4"
+        aria-label="Minimizar chat"
+      >
+        <ArrowUp className="h-6 w-6 rotate-90" /> {/* Usando ArrowUp rotacionado para simular o ícone de fechar/minimizar */}
+      </button>
+    </div>
+  );
+};
+
+
 // --- Main Widget Component (Orchestrator) ---
 export const AIVoice = () => {
-  // Estado para controlar se a janela de chat está aberta e a sessão LiveKit ativa
   const [isJanelaAberta, setIsJanelaAberta] = useState(false);
 
   const handleToggleJanela = useCallback(() => {
@@ -63,7 +110,7 @@ export const AIVoice = () => {
   return (
     <>
       {/* 1. Floating Button (sempre visível) */}
-      <div id="ai-voice-widget" className="fixed bottom-4 right-4 z-[1000] max-md:right-1/2 max-md:transform max-md:translate-x-1/2">
+      <div id="ai-voice-widget-button" className="fixed bottom-4 right-4 z-[1000] max-md:right-1/2 max-md:transform max-md:translate-x-1/2">
         <FloatingButton isOpen={isJanelaAberta} onToggle={handleToggleJanela} />
       </div>
 
@@ -72,13 +119,13 @@ export const AIVoice = () => {
         <div 
           className={cn(
             "av-full-chat-container fixed bottom-[77px] z-[1001]",
-            // Mobile (Padrão): Largura calculada entre left-4 e right-4
-            "left-4 right-4 h-[50vh]",
-            // Desktop (lg+): Largura fixa e alinhamento à direita
-            "lg:w-[400px] lg:right-4 lg:left-auto lg:h-[70vh]"
+            // Mobile: Ocupa a largura total, mas os botões de ação ficam abaixo da janela de chat
+            "left-4 right-4 h-[70vh] flex flex-col",
+            // Desktop (lg+): Layout de duas colunas (chat + botões)
+            "lg:w-[500px] lg:right-4 lg:left-auto lg:h-[70vh] lg:flex-row lg:items-end"
           )}
         >
-          {/* LiveKitSession gerencia a conexão e renderiza o conteúdo do chat */}
+          {/* LiveKitSession encapsula a conexão e o conteúdo do chat */}
           <LiveKitSession onClose={handleToggleJanela} />
         </div>
       )}

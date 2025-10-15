@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { LiveKitRoom } from '@livekit/components-react';
+import { LiveKitRoom, useLocalParticipant, useRoomContext } from '@livekit/components-react';
 import { getOrCreateClientId } from '@/lib/utils';
 import { ChatWindowContent } from './chat-window-content';
 import { toast } from 'sonner';
+import { ActionButtons } from './ai-voice'; // Importando ActionButtons do componente pai
 
 interface LiveKitSessionProps {
   onClose: () => void;
@@ -69,7 +70,6 @@ export const LiveKitSession: React.FC<LiveKitSessionProps> = ({ onClose }) => {
 
   useEffect(() => {
     fetchToken();
-    // O componente LiveKitRoom se desconecta automaticamente quando é desmontado (unmount)
   }, [fetchToken]);
 
   if (isLoading) {
@@ -92,10 +92,60 @@ export const LiveKitSession: React.FC<LiveKitSessionProps> = ({ onClose }) => {
       connect={true}
       audio={true} // Habilita áudio por padrão
       video={false} // Desabilita vídeo
-      // onDisconnected removido para evitar conflito com o ciclo de vida do React
     >
-      {/* O conteúdo real da janela de chat, que usará os hooks do LiveKit */}
-      <ChatWindowContent onClose={onClose} />
+      <LiveKitContent onClose={onClose} />
     </LiveKitRoom>
+  );
+};
+
+// Componente interno para acessar os hooks do LiveKit
+const LiveKitContent: React.FC<{ onClose: () => void }> = ({ onClose }) => {
+  const localParticipant = useLocalParticipant();
+  const room = useRoomContext();
+  
+  // Estado para o status do microfone local
+  const [isMicEnabled, setIsMicEnabled] = useState(localParticipant?.isMicrophoneEnabled ?? false);
+
+  const handleMicToggle = useCallback(async () => {
+    if (!room || !localParticipant) return;
+
+    const newState = !isMicEnabled;
+    try {
+        await localParticipant.setMicrophoneEnabled(newState);
+        setIsMicEnabled(newState);
+        toast.info(newState ? "Microfone ativado." : "Microfone desativado.");
+    } catch (e) {
+        console.error("Falha ao controlar o microfone:", e);
+        toast.error("Falha ao controlar o microfone.");
+    }
+  }, [isMicEnabled, room, localParticipant]);
+
+  return (
+    <>
+      {/* Janela de Chat (Ocupa 100% em mobile, 80% em desktop) */}
+      <div className="flex-1 min-h-0 lg:w-[80%]">
+        <ChatWindowContent onClose={onClose} isMicEnabled={isMicEnabled} />
+      </div>
+      
+      {/* Botões de Ação (Ocultos em mobile, visíveis à direita em desktop) */}
+      <div className="hidden lg:block lg:w-[20%]">
+        <ActionButtons 
+          isMicEnabled={isMicEnabled} 
+          onMicToggle={handleMicToggle} 
+          onClose={onClose} 
+        />
+      </div>
+      
+      {/* Botões de Ação (Visíveis em mobile, abaixo da janela de chat) */}
+      <div className="lg:hidden w-full mt-4">
+        <div className="flex justify-around p-2 border-t border-gray-800 bg-black rounded-xl">
+          <ActionButtons 
+            isMicEnabled={isMicEnabled} 
+            onMicToggle={handleMicToggle} 
+            onClose={onClose} 
+          />
+        </div>
+      </div>
+    </>
   );
 };

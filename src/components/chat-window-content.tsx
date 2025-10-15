@@ -3,29 +3,25 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { ArrowUp, Minus, Mic, Volume2, Phone } from 'lucide-react';
-import { useChat, useTranscriptions, useLocalParticipant, useRoomContext } from '@livekit/components-react';
-import { toast } from 'sonner';
+import { ArrowUp, Minus } from 'lucide-react';
+import { useChat, useTranscriptions } from '@livekit/components-react';
+// Removido useLocalParticipant, useRoomContext, Mic, Volume2, Phone
 
 // URL do logo para consistência com o projeto
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 
 interface ChatWindowContentProps {
   onClose: () => void;
+  isMicEnabled: boolean; // Recebe o estado do microfone como prop
 }
 
-export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose }) => {
+export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose, isMicEnabled }) => {
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   // LiveKit Hooks
   const { chatMessages, send } = useChat();
   const transcriptions = useTranscriptions();
-  const localParticipant = useLocalParticipant();
-  const room = useRoomContext();
-
-  // Estado para o status do microfone local, inicializado com o estado atual do participante
-  const [isMicEnabled, setIsMicEnabled] = useState(localParticipant?.isMicrophoneEnabled ?? false);
 
   // Transcrição atual (o que o agente de IA está falando em tempo real)
   const latestTranscription = transcriptions.length > 0 ? transcriptions[transcriptions.length - 1] : null;
@@ -42,20 +38,6 @@ export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose })
     }
   }, [inputMessage, send]);
 
-  const handleMicToggle = useCallback(async () => {
-    if (!room || !localParticipant) return;
-
-    const newState = !isMicEnabled;
-    try {
-        await localParticipant.setMicrophoneEnabled(newState);
-        setIsMicEnabled(newState);
-        toast.info(newState ? "Microfone ativado." : "Microfone desativado.");
-    } catch (e) {
-        console.error("Falha ao controlar o microfone:", e);
-        toast.error("Falha ao controlar o microfone.");
-    }
-  }, [isMicEnabled, room, localParticipant]);
-
   // Scroll para o final da conversa
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -65,15 +47,16 @@ export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose })
   return (
     <div className="flex flex-col overflow-hidden p-4 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
       
-      {/* Header */}
+      {/* Header (Simplificado, sem botão de fechar) */}
       <div className="flex justify-between items-center pb-4 border-b border-gray-800 mb-4">
           <div className="flex items-center gap-2">
               <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={28} height={28} className="w-7 h-7" />
               <span className="text-base font-semibold text-white">Thais (Live)</span>
           </div>
-          <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Minimizar chat">
-              <Minus className="h-6 w-6" />
-          </button>
+          {/* Indicador de status do microfone (opcional, mas útil) */}
+          <span className={cn("text-xs font-medium", isMicEnabled ? "text-accent" : "text-gray-500")}>
+            {isMicEnabled ? "Microfone Ativo" : "Microfone Inativo"}
+          </span>
       </div>
 
       {/* Messages Area */}
@@ -130,32 +113,7 @@ export const ChatWindowContent: React.FC<ChatWindowContentProps> = ({ onClose })
         </form>
       </div>
       
-      {/* Action Buttons (Controles de Mídia) */}
-      <div className="flex justify-around p-4 border-t border-gray-800 mt-4">
-        {/* Botão de Volume (Placeholder) */}
-        <button className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center" aria-label="Controle de volume">
-          <Volume2 className="h-6 w-6" />
-        </button>
-        
-        {/* Botão de Telefone (Placeholder) */}
-        <button className="w-12 h-12 rounded-full bg-black border border-white text-white hover:bg-gray-900 transition-colors flex items-center justify-center" aria-label="Encerrar chamada">
-          <Phone className="h-6 w-6" />
-        </button>
-        
-        {/* Microphone Button (Accent quando ativo) */}
-        <button 
-          onClick={handleMicToggle}
-          className={cn(
-            "w-12 h-12 rounded-full border transition-colors flex items-center justify-center",
-            isMicEnabled 
-              ? 'bg-accent hover:bg-accent/90 text-black border-accent' // ATIVO: ACCENT + BORDER-ACCENT
-              : 'bg-black border-white text-white hover:bg-gray-900' // Inativo: Padrão
-          )}
-          aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
-        >
-          <Mic className="h-6 w-6" />
-        </button>
-      </div>
+      {/* Os Action Buttons foram movidos para o LiveKitSession para manter o layout de duas colunas */}
     </div>
   );
 };
