@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight, Mic, Send, X, Volume2, Phone, MessageSquare, ArrowUp } from 'lucide-react';
+import { ArrowUpRight, Mic, Send, X, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
 
 // URL do logo para consistência com o projeto
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
@@ -107,8 +107,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                 <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={24} height={24} className="w-6 h-6" />
                 <span className="text-sm font-semibold text-white">Thais</span>
             </div>
-            <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Fechar chat">
-                <X className="h-5 w-5" />
+            <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Minimizar chat">
+                {/* Substituído X por Minus */}
+                <Minus className="h-5 w-5" />
             </button>
         </div>
 
