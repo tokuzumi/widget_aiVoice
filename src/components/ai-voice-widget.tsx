@@ -149,10 +149,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         "flex flex-row gap-2 items-end w-[400px] h-[70vh]",
         
         // Mobile responsiveness:
-        // w-80 (320px) para deixar espaço para os botões de ação (64px) + right-4 (16px)
-        // right-[72px] (48px botões + 16px right-4 + 8px gap)
-        "max-md:w-80 max-md:h-[50vh] max-md:right-[72px]"
-        // Removidas as classes de centralização horizontal em mobile
+        // Largura responsiva: 100vw - 88px (72px direita + 16px esquerda)
+        // Posicionamento: left-4 e right-auto para que a largura seja calculada a partir da esquerda.
+        "max-md:h-[50vh] max-md:w-[calc(100vw-88px)] max-md:left-4 max-md:right-auto"
       )}
     >
       {/* Chat Content Wrapper */}
