@@ -11,8 +11,9 @@ import { IntroducingSection } from "@/components/sections/introducing-section";
 import { ExperimenteSection } from "@/components/sections/experimente-section";
 import { HowYouManageSection } from "@/components/sections/how-you-manage-section";
 import { PricingSection } from "@/components/sections/pricing-section";
-import { FaqSection } from "@/components/sections/faq-section"; // Removido NextStepsSection
+import { FaqSection } from "@/components/sections/faq-section";
 import { LenisProvider } from "@/components/lenis-provider";
+import { AiVoiceWidget } from "@/components/ai-voice-widget";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -32,11 +33,13 @@ export default function Home() {
       <ExperimenteSection />
       <HowYouManageSection />
       <PricingSection />
-      {/* Removido <NextStepsSection /> */}
       <FaqSection />
 
       <Footer />
       <MadeWithDyad />
+      
+      {/* Renderiza o widget de voz */}
+      <AiVoiceWidget />
     </LenisProvider>
   );
 }
