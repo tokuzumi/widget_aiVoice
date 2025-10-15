@@ -13,7 +13,7 @@ import { HowYouManageSection } from "@/components/sections/how-you-manage-sectio
 import { PricingSection } from "@/components/sections/pricing-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { LenisProvider } from "@/components/lenis-provider";
-import { AiVoiceWidget } from "@/components/ai-voice-widget";
+import { AIVoice } from "@/components/ai-voice"; // Importação atualizada
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,7 +39,7 @@ export default function Home() {
       <MadeWithDyad />
       
       {/* Renderiza o widget de voz */}
-      <AiVoiceWidget />
+      <AIVoice />
     </LenisProvider>
   );
 }
