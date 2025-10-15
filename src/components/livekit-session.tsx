@@ -61,8 +61,7 @@ export const LiveKitSession: React.FC<LiveKitSessionProps> = ({ onClose }) => {
     } catch (err) {
       console.error("LiveKit Token Fetch Error:", err);
       setError(err instanceof Error ? err.message : "Erro desconhecido ao conectar.");
-      toast.error("Não foi possível conectar ao agente de voz.");
-      onClose(); // Fecha a janela em caso de erro de conexão
+      onClose(); // Fecha a janela em caso de erro de erro de token/conexão inicial
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +92,7 @@ export const LiveKitSession: React.FC<LiveKitSessionProps> = ({ onClose }) => {
       connect={true}
       audio={true} // Habilita áudio por padrão
       video={false} // Desabilita vídeo
-      onDisconnected={onClose} // Fecha a janela se a conexão cair
+      // onDisconnected removido para evitar conflito com o ciclo de vida do React
     >
       {/* O conteúdo real da janela de chat, que usará os hooks do LiveKit */}
       <ChatWindowContent onClose={onClose} />
