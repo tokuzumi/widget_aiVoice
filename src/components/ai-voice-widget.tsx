@@ -35,11 +35,11 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
       
       <div className="flex-grow overflow-hidden whitespace-nowrap">
         <div className="flex">
-          {/* Removida a classe uppercase */}
-          <span className="av-animate-marquee text-xs font-medium tracking-wider text-white">
+          {/* Alterado de font-medium para font-normal */}
+          <span className="av-animate-marquee text-xs font-normal tracking-wider text-white">
             {marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
           </span>
-          <span className="av-animate-marquee text-xs font-medium tracking-wider text-white" aria-hidden="true">
+          <span className="av-animate-marquee text-xs font-normal tracking-wider text-white" aria-hidden="true">
             {marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
           </span>
         </div>
