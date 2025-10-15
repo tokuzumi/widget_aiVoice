@@ -105,7 +105,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         <div className="flex justify-between items-center p-2 border-b border-gray-800 mb-2">
             <div className="flex items-center gap-2">
                 <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={24} height={24} className="w-6 h-6" />
-                {/* Removido o texto ' - Agente de Voz' */}
                 <span className="text-sm font-semibold text-white">Thais</span>
             </div>
             <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Fechar chat">
@@ -120,9 +119,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
               key={msg.id} 
               className={cn(
                 "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
+                // Invertendo as cores das mensagens
                 msg.type === 'remote' 
-                  ? 'bg-gray-800 text-white self-start rounded-tl-none' 
-                  : 'bg-accent text-black self-end rounded-br-none'
+                  ? 'bg-accent text-black self-start rounded-tl-none' // Assistente: accent
+                  : 'bg-gray-800 text-white self-end rounded-br-none' // Usuário: cinza escuro
               )}
             >
               {msg.text}
@@ -139,21 +139,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
               placeholder="Digite sua mensagem..."
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
-              className="flex-1 min-w-0 px-3 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-accent"
+              className="flex-1 min-w-0 px-3 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-gray-700"
             />
             <button 
               type="submit" 
               disabled={inputMessage.trim() === ''}
               className={cn(
                 "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-                // Estilo para botão de envio transparente com ícone branco
                 inputMessage.trim() === '' 
                   ? 'bg-transparent text-gray-500 cursor-not-allowed' 
                   : 'bg-transparent text-white hover:text-accent'
               )}
               aria-label="Enviar mensagem"
             >
-              <ArrowUp className="h-5 w-5" />
+              {/* Ícone reduzido em 20% (h-4 w-4) */}
+              <ArrowUp className="h-4 w-4" />
             </button>
           </form>
         </div>
@@ -161,13 +161,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       
       {/* Action Buttons Container */}
       <div className="av-action-buttons-container flex flex-col gap-2 flex-shrink-0 w-12">
-        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors" aria-label="Ação 1">
+        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 1">
           <Volume2 className="h-6 w-6" />
         </button>
-        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors" aria-label="Ação 2">
+        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 2">
           <Phone className="h-6 w-6" />
         </button>
-        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors" aria-label="Ação 3">
+        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 3">
           <MessageSquare className="h-6 w-6" />
         </button>
         
@@ -175,7 +175,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         <button 
           onClick={handleMicToggle}
           className={cn(
-            "av-microphone-button w-12 h-12 rounded-full border border-gray-700 transition-colors",
+            "av-microphone-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
             isMicEnabled 
               ? 'bg-red-600 hover:bg-red-700 text-white' 
               : 'bg-blue-600 hover:bg-blue-700 text-white'
