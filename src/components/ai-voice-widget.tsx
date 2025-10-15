@@ -15,7 +15,8 @@ interface FloatingButtonProps {
 }
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => {
-  const marqueeText = isOpen ? 'Em Atendimento...' : 'aguardando você...';
+  // Texto em minúsculas conforme solicitado
+  const marqueeText = isOpen ? 'em atendimento...' : 'aguardando você...';
 
   return (
     <button
@@ -25,7 +26,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
         "w-64 h-14 bg-black text-brand-gray rounded-full shadow-xl",
         "flex items-center cursor-pointer px-4 gap-3 border border-gray-700",
         "transition-colors duration-200 hover:bg-gray-900",
-        // Removido o override de largura para telas pequenas para manter o formato de pílula (w-64)
       )}
       aria-label={isOpen ? "Fechar assistente de voz" : "Abrir assistente de voz"}
     >
@@ -35,11 +35,11 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
       
       <div className="flex-grow overflow-hidden whitespace-nowrap">
         <div className="flex">
-          {/* Duplicando o texto para o efeito marquee contínuo */}
-          <span className="av-animate-marquee text-xs font-medium tracking-wider uppercase text-white">
+          {/* Removida a classe uppercase */}
+          <span className="av-animate-marquee text-xs font-medium tracking-wider text-white">
             {marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
           </span>
-          <span className="av-animate-marquee text-xs font-medium tracking-wider uppercase text-white" aria-hidden="true">
+          <span className="av-animate-marquee text-xs font-medium tracking-wider text-white" aria-hidden="true">
             {marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
           </span>
         </div>
