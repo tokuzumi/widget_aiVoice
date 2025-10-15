@@ -11,9 +11,6 @@ importers:
       '@hookform/resolvers':
         specifier: ^5.0.1
         version: 5.0.1(react-hook-form@7.56.4(react@19.1.0))
-      '@livekit/components-react':
-        specifier: ^2.9.15
-        version: 2.9.15(livekit-client@2.15.10(@types/dom-mediacapture-record@1.0.22))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tslib@2.8.1)
       '@radix-ui/react-accordion':
         specifier: ^1.2.11
         version: 1.2.11(@types/react-dom@19.1.5(@types/react@19.1.5))(@types/react@19.1.5)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -119,9 +116,6 @@ importers:
       lenis:
         specifier: ^1.3.11
         version: 1.3.11(react@19.1.0)
-      livekit-client:
-        specifier: ^2.15.10
-        version: 2.15.10(@types/dom-mediacapture-record@1.0.22)
       lucide-react:
         specifier: ^0.511.0
         version: 0.511.0(react@19.1.0)
@@ -217,9 +211,6 @@ packages:
     resolution: {integrity: sha512-ETyHEk2VHHvl9b9jZP5IHPavHYk57EhanlRRuae9XCpb/j5bDCbPPMOBfCWhnl/7EDJz0jEMCi/RhccCE8r1+Q==}
     engines: {node: '>=6.9.0'}
 
-  '@bufbuild/protobuf@1.10.1':
-    resolution: {integrity: sha512-wJ8ReQbHxsAfXhrf9ixl0aYbZorRuOWpBNzm8pL8ftmSxQx/wnJD5Eg861NwJU/czy2VXFIebCeZnZrI9rktIQ==}
-
   '@dyad-sh/nextjs-webpack-component-tagger@0.8.0':
     resolution: {integrity: sha512-gWG2jdC9+f2fzlxBH4jrUunHObTgfNR1a6YZv9xHuTSC+IQmEtNKIYO220LViQv/Enjnr6xWdRHLcoaAxSZXgg==}
     peerDependencies:
@@ -230,9 +221,6 @@ packages:
 
   '@floating-ui/core@1.7.0':
     resolution: {integrity: sha512-FRdBLykrPPA6P76GGGqlex/e7fbe0F1ykgxHYNXQsH/iTEtjMj/f9bpY5oQqbjt5VgZvgz/uKXbGuROijh3VLA==}
-
-  '@floating-ui/dom@1.6.13':
-    resolution: {integrity: sha512-umqzocjDgNRGTuO7Q8CU32dkHkECqI8ZdMZ5Swb6QAM0t5rnlrN3lGo1hdpscRd3WS8T6DKYK4ephgIH9iRh3w==}
 
   '@floating-ui/dom@1.7.0':
     resolution: {integrity: sha512-lGTor4VlXcesUMh1cupTUTDoCxMb0V6bm3CnxHzQcw8Eaf1jQbgQX4i02fYgT0vJ82tb5MZ4CZk1LRGkktJCzg==}
@@ -391,32 +379,6 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
-
-  '@livekit/components-core@0.12.10':
-    resolution: {integrity: sha512-lSGci8c8IB/qCi42g1tzNtDGpnBWH1XSSk/OA9Lzk7vqOG0LlkwD3zXfBeKfO2eWFmYRfrZ2GD59GaH2NtTgag==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      livekit-client: ^2.13.3
-      tslib: ^2.6.2
-
-  '@livekit/components-react@2.9.15':
-    resolution: {integrity: sha512-b+gA0sRJHMsyr/BoMBoY1vSXQmP3h5NmxZTUt+VG8xjzCYDjmUuiDUrKVwMIUoy1vK9I6uNfo+hp6qbLo84jfQ==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@livekit/krisp-noise-filter': ^0.2.12 || ^0.3.0
-      livekit-client: ^2.13.3
-      react: '>=18'
-      react-dom: '>=18'
-      tslib: ^2.6.2
-    peerDependenciesMeta:
-      '@livekit/krisp-noise-filter':
-        optional: true
-
-  '@livekit/mutex@1.1.1':
-    resolution: {integrity: sha512-EsshAucklmpuUAfkABPxJNhzj9v2sG7JuzFDL4ML1oJQSV14sqrpTYnsaOudMAw9yOaW53NU3QQTlUQoRs4czw==}
-
-  '@livekit/protocol@1.42.0':
-    resolution: {integrity: sha512-42sYSCay2PZrn5yHHt+O3RQpTElcTrA7bqg7iYbflUApeerA5tUCJDr8Z4abHsYHVKjqVUbkBq/TPmT3X6aYOQ==}
 
   '@next/env@15.3.4':
     resolution: {integrity: sha512-ZkdYzBseS6UjYzz6ylVKPOK+//zLWvD6Ta+vpoye8cW11AjiQjGYVibF0xuvT4L0iJfAPfZLFidaEzAOywyOAQ==}
@@ -1133,9 +1095,6 @@ packages:
   '@types/d3-timer@3.0.2':
     resolution: {integrity: sha512-Ps3T8E8dZDam6fUyNiMkekK3XUsaUEik+idO9/YjPtfj2qruF8tFBXS7XhtE4iIXBLxhmLjP3SXpLhVf21I9Lw==}
 
-  '@types/dom-mediacapture-record@1.0.22':
-    resolution: {integrity: sha512-mUMZLK3NvwRLcAAT9qmcK+9p7tpU2FHdDsntR3YI4+GY88XrgG4XiE7u1Q2LAN2/FZOz/tdMDC3GQCR4T8nFuw==}
-
   '@types/eslint-scope@3.7.7':
     resolution: {integrity: sha512-MzMFlSLBqNF2gcHWO0G1vP/YQyfvrxZ0bF+u7mzUdZ1/xK4A4sru+nraZz5i3iEIk1l1uyicaDVTB4QbbEkAYg==}
 
@@ -1600,9 +1559,6 @@ packages:
     resolution: {integrity: sha512-/imKNG4EbWNrVjoNC/1H5/9GFy+tqjGBHCaSsN+P2RnPqjsLmv6UD3Ej+Kj8nBWaRAwyk7kK5ZUc+OEatnTR3A==}
     hasBin: true
 
-  jose@6.1.0:
-    resolution: {integrity: sha512-TTQJyoEoKcC1lscpVDCSsVgYzUDg/0Bt3WE//WiTPK6uOCQC2KZS4MpugbMWt/zyjkopgZoXhZuCi00gLudfUA==}
-
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
@@ -1633,28 +1589,12 @@ packages:
   lines-and-columns@1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
 
-  livekit-client@2.15.10:
-    resolution: {integrity: sha512-z04U2JJjR1weLKZPhJVYehZlOOfOjCMDF9R86uk3HFSTw+OcMusBMLs/fzoH0SRhNgg0MtZJPwJU6kjwj3ihag==}
-    peerDependencies:
-      '@types/dom-mediacapture-record': ^1
-
   loader-runner@4.3.0:
     resolution: {integrity: sha512-3R/1M+yS3j5ou80Me59j7F9IMs4PXs3VqRrm0TU3AbKPxlmpoY1TNscJV/oGJXo8qCatFGTfDbY6W6ipGOYXfg==}
     engines: {node: '>=6.11.5'}
 
-  lodash.debounce@4.0.8:
-    resolution: {integrity: sha512-FT1yDzDYEoYWhnSGnpE/4Kj1fLZkDFyqRb7fNt6FdYOSxlUWAtp42Eh6Wb0rGIv/m9Bgo7x4GhQbm5Ys4SG5ow==}
-
   lodash@4.17.21:
     resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
-
-  loglevel@1.9.1:
-    resolution: {integrity: sha512-hP3I3kCrDIMuRwAwHltphhDM1r8i55H33GgqjXbrisuJhF4kRhW1dNuxsRklp4bXl8DSdLaNLuiL4A/LWRfxvg==}
-    engines: {node: '>= 0.6.0'}
-
-  loglevel@1.9.2:
-    resolution: {integrity: sha512-HgMmCqIJSAKqo68l0rS2AanEWfkxaZ5wNiEFb5ggm08lDs9Xl2KxBlX3PTcaD2chBM1gXAYf491/M2Rv8Jwayg==}
-    engines: {node: '>= 0.6.0'}
 
   loose-envify@1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
@@ -1945,9 +1885,6 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  rxjs@7.8.2:
-    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
-
   safe-buffer@5.2.1:
     resolution: {integrity: sha512-rp3So07KcdmmKbGvgaNxQSJr7bGVSVk5S9Eq1F+ppbRo70+YeaDxkw5Dd8NPN+GD6bjnYm2VuPuCXmpuYvmCXQ==}
 
@@ -1957,13 +1894,6 @@ packages:
   schema-utils@4.3.2:
     resolution: {integrity: sha512-Gn/JaSk/Mt9gYubxTtSn/QCV4em9mpAPiR1rqy/Ocu19u/G9J5WWdNoUT4SiV6mFC3y6cxyFcFwdzPM3FgxGAQ==}
     engines: {node: '>= 10.13.0'}
-
-  sdp-transform@2.15.0:
-    resolution: {integrity: sha512-KrOH82c/W+GYQ0LHqtr3caRpM3ITglq3ljGUIb8LTki7ByacJZ9z+piSGiwZDsRyhQbYBOBJgr2k6X4BZXi3Kw==}
-    hasBin: true
-
-  sdp@3.2.1:
-    resolution: {integrity: sha512-lwsAIzOPlH8/7IIjjz3K0zYBk7aBVVcvjMwt3M4fLxpjMYyy7i3I97SLHebgn4YBjirkzfp3RvRDWSKsh/+WFw==}
 
   semver@7.7.2:
     resolution: {integrity: sha512-RF0Fw+rO5AMf9MAyaRXI4AV0Ulj5lMHqVxxdSgiVbixSCXoEmmX/jk0CuJw4+3SqroYO9VoUh+HcuJivvtJemA==}
@@ -2107,17 +2037,11 @@ packages:
     resolution: {integrity: sha512-65P7iz6X5yEr1cwcgvQxbbIw7Uk3gOy5dIdtZ4rDveLqhrdJP+Li/Hx6tyK0NEb+2GCyneCMJiGqrADCSNk8sQ==}
     engines: {node: '>=8.0'}
 
-  ts-debounce@4.0.0:
-    resolution: {integrity: sha512-+1iDGY6NmOGidq7i7xZGA4cm8DAa6fqdYcvO5Z6yBevH++Bdo9Qt/mN0TzHUgcCcKv1gmh9+W5dHqz8pMWbCbg==}
-
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
-
-  typed-emitter@2.1.0:
-    resolution: {integrity: sha512-g/KzbYKbH5C2vPkaXGu8DJlHrGKHLsM25Zg9WuC9pMGfuvT+X25tZQWo5fK1BjBm8+UrVE9LDCvaY0CQk+fXDA==}
 
   typescript@5.8.3:
     resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
@@ -2158,12 +2082,6 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  usehooks-ts@3.1.1:
-    resolution: {integrity: sha512-I4diPp9Cq6ieSUH2wu+fDAVQO43xwtulo+fKEidHUwZPnYImbtkTjzIJYcDcJqxgmX31GVqNFURodvcgHcW0pA==}
-    engines: {node: '>=16.15.0'}
-    peerDependencies:
-      react: ^16.8.0  || ^17 || ^18 || ^19 || ^19.0.0-rc
-
   util-deprecate@1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
@@ -2193,10 +2111,6 @@ packages:
     peerDependenciesMeta:
       webpack-cli:
         optional: true
-
-  webrtc-adapter@9.0.3:
-    resolution: {integrity: sha512-5fALBcroIl31OeXAdd1YUntxiZl1eHlZZWzNg3U4Fn+J9/cGL3eT80YlrsWGvj2ojuz1rZr2OXkgCzIxAZ7vRQ==}
-    engines: {node: '>=6.0.0', npm: '>=3.10.0'}
 
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
@@ -2238,8 +2152,6 @@ snapshots:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
 
-  '@bufbuild/protobuf@1.10.1': {}
-
   '@dyad-sh/nextjs-webpack-component-tagger@0.8.0(webpack@5.99.9)':
     dependencies:
       '@babel/parser': 7.27.5
@@ -2254,11 +2166,6 @@ snapshots:
 
   '@floating-ui/core@1.7.0':
     dependencies:
-      '@floating-ui/utils': 0.2.9
-
-  '@floating-ui/dom@1.6.13':
-    dependencies:
-      '@floating-ui/core': 1.7.0
       '@floating-ui/utils': 0.2.9
 
   '@floating-ui/dom@1.7.0':
@@ -2390,30 +2297,6 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
-
-  '@livekit/components-core@0.12.10(livekit-client@2.15.10(@types/dom-mediacapture-record@1.0.22))(tslib@2.8.1)':
-    dependencies:
-      '@floating-ui/dom': 1.6.13
-      livekit-client: 2.15.10(@types/dom-mediacapture-record@1.0.22)
-      loglevel: 1.9.1
-      rxjs: 7.8.2
-      tslib: 2.8.1
-
-  '@livekit/components-react@2.9.15(livekit-client@2.15.10(@types/dom-mediacapture-record@1.0.22))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(tslib@2.8.1)':
-    dependencies:
-      '@livekit/components-core': 0.12.10(livekit-client@2.15.10(@types/dom-mediacapture-record@1.0.22))(tslib@2.8.1)
-      clsx: 2.1.1
-      livekit-client: 2.15.10(@types/dom-mediacapture-record@1.0.22)
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
-      tslib: 2.8.1
-      usehooks-ts: 3.1.1(react@19.1.0)
-
-  '@livekit/mutex@1.1.1': {}
-
-  '@livekit/protocol@1.42.0':
-    dependencies:
-      '@bufbuild/protobuf': 1.10.1
 
   '@next/env@15.3.4': {}
 
@@ -3141,8 +3024,6 @@ snapshots:
 
   '@types/d3-timer@3.0.2': {}
 
-  '@types/dom-mediacapture-record@1.0.22': {}
-
   '@types/eslint-scope@3.7.7':
     dependencies:
       '@types/eslint': 9.6.1
@@ -3598,8 +3479,6 @@ snapshots:
 
   jiti@1.21.7: {}
 
-  jose@6.1.0: {}
-
   js-tokens@4.0.0: {}
 
   json-parse-even-better-errors@2.3.1: {}
@@ -3614,29 +3493,9 @@ snapshots:
 
   lines-and-columns@1.2.4: {}
 
-  livekit-client@2.15.10(@types/dom-mediacapture-record@1.0.22):
-    dependencies:
-      '@livekit/mutex': 1.1.1
-      '@livekit/protocol': 1.42.0
-      '@types/dom-mediacapture-record': 1.0.22
-      events: 3.3.0
-      jose: 6.1.0
-      loglevel: 1.9.2
-      sdp-transform: 2.15.0
-      ts-debounce: 4.0.0
-      tslib: 2.8.1
-      typed-emitter: 2.1.0
-      webrtc-adapter: 9.0.3
-
   loader-runner@4.3.0: {}
 
-  lodash.debounce@4.0.8: {}
-
   lodash@4.17.21: {}
-
-  loglevel@1.9.1: {}
-
-  loglevel@1.9.2: {}
 
   loose-envify@1.4.0:
     dependencies:
@@ -3905,10 +3764,6 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  rxjs@7.8.2:
-    dependencies:
-      tslib: 2.8.1
-
   safe-buffer@5.2.1: {}
 
   scheduler@0.26.0: {}
@@ -3919,10 +3774,6 @@ snapshots:
       ajv: 8.17.1
       ajv-formats: 2.1.1(ajv@8.17.1)
       ajv-keywords: 5.1.0(ajv@8.17.1)
-
-  sdp-transform@2.15.0: {}
-
-  sdp@3.2.1: {}
 
   semver@7.7.2:
     optional: true
@@ -4095,15 +3946,9 @@ snapshots:
     dependencies:
       is-number: 7.0.0
 
-  ts-debounce@4.0.0: {}
-
   ts-interface-checker@0.1.13: {}
 
   tslib@2.8.1: {}
-
-  typed-emitter@2.1.0:
-    optionalDependencies:
-      rxjs: 7.8.2
 
   typescript@5.8.3: {}
 
@@ -4132,11 +3977,6 @@ snapshots:
 
   use-sync-external-store@1.5.0(react@19.1.0):
     dependencies:
-      react: 19.1.0
-
-  usehooks-ts@3.1.1(react@19.1.0):
-    dependencies:
-      lodash.debounce: 4.0.8
       react: 19.1.0
 
   util-deprecate@1.0.2: {}
@@ -4204,10 +4044,6 @@ snapshots:
       - '@swc/core'
       - esbuild
       - uglify-js
-
-  webrtc-adapter@9.0.3:
-    dependencies:
-      sdp: 3.2.1
 
   which@2.0.2:
     dependencies:
