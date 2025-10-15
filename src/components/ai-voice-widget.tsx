@@ -83,10 +83,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
       <button 
         onClick={onToggleChatWindow}
         className={cn(
-          "av-action-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
+          "av-action-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center",
           isChatWindowOpen
-            ? 'bg-accent hover:bg-accent/90 text-black border-accent' // Ativo: ACCENT
-            : 'bg-black text-white hover:bg-gray-800' // Inativo: Padrão
+            ? 'bg-accent hover:bg-accent/90 text-black border-black' // ATIVO: ACCENT + BORDER-BLACK
+            : 'bg-black border-gray-700 text-white hover:bg-gray-800' // Inativo: Padrão
         )}
         aria-label={isChatWindowOpen ? 'Fechar chat' : 'Abrir chat'}
       >
@@ -97,10 +97,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
       <button 
         onClick={handleMicToggle}
         className={cn(
-          "av-microphone-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
+          "av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center",
           isMicEnabled 
-            ? 'bg-accent hover:bg-accent/90 text-black border-accent' // Ativo: ACCENT
-            : 'bg-black text-white hover:bg-gray-800' // Inativo: Padrão
+            ? 'bg-accent hover:bg-accent/90 text-black border-black' // ATIVO: ACCENT + BORDER-BLACK
+            : 'bg-black border-gray-700 text-white hover:bg-gray-800' // Inativo: Padrão
         )}
         aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
       >
