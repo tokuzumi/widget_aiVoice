@@ -92,11 +92,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   return (
     <div 
       className={cn(
-        // Desktop: right-4, bottom-[77px] (5px gap)
+        // Posicionamento fixo em relação ao viewport
         "av-full-chat-container fixed bottom-[77px] right-4 z-[1001]",
         "flex flex-row gap-2 items-end w-[400px] h-[70vh]",
-        // Mobile responsiveness: centralizado, bottom-[77px] (5px gap)
-        "max-md:w-[calc(100vw-2rem)] max-md:h-[50vh] max-md:left-1/2 max-md:transform max-md:-translate-x-1/2 max-md:right-auto max-md:bottom-[77px]"
+        // Mobile responsiveness: centralizado horizontalmente, mantendo o bottom
+        "max-md:w-[calc(100vw-2rem)] max-md:h-[50vh] max-md:left-1/2 max-md:transform max-md:-translate-x-1/2 max-md:right-auto"
       )}
     >
       {/* Chat Content Wrapper */}
@@ -109,7 +109,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                 <span className="text-sm font-semibold text-white">Thais</span>
             </div>
             <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Minimizar chat">
-                {/* Substituído X por Minus */}
                 <Minus className="h-5 w-5" />
             </button>
         </div>
@@ -200,9 +199,14 @@ export const AiVoiceWidget = () => {
   }, []);
 
   return (
-    <div id="ai-voice-widget" className="fixed bottom-4 right-4 z-[1000] max-md:right-1/2 max-md:transform max-md:translate-x-1/2">
+    <>
+      {/* Chat Window (posicionado 77px acima do viewport) */}
       {isOpen && <ChatWindow onClose={handleToggle} />}
-      <FloatingButton isOpen={isOpen} onToggle={handleToggle} />
-    </div>
+      
+      {/* Floating Button Container (posicionado 16px acima do viewport) */}
+      <div id="ai-voice-widget" className="fixed bottom-4 right-4 z-[1000] max-md:right-1/2 max-md:transform max-md:translate-x-1/2">
+        <FloatingButton isOpen={isOpen} onToggle={handleToggle} />
+      </div>
+    </>
   );
 };
