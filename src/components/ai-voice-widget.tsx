@@ -162,6 +162,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       
       {/* Action Buttons Container */}
       <div className="av-action-buttons-container flex flex-col gap-2 flex-shrink-0 w-12">
+        {/* Botões de Ação Padrão (Preto/Branco) */}
         <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 1">
           <Volume2 className="h-5 w-5" />
         </button>
@@ -172,14 +173,14 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
           <MessageSquare className="h-5 w-5" />
         </button>
         
-        {/* Microphone Button */}
+        {/* Microphone Button (Accent quando ativo) */}
         <button 
           onClick={handleMicToggle}
           className={cn(
             "av-microphone-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
             isMicEnabled 
-              ? 'bg-red-600 hover:bg-red-700 text-white' 
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
+              ? 'bg-accent hover:bg-accent/90 text-black border-accent' // Ativo: ACCENT
+              : 'bg-black text-white hover:bg-gray-800' // Inativo: Padrão
           )}
           aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
         >
