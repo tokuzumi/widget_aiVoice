@@ -152,7 +152,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
               )}
               aria-label="Enviar mensagem"
             >
-              {/* Ícone reduzido em 20% (h-4 w-4) */}
+              {/* Ícone reduzido para h-4 w-4 */}
               <ArrowUp className="h-4 w-4" />
             </button>
           </form>
@@ -162,13 +162,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
       {/* Action Buttons Container */}
       <div className="av-action-buttons-container flex flex-col gap-2 flex-shrink-0 w-12">
         <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 1">
-          <Volume2 className="h-6 w-6" />
+          <Volume2 className="h-5 w-5" />
         </button>
         <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 2">
-          <Phone className="h-6 w-6" />
+          <Phone className="h-5 w-5" />
         </button>
         <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 3">
-          <MessageSquare className="h-6 w-6" />
+          <MessageSquare className="h-5 w-5" />
         </button>
         
         {/* Microphone Button */}
@@ -182,7 +182,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
           )}
           aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
         >
-          <Mic className="h-6 w-6" />
+          <Mic className="h-5 w-5" />
         </button>
       </div>
     </div>
