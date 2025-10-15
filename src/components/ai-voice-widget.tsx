@@ -3,7 +3,7 @@
 import React, { useState, useCallback, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
-import { ArrowUpRight, Mic, Send, X, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
+import { ArrowUpRight, Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
 
 // URL do logo para consistência com o projeto
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
@@ -15,7 +15,6 @@ interface FloatingButtonProps {
 }
 
 const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => {
-  // Texto em minúsculas conforme solicitado
   const marqueeText = isOpen ? 'em atendimento...' : 'aguardando você...';
 
   return (
@@ -27,7 +26,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
         "flex items-center cursor-pointer px-4 gap-3 border border-gray-700",
         "transition-colors duration-200 hover:bg-gray-900",
       )}
-      aria-label={isOpen ? "Fechar assistente de voz" : "Abrir assistente de voz"}
+      aria-label={isOpen ? "Fechar botões de ação" : "Abrir botões de ação"}
     >
       <div className="flex-shrink-0 p-1">
         <Image src={AI_VOICE_LOGO_SRC} alt="Logo do Widget" width={32} height={32} className="w-8 h-8" />
@@ -35,7 +34,6 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
       
       <div className="flex-grow overflow-hidden whitespace-nowrap">
         <div className="flex">
-          {/* Alterado de font-medium para font-normal */}
           <span className="av-animate-marquee text-xs font-normal tracking-wider text-white">
             {marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;{marqueeText}&nbsp;&nbsp;&bull;&nbsp;&nbsp;
           </span>
@@ -52,13 +50,74 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ isOpen, onToggle }) => 
   );
 };
 
+// --- Action Buttons Component ---
+interface ActionButtonsProps {
+  isChatWindowOpen: boolean;
+  onToggleChatWindow: () => void;
+}
+
+const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow }) => {
+  const [isMicEnabled, setIsMicEnabled] = useState(false);
+
+  const handleMicToggle = useCallback(() => {
+    setIsMicEnabled(prev => !prev);
+  }, []);
+
+  return (
+    <div 
+      className={cn(
+        // Posicionamento fixo: 77px acima do bottom, 4px à direita
+        "av-action-buttons-container fixed bottom-[77px] right-4 z-[1001]",
+        "flex flex-col gap-2 flex-shrink-0 w-12",
+        // Mobile responsiveness: centralizado horizontalmente
+        "max-md:right-1/2 max-md:transform max-md:translate-x-1/2"
+      )}
+    >
+      {/* Botões de Ação Padrão (Preto/Branco) */}
+      <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 1">
+        <Volume2 className="h-5 w-5" />
+      </button>
+      <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 2">
+        <Phone className="h-5 w-5" />
+      </button>
+      
+      {/* Botão de Mensagem (Toggle Chat Window) */}
+      <button 
+        onClick={onToggleChatWindow}
+        className={cn(
+          "av-action-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
+          isChatWindowOpen
+            ? 'bg-accent hover:bg-accent/90 text-black border-accent' // Ativo: ACCENT
+            : 'bg-black text-white hover:bg-gray-800' // Inativo: Padrão
+        )}
+        aria-label={isChatWindowOpen ? 'Fechar chat' : 'Abrir chat'}
+      >
+        <MessageSquare className="h-5 w-5" />
+      </button>
+      
+      {/* Microphone Button (Accent quando ativo) */}
+      <button 
+        onClick={handleMicToggle}
+        className={cn(
+          "av-microphone-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
+          isMicEnabled 
+            ? 'bg-accent hover:bg-accent/90 text-black border-accent' // Ativo: ACCENT
+            : 'bg-black text-white hover:bg-gray-800' // Inativo: Padrão
+        )}
+        aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
+      >
+        <Mic className="h-5 w-5" />
+      </button>
+    </div>
+  );
+};
+
 // --- Chat Window Component ---
 interface ChatWindowProps {
   onClose: () => void;
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
-  const [isMicEnabled, setIsMicEnabled] = useState(false);
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -71,10 +130,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     }
   }, [inputMessage]);
 
-  const handleMicToggle = useCallback(() => {
-    setIsMicEnabled(prev => !prev);
-  }, []);
-
   // Dummy messages for display
   const messages = [
     { id: 1, text: "Olá! Sou a Thais, sua agente de voz. Como posso ajudar você hoje?", type: 'remote' },
@@ -84,7 +139,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   ];
 
   useEffect(() => {
-    // Scroll to bottom on initial load or message update
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
@@ -92,10 +146,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   return (
     <div 
       className={cn(
-        // Posicionamento fixo em relação ao viewport
-        "av-full-chat-container fixed bottom-[77px] right-4 z-[1001]",
+        // Posicionamento fixo: 77px acima do bottom, 400px de largura
+        "av-full-chat-container fixed bottom-[77px] right-[72px] z-[1001]", // Ajustado right para 72px (4px do viewport + 68px da largura dos botões + gap)
         "flex flex-row gap-2 items-end w-[400px] h-[70vh]",
-        // Mobile responsiveness: centralizado horizontalmente, mantendo o bottom
+        // Mobile responsiveness
         "max-md:w-[calc(100vw-2rem)] max-md:h-[50vh] max-md:left-1/2 max-md:transform max-md:-translate-x-1/2 max-md:right-auto"
       )}
     >
@@ -120,10 +174,9 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
               key={msg.id} 
               className={cn(
                 "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
-                // Invertendo as cores das mensagens
                 msg.type === 'remote' 
-                  ? 'bg-accent text-black self-start rounded-tl-none' // Assistente: accent
-                  : 'bg-gray-800 text-white self-end rounded-br-none' // Usuário: cinza escuro
+                  ? 'bg-accent text-black self-start rounded-tl-none'
+                  : 'bg-gray-800 text-white self-end rounded-br-none'
               )}
             >
               {msg.text}
@@ -153,39 +206,10 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
               )}
               aria-label="Enviar mensagem"
             >
-              {/* Ícone reduzido para h-4 w-4 */}
               <ArrowUp className="h-4 w-4" />
             </button>
           </form>
         </div>
-      </div>
-      
-      {/* Action Buttons Container */}
-      <div className="av-action-buttons-container flex flex-col gap-2 flex-shrink-0 w-12">
-        {/* Botões de Ação Padrão (Preto/Branco) */}
-        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 1">
-          <Volume2 className="h-5 w-5" />
-        </button>
-        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 2">
-          <Phone className="h-5 w-5" />
-        </button>
-        <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Ação 3">
-          <MessageSquare className="h-5 w-5" />
-        </button>
-        
-        {/* Microphone Button (Accent quando ativo) */}
-        <button 
-          onClick={handleMicToggle}
-          className={cn(
-            "av-microphone-button w-12 h-12 rounded-full border border-gray-700 transition-colors flex items-center justify-center",
-            isMicEnabled 
-              ? 'bg-accent hover:bg-accent/90 text-black border-accent' // Ativo: ACCENT
-              : 'bg-black text-white hover:bg-gray-800' // Inativo: Padrão
-          )}
-          aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}
-        >
-          <Mic className="h-5 w-5" />
-        </button>
       </div>
     </div>
   );
@@ -193,21 +217,47 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
 // --- Main Widget Component ---
 export const AiVoiceWidget = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isActionButtonsOpen, setIsActionButtonsOpen] = useState(false);
+  const [isChatWindowOpen, setIsChatWindowOpen] = useState(false);
 
-  const handleToggle = useCallback(() => {
-    setIsOpen(prev => !prev);
-  }, []);
+  const handleToggleActionButtons = useCallback(() => {
+    setIsActionButtonsOpen(prev => !prev);
+    // Se fechar os botões de ação, fecha a janela de chat também
+    if (isChatWindowOpen) {
+        setIsChatWindowOpen(false);
+    }
+  }, [isChatWindowOpen]);
+
+  const handleToggleChatWindow = useCallback(() => {
+    setIsChatWindowOpen(prev => !prev);
+    // Se a janela de chat for aberta, garante que os botões de ação estejam visíveis
+    if (!isActionButtonsOpen) {
+        setIsActionButtonsOpen(true);
+    }
+  }, [isActionButtonsOpen]);
+
+  // Ajuste de posicionamento:
+  // O ChatWindow precisa estar posicionado à esquerda dos ActionButtons.
+  // ActionButtons: largura 48px (w-12) + right-4 (16px) = 64px total.
+  // ChatWindow: right deve ser 64px + 8px (gap) = 72px.
 
   return (
     <>
-      {/* Chat Window (posicionado 77px acima do viewport) */}
-      {isOpen && <ChatWindow onClose={handleToggle} />}
-      
-      {/* Floating Button Container (posicionado 16px acima do viewport) */}
+      {/* 1. Floating Button (sempre visível) */}
       <div id="ai-voice-widget" className="fixed bottom-4 right-4 z-[1000] max-md:right-1/2 max-md:transform max-md:translate-x-1/2">
-        <FloatingButton isOpen={isOpen} onToggle={handleToggle} />
+        <FloatingButton isOpen={isActionButtonsOpen} onToggle={handleToggleActionButtons} />
       </div>
+
+      {/* 2. Action Buttons (visível se isActionButtonsOpen for true) */}
+      {isActionButtonsOpen && (
+        <ActionButtons 
+          isChatWindowOpen={isChatWindowOpen}
+          onToggleChatWindow={handleToggleChatWindow}
+        />
+      )}
+
+      {/* 3. Chat Window (visível se isChatWindowOpen for true) */}
+      {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
   );
 };
