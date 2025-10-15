@@ -92,8 +92,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   return (
     <div 
       className={cn(
-        // Ajustado de bottom-[77px] para bottom-[72px] para 0px de espaçamento
-        "av-full-chat-container fixed bottom-[72px] right-4 z-[1001]",
+        // Revertido para bottom-[77px] para garantir 5px de espaçamento (16 + 56 + 5 = 77)
+        "av-full-chat-container fixed bottom-[77px] right-4 z-[1001]",
         "flex flex-row gap-2 items-end w-[400px] h-[70vh]",
         // Mobile responsiveness
         "max-md:w-[calc(100vw-2rem)] max-md:h-[50vh] max-md:left-1/2 max-md:transform max-md:-translate-x-1/2 max-md:right-auto"
