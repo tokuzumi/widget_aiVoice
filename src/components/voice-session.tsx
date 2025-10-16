@@ -72,15 +72,12 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const transcriptions = useTranscriptions() as TextStreamData[];
   const room = useRoomContext(); // Acessando o contexto da sala
 
-  const localIdentity = room.localParticipant.identity;
-
   const allMessages = useMemo(() => {
-    // Passando a identidade local para a função de conversão
-    const formattedTranscriptions = transcriptions.map(t => transcriptionToChatMessage(t, localIdentity));
+    const formattedTranscriptions = transcriptions.map(transcriptionToChatMessage);
     const combined = [...chatMessages, ...formattedTranscriptions];
     combined.sort((a, b) => a.timestamp - b.timestamp);
     return combined;
-  }, [chatMessages, transcriptions, localIdentity]);
+  }, [chatMessages, transcriptions]);
 
   const handleSendMessage = useCallback((e: React.FormEvent) => {
     e.preventDefault();
