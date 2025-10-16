@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -64,6 +64,11 @@ interface ChatWindowProps {
   onClose: () => void;
 }
 
+// Tipo unificado para incluir o tipo de dado para depuração
+type UnifiedMessage = ReceivedChatMessage & {
+  dataType: 'chat' | 'transcription';
+};
+
 const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -73,8 +78,17 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const room = useRoomContext(); // Acessando o contexto da sala
 
   const allMessages = useMemo(() => {
-    const formattedTranscriptions = transcriptions.map(transcriptionToChatMessage);
-    const combined = [...chatMessages, ...formattedTranscriptions];
+    const formattedTranscriptions: UnifiedMessage[] = transcriptions.map(t => ({
+      ...transcriptionToChatMessage(t),
+      dataType: 'transcription',
+    }));
+    
+    const formattedChatMessages: UnifiedMessage[] = chatMessages.map(c => ({
+      ...c,
+      dataType: 'chat',
+    }));
+
+    const combined = [...formattedChatMessages, ...formattedTranscriptions];
     combined.sort((a, b) => a.timestamp - b.timestamp);
     return combined;
   }, [chatMessages, transcriptions]);
@@ -91,6 +105,20 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [allMessages]);
 
+  // Loga os dados brutos no console para inspeção
+  useEffect(() => {
+    if (allMessages.length > 0) {
+      console.log("--- LIVEKIT MESSAGE DEBUG START ---");
+      console.log("Local Participant Identity:", room.localParticipant.identity);
+      allMessages.forEach((msg, index) => {
+        console.log(`[${index}] Type: ${msg.dataType}, Message: "${msg.message}"`);
+        console.log(`[${index}] From Participant:`, msg.from);
+      });
+      console.log("--- LIVEKIT MESSAGE DEBUG END ---");
+    }
+  }, [allMessages, room.localParticipant.identity]);
+
+
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
       <div className="flex-1 flex flex-col overflow-hidden p-2 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
@@ -105,7 +133,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
-            // Lógica de estilização atual (que está falhando para transcrições)
+            // Usando a lógica de comparação de identidade para estilização
             const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
@@ -119,12 +147,13 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                   {msg.message}
                 </div>
                 
-                {/* BLOCO DE DEBUG - REMOVER APÓS A CORREÇÃO */}
+                {/* BLOCO DE DEBUG VISÍVEL */}
                 <div className={cn("text-[10px] text-gray-500 mt-1 px-2", isLocalUser ? 'text-right' : 'text-left')}>
+                  <p className="font-bold text-white">--- DEBUG ---</p>
+                  <p>Tipo de Dado: {msg.dataType}</p>
                   <p>Remetente ID: {msg.from?.identity || 'N/A'}</p>
-                  <p>Local ID: {room.localParticipant.identity}</p>
                   <p>isLocal: {String(msg.from?.isLocal)}</p>
-                  <p>Tipo: {msg.from?.identity === room.localParticipant.identity ? 'LOCAL (CORRETO)' : 'REMOTO (INCORRETO)'}</p>
+                  <p>Estilo Aplicado: {isLocalUser ? 'LOCAL (Direita)' : 'REMOTO (Esquerda)'}</p>
                 </div>
                 {/* FIM DO BLOCO DE DEBUG */}
               </div>
