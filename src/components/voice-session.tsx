@@ -72,12 +72,15 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const transcriptions = useTranscriptions() as TextStreamData[];
   const room = useRoomContext(); // Acessando o contexto da sala
 
+  const localIdentity = room.localParticipant.identity;
+
   const allMessages = useMemo(() => {
-    const formattedTranscriptions = transcriptions.map(transcriptionToChatMessage);
+    // Passando a identidade local para a função de conversão
+    const formattedTranscriptions = transcriptions.map(t => transcriptionToChatMessage(t, localIdentity));
     const combined = [...chatMessages, ...formattedTranscriptions];
     combined.sort((a, b) => a.timestamp - b.timestamp);
     return combined;
-  }, [chatMessages, transcriptions]);
+  }, [chatMessages, transcriptions, localIdentity]);
 
   const handleSendMessage = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -105,7 +108,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
-            // Lógica de estilização atual (que está falhando para transcrições)
+            // Lógica de estilização corrigida: Comparando a identidade do remetente com a identidade do participante local da sala.
             const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
@@ -118,15 +121,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                 )}>
                   {msg.message}
                 </div>
-                
-                {/* BLOCO DE DEBUG - REMOVER APÓS A CORREÇÃO */}
-                <div className={cn("text-[10px] text-gray-500 mt-1 px-2", isLocalUser ? 'text-right' : 'text-left')}>
-                  <p>Remetente ID: {msg.from?.identity || 'N/A'}</p>
-                  <p>Local ID: {room.localParticipant.identity}</p>
-                  <p>isLocal: {String(msg.from?.isLocal)}</p>
-                  <p>Tipo: {msg.from?.identity === room.localParticipant.identity ? 'LOCAL (CORRETO)' : 'REMOTO (INCORRETO)'}</p>
-                </div>
-                {/* FIM DO BLOCO DE DEBUG */}
               </div>
             );
           })}
@@ -134,7 +128,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="p-2 mt-auto">
           <form onSubmit={handleSendMessage} className="flex gap-2 items-center">
-            <input type="text" placeholder="Digite sua mensagem..." value={inputMessage} onChange={(e) => setInputMessage(e.target.value)} className="flex-1 min-w-0 px-3 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-gray-700" />
+            <input type="text" placeholder="Digite sua mensagem..." value={inputMessage} onChange={(e) => e.target.value)} className="flex-1 min-w-0 px-3 py-2 border border-gray-700 rounded-lg bg-gray-900 text-white text-sm placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-gray-700" />
             <button type="submit" disabled={inputMessage.trim() === ''} className={cn("w-8 h-8 rounded-full flex items-center justify-center transition-colors", inputMessage.trim() === '' ? 'bg-transparent text-gray-500 cursor-not-allowed' : 'bg-transparent text-white hover:text-accent')} aria-label="Enviar mensagem">
               <ArrowUp className="h-4 w-4" />
             </button>
