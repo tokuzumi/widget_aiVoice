@@ -2,10 +2,15 @@
 
 import dynamic from 'next/dynamic';
 import React from 'react';
-import { VoiceSession, VoiceSessionProps } from './voice-session';
+
+// Redefinindo o tipo de props localmente para evitar a importação direta do módulo 'voice-session'
+interface VoiceSessionProps {
+  onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
+}
 
 // Importa VoiceSession dinamicamente com SSR desativado
 const DynamicVoiceSession = dynamic<VoiceSessionProps>(
+  // Usamos o .then(mod => mod.VoiceSession) para acessar a exportação nomeada
   () => import('./voice-session').then((mod) => mod.VoiceSession),
   { ssr: false }
 );
