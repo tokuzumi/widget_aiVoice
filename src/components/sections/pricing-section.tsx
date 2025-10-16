@@ -8,12 +8,13 @@ export const PricingSection = () => {
     {
       name: "Basic",
       description: "Ideal para quem está começando e precisa de uma solução robusta para qualificar leads.",
-      price: "R$499",
+      price: "R$899", // Alterado de R$499 para R$899
       priceUnit: "/ mês",
       buttonText: "Experimente",
       buttonVariant: "light",
       features: {
         'Widget aiVoice': 'yes',
+        'Navegação Automática': 'no', // Nova funcionalidade
         'Suporte Técnico': 'yes',
         'Base de Conhecimento': 'yes',
         'Dashboard AI': 'yes',
@@ -36,6 +37,7 @@ export const PricingSection = () => {
       buttonVariant: "dark",
       features: {
         'Widget aiVoice': 'yes',
+        'Navegação Automática': 'yes', // Nova funcionalidade
         'Suporte Técnico': 'yes',
         'Base de Conhecimento': 'yes',
         'Dashboard AI': 'yes',
@@ -58,6 +60,7 @@ export const PricingSection = () => {
       buttonVariant: "dark",
       features: {
         'Widget aiVoice': 'yes',
+        'Navegação Automática': 'no', // Nova funcionalidade
         'Suporte Técnico': 'yes',
         'Base de Conhecimento': 'yes',
         'Dashboard AI': 'yes',
@@ -76,6 +79,7 @@ export const PricingSection = () => {
   const featureTableStructure = [
     { type: 'subtitle', label: 'Funcionalidades' },
     { type: 'feature', label: 'Widget aiVoice' },
+    { type: 'feature', label: 'Navegação Automática' }, // Adicionado aqui
     { type: 'feature', label: 'Suporte Técnico' },
     { type: 'feature', label: 'Base de Conhecimento' },
     { type: 'feature', label: 'Dashboard AI' },
