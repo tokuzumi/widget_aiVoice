@@ -17,6 +17,9 @@ export interface TextStreamData {
     timestamp: number;
   };
   participant: Participant;
+  // Adicionando propriedades comuns que podem estar presentes, mas não tipadas
+  participantIdentity?: string;
+  participantSid?: string;
 }
 
 export interface VoiceSessionProps {
@@ -67,6 +70,7 @@ interface ChatWindowProps {
 // Tipo unificado para incluir o tipo de dado para depuração
 type UnifiedMessage = ReceivedChatMessage & {
   dataType: 'chat' | 'transcription';
+  rawTranscription?: TextStreamData; // Adicionando o objeto bruto da transcrição
 };
 
 const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
@@ -81,6 +85,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     const formattedTranscriptions: UnifiedMessage[] = transcriptions.map(t => ({
       ...transcriptionToChatMessage(t),
       dataType: 'transcription',
+      rawTranscription: t, // Anexando o objeto bruto
     }));
     
     const formattedChatMessages: UnifiedMessage[] = chatMessages.map(c => ({
@@ -105,7 +110,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [allMessages]);
 
-  // Removendo logs do console para focar na exibição na tela
   
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
@@ -140,15 +144,35 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                   <p className="font-bold text-white">--- RAW DEBUG ---</p>
                   <p>Tipo: {msg.dataType}</p>
                   <p>Local ID: {room.localParticipant.identity}</p>
-                  <p>Remetente (msg.from):</p>
-                  <pre className="whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
-                    {JSON.stringify({
-                      identity: msg.from?.identity,
-                      isLocal: msg.from?.isLocal,
-                      metadata: msg.from?.metadata,
-                      // Adicione outras propriedades que possam ser relevantes
-                    }, null, 2)}
-                  </pre>
+                  
+                  {msg.dataType === 'transcription' && msg.rawTranscription && (
+                    <>
+                      <p>Transcrição Bruta (TextStreamData):</p>
+                      <pre className="whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
+                        {JSON.stringify({
+                          text: msg.rawTranscription.text,
+                          timestamp: msg.rawTranscription.streamInfo.timestamp,
+                          participant: msg.rawTranscription.participant,
+                          // Tentando acessar propriedades não tipadas que podem conter a identidade
+                          participantIdentity: (msg.rawTranscription as any).participantIdentity,
+                          participantSid: (msg.rawTranscription as any).participantSid,
+                        }, null, 2)}
+                      </pre>
+                    </>
+                  )}
+
+                  {msg.dataType === 'chat' && (
+                    <>
+                      <p>Remetente (msg.from):</p>
+                      <pre className="whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
+                        {JSON.stringify({
+                          identity: msg.from?.identity,
+                          isLocal: msg.from?.isLocal,
+                          metadata: msg.from?.metadata,
+                        }, null, 2)}
+                      </pre>
+                    </>
+                  )}
                 </div>
                 {/* FIM DO BLOCO DE DEBUG */}
               </div>
