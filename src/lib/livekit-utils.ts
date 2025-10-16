@@ -1,5 +1,5 @@
 import type { ReceivedChatMessage } from '@livekit/components-react';
-import type { TextStreamData } from '@/components/voice-session'; // Usaremos um tipo local para evitar dependência circular
+import type { TextStreamData } from '@/components/voice-session';
 
 /**
  * Converte um objeto de transcrição de voz do LiveKit para o formato de uma mensagem de chat.
@@ -8,10 +8,17 @@ import type { TextStreamData } from '@/components/voice-session'; // Usaremos um
  * @returns Um objeto no formato ReceivedChatMessage.
  */
 export function transcriptionToChatMessage(transcription: TextStreamData): ReceivedChatMessage {
+  // Usamos 'as any' para acessar participantInfo, que foi confirmado nos logs brutos
+  const participantIdentity = (transcription as any).participantInfo?.identity;
+
   return {
     id: Math.random().toString(), // ID temporário para renderização
     timestamp: transcription.streamInfo.timestamp,
     message: transcription.text,
-    from: transcription.participant,
+    // Injetamos a identidade no campo 'from' para que a lógica de comparação funcione
+    from: {
+      identity: participantIdentity,
+      isLocal: false, // A flag isLocal será resolvida na renderização comparando a identidade
+    } as any,
   };
 }

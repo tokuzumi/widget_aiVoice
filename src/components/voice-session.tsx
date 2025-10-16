@@ -16,10 +16,12 @@ export interface TextStreamData {
   streamInfo: {
     timestamp: number;
   };
-  participant: Participant;
-  // Adicionando propriedades comuns que podem estar presentes, mas não tipadas
-  participantIdentity?: string;
-  participantSid?: string;
+  // Adicionando a estrutura correta observada nos logs
+  participantInfo: {
+    identity: string;
+  };
+  // Mantendo 'participant' como opcional/any para compatibilidade com o hook
+  participant?: Participant;
 }
 
 export interface VoiceSessionProps {
@@ -72,8 +74,18 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   const { chatMessages, send } = useChat();
-  const transcriptions = useTranscriptions(); // Hook bruto
+  const transcriptions = useTranscriptions() as TextStreamData[];
   const room = useRoomContext();
+
+  const allMessages = useMemo(() => {
+    const formattedTranscriptions: ReceivedChatMessage[] = transcriptions.map(t =>
+      transcriptionToChatMessage(t)
+    );
+    
+    const combined = [...chatMessages, ...formattedTranscriptions];
+    combined.sort((a, b) => a.timestamp - b.timestamp);
+    return combined;
+  }, [chatMessages, transcriptions]);
 
   const handleSendMessage = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -85,7 +97,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [chatMessages, transcriptions]);
+  }, [allMessages]);
 
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
@@ -101,31 +113,23 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           
-          {/* RENDERIZAÇÃO DOS DADOS BRUTOS */}
-          <div className="w-full p-2 my-2 border border-dashed border-cyan-500 rounded">
-            <p className="text-xs font-bold text-cyan-500">--- DADOS BRUTOS DO HOOK useChat() ---</p>
-            {chatMessages.map((msg, index) => (
-              <div key={`chat-${index}`} className="mt-2">
-                <p className="text-xs text-white">Mensagem de Chat [{index}]:</p>
-                <pre className="text-[8px] whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
-                  {JSON.stringify(msg, null, 2)}
-                </pre>
-              </div>
-            ))}
-          </div>
+          {allMessages.map((msg, index) => {
+            // Agora, msg.from.identity deve estar populado para todas as mensagens (chat e transcrição)
+            const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
-          <div className="w-full p-2 my-2 border border-dashed border-yellow-500 rounded">
-            <p className="text-xs font-bold text-yellow-500">--- DADOS BRUTOS DO HOOK useTranscriptions() ---</p>
-            {transcriptions.map((transcription, index) => (
-              <div key={`transcription-${index}`} className="mt-2">
-                <p className="text-xs text-white">Transcrição [{index}]:</p>
-                <pre className="text-[8px] whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
-                  {JSON.stringify(transcription, null, 2)}
-                </pre>
+            return (
+              <div key={index} className={cn("w-full flex", isLocalUser ? 'justify-end' : 'justify-start')}>
+                <div className={cn(
+                  "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
+                  isLocalUser
+                    ? 'bg-gray-800 text-white rounded-br-none' // Usuário (Local)
+                    : 'bg-accent text-black rounded-tl-none' // Agente (Remoto)
+                )}>
+                  {msg.message}
+                </div>
               </div>
-            ))}
-          </div>
-          {/* FIM DA RENDERIZAÇÃO DOS DADOS BRUTOS */}
+            );
+          })}
 
           <div ref={messagesEndRef} />
         </div>
