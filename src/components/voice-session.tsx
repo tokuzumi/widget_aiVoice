@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRemoteParticipants, useLocalParticipant } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRemoteParticipants } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -70,7 +70,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   
   const { chatMessages, send } = useChat();
   const transcriptions = useTranscriptions() as TextStreamData[];
-  const { localParticipant } = useLocalParticipant(); // Obtém o participante local
+  // Removendo useLocalParticipant, pois usaremos msg.from?.isLocal
 
   const allMessages = useMemo(() => {
     const formattedTranscriptions = transcriptions.map(transcriptionToChatMessage);
@@ -105,9 +105,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
-            // Verificação robusta: se a identidade da mensagem corresponde à identidade local
-            // Isso deve funcionar para chatMessages E transcrições.
-            const isLocalUser = msg.from?.identity === localParticipant?.identity;
+            // Usando a propriedade canônica isLocal do LiveKit para estilização
+            const isLocalUser = msg.from?.isLocal;
 
             return (
               <div key={index} className={cn(
