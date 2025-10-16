@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRemoteParticipants } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -70,7 +70,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   
   const { chatMessages, send } = useChat();
   const transcriptions = useTranscriptions() as TextStreamData[];
-  // Removendo useLocalParticipant, pois usaremos msg.from?.isLocal
+  const room = useRoomContext(); // Acessando o contexto da sala
 
   const allMessages = useMemo(() => {
     const formattedTranscriptions = transcriptions.map(transcriptionToChatMessage);
@@ -105,8 +105,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
-            // Usando a propriedade canônica isLocal do LiveKit para estilização
-            const isLocalUser = msg.from?.isLocal;
+            // LÓGICA CORRIGIDA: Comparando a identidade do remetente com a identidade do participante local da sala.
+            const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
               <div key={index} className={cn(
