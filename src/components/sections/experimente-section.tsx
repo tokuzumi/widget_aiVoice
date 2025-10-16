@@ -1,6 +1,12 @@
+"use client";
+
+import Image from "next/image";
+
 export const ExperimenteSection = () => {
+  const widgetImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/f_auto,q_auto,w_800/v1760598050/widget_aiVoice_xpowr8.png";
+
   return (
-    <section className="content-section bg-white text-black">
+    <section className="content-section bg-white text-black relative">
       <div className="section-content-wrapper">
         <p className="section-eyebrow">experimente agora</p>
         <h2 className="section-title text-black">
@@ -31,6 +37,17 @@ export const ExperimenteSection = () => {
             * Informe o endereço e aguarde alguns instantes
           </p>
         </div>
+      </div>
+      
+      {/* Imagem do Widget no lado direito (oculta em telas pequenas) */}
+      <div className="hidden lg:block lg:w-[40%] h-full absolute top-0 right-0 z-0">
+        <Image
+          src={widgetImageSrc}
+          alt="Preview do widget aiVoice em um celular"
+          fill
+          className="object-contain object-right p-16"
+          sizes="(max-width: 1024px) 0vw, 40vw"
+        />
       </div>
     </section>
   );
