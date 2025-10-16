@@ -222,7 +222,6 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
       // Ativa a transcrição para o participante local
       options={{ localTranscription: { language: 'pt-BR' } }}
     >
-      {/* Propagando o status 'connected' diretamente para o pai */}
       <VoiceSessionUI onConnectionStatusChange={onConnectionStatusChange} />
     </LiveKitRoom>
   );
