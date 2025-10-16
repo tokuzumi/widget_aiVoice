@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRemoteParticipants } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRemoteParticipants, useLocalParticipant } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -71,6 +71,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   
   const { chatMessages, send } = useChat();
   const transcriptions = useTranscriptions() as TextStreamData[];
+  const { localParticipant } = useLocalParticipant(); // Obtém o participante local
 
   const allMessages = useMemo(() => {
     const formattedTranscriptions = transcriptions.map(transcriptionToChatMessage);
@@ -104,16 +105,21 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
           </button>
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
-          {allMessages.map((msg, index) => (
-            <div key={index} className={cn(
-              "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
-              msg.from?.isLocal 
-                ? 'bg-gray-800 text-white self-end rounded-br-none' // Usuário (Local)
-                : 'bg-accent text-black self-start rounded-tl-none' // Agente (Remoto)
-            )}>
-              {msg.message}
-            </div>
-          ))}
+          {allMessages.map((msg, index) => {
+            // Verificação robusta: se a identidade da mensagem corresponde à identidade local
+            const isLocalUser = msg.from?.identity === localParticipant?.identity;
+
+            return (
+              <div key={index} className={cn(
+                "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
+                isLocalUser
+                  ? 'bg-gray-800 text-white self-end rounded-br-none' // Usuário (Local)
+                  : 'bg-accent text-black self-start rounded-tl-none' // Agente (Remoto)
+              )}>
+                {msg.message}
+              </div>
+            );
+          })}
           <div ref={messagesEndRef} />
         </div>
         <div className="p-2 mt-auto">
@@ -191,8 +197,8 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
           throw new Error('Failed to fetch token');
         }
         const data = await response.json();
-          setToken(data.token);
-          setWsUrl(data.ws_url);
+        setToken(data.token);
+        setWsUrl(data.ws_url);
       } catch (error) {
         console.error("Error getting LiveKit token:", error);
         onConnectionStatusChange('error');
