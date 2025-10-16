@@ -10,8 +10,8 @@ interface VoiceSessionProps {
 
 // Importa VoiceSession dinamicamente com SSR desativado
 const DynamicVoiceSession = dynamic<VoiceSessionProps>(
-  // Usamos o .then(mod => mod.VoiceSession) para acessar a exportação nomeada
-  () => import('./voice-session').then((mod) => mod.VoiceSession),
+  // Agora usamos mod.default para carregar a exportação padrão
+  () => import('./voice-session').then((mod) => mod.default),
   { ssr: false }
 );
 

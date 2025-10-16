@@ -19,6 +19,10 @@ export interface TextStreamData {
   participant: Participant;
 }
 
+export interface VoiceSessionProps {
+  onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
+}
+
 // --- Componentes de UI Internos (movidos para cá para manter o escopo) ---
 
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
@@ -160,10 +164,6 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
 
 // --- Componente Principal da Sessão ---
-interface VoiceSessionProps {
-  onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
-}
-
 export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange }) => {
   const [token, setToken] = useState<string | null>(null);
   const [wsUrl, setWsUrl] = useState<string | null>(null);
@@ -216,3 +216,5 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
     </LiveKitRoom>
   );
 };
+
+export default VoiceSession;
