@@ -31,7 +31,6 @@ const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 interface ActionButtonsProps {
   isChatWindowOpen: boolean;
   onToggleChatWindow: () => void;
-  onConnectionStatusChange: (status: 'connected' | 'disconnected') => void;
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow }) => {
@@ -107,6 +106,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
             // Verificação robusta: se a identidade da mensagem corresponde à identidade local
+            // Isso deve funcionar para chatMessages E transcrições.
             const isLocalUser = msg.from?.identity === localParticipant?.identity;
 
             return (
@@ -137,7 +137,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
 // --- Componente de UI que usa os hooks do LiveKit ---
 interface VoiceSessionUIProps {
-  onConnectionStatusChange: (status: 'connected' | 'disconnected') => void;
+  // Simplificando o tipo, pois só precisamos reportar 'connected' para o pai
+  onConnectionStatusChange: (status: 'connected') => void;
 }
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
@@ -148,7 +149,6 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   }, []);
 
   // Hook para detectar o primeiro áudio do agente e mudar o status do widget
-  // Mantemos o useTracks para o status de conexão, mas simplificamos a lógica.
   const tracks = useTracks([Track.Source.Unknown]);
   useEffect(() => {
     const remoteAudioTrack = tracks.find(
@@ -156,6 +156,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
         trackRef.publication.kind === Track.Kind.Audio && !trackRef.participant.isLocal
     );
     if (remoteAudioTrack) {
+      // Reporta que o agente está conectado e falando
       onConnectionStatusChange('connected');
     }
   }, [tracks, onConnectionStatusChange]);
@@ -165,7 +166,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
       {/* Adicionando RoomAudioRenderer para gerenciar a reprodução de áudio remoto */}
       <RoomAudioRenderer />
       
-      <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} onConnectionStatusChange={onConnectionStatusChange} />
+      <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} />
       {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
   );
@@ -221,7 +222,8 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
       // Ativa a transcrição para o participante local
       options={{ localTranscription: { language: 'pt-BR' } }}
     >
-      <VoiceSessionUI onConnectionStatusChange={(status) => status === 'connected' && onConnectionStatusChange('connected')} />
+      {/* Propagando o status 'connected' diretamente para o pai */}
+      <VoiceSessionUI onConnectionStatusChange={onConnectionStatusChange} />
     </LiveKitRoom>
   );
 };
