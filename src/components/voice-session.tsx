@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, AudioRenderer, useRemoteParticipants } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -127,12 +127,13 @@ interface VoiceSessionUIProps {
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true); // Aberto por padrão
+  const remoteParticipants = useRemoteParticipants();
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
   }, []);
 
-  // Hook para detectar o primeiro áudio do agente
+  // Hook para detectar o primeiro áudio do agente e mudar o status do widget
   const tracks = useTracks([Track.Source.Unknown]);
   useEffect(() => {
     const remoteAudioTrack = tracks.find(
@@ -146,6 +147,11 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   return (
     <>
+      {/* Renderiza o AudioRenderer para cada participante remoto (o agente) */}
+      {remoteParticipants.map((participant) => (
+        <AudioRenderer key={participant.identity} participant={participant} is  />
+      ))}
+      
       <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} onConnectionStatusChange={onConnectionStatusChange} />
       {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
