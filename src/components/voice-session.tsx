@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage } from '@live-livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -67,36 +67,13 @@ interface ChatWindowProps {
   onClose: () => void;
 }
 
-// Tipo unificado para incluir o tipo de dado para depuração
-type UnifiedMessage = ReceivedChatMessage & {
-  dataType: 'chat' | 'transcription';
-  rawTranscription?: TextStreamData; // Adicionando o objeto bruto da transcrição
-};
-
 const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
   const { chatMessages, send } = useChat();
-  const transcriptions = useTranscriptions() as TextStreamData[];
-  const room = useRoomContext(); // Acessando o contexto da sala
-
-  const allMessages = useMemo(() => {
-    const formattedTranscriptions: UnifiedMessage[] = transcriptions.map(t => ({
-      ...transcriptionToChatMessage(t),
-      dataType: 'transcription',
-      rawTranscription: t, // Anexando o objeto bruto
-    }));
-    
-    const formattedChatMessages: UnifiedMessage[] = chatMessages.map(c => ({
-      ...c,
-      dataType: 'chat',
-    }));
-
-    const combined = [...formattedChatMessages, ...formattedTranscriptions];
-    combined.sort((a, b) => a.timestamp - b.timestamp);
-    return combined;
-  }, [chatMessages, transcriptions]);
+  const transcriptions = useTranscriptions(); // Hook bruto
+  const room = useRoomContext();
 
   const handleSendMessage = useCallback((e: React.FormEvent) => {
     e.preventDefault();
@@ -108,9 +85,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [allMessages]);
+  }, [chatMessages, transcriptions]);
 
-  
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
       <div className="flex-1 flex flex-col overflow-hidden p-2 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
@@ -124,60 +100,33 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
           </button>
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
-          {allMessages.map((msg, index) => {
-            // Lógica de estilização atual (que está falhando para transcrições)
-            const isLocalUser = msg.from?.identity === room.localParticipant.identity;
-
-            return (
-              <div key={index} className="w-full">
-                <div className={cn(
-                  "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
-                  isLocalUser
-                    ? 'bg-gray-800 text-white self-end rounded-br-none ml-auto' // Usuário (Local)
-                    : 'bg-accent text-black self-start rounded-tl-none mr-auto' // Agente (Remoto)
-                )}>
-                  {msg.message}
-                </div>
-                
-                {/* BLOCO DE DEBUG VISÍVEL COM DADOS BRUTOS */}
-                <div className={cn("text-[8px] text-gray-500 mt-1 px-2 overflow-x-auto max-w-full", isLocalUser ? 'text-right' : 'text-left')}>
-                  <p className="font-bold text-white">--- RAW DEBUG ---</p>
-                  <p>Tipo: {msg.dataType}</p>
-                  <p>Local ID: {room.localParticipant.identity}</p>
-                  
-                  {msg.dataType === 'transcription' && msg.rawTranscription && (
-                    <>
-                      <p>Transcrição Bruta (TextStreamData):</p>
-                      <pre className="whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
-                        {JSON.stringify({
-                          text: msg.rawTranscription.text,
-                          timestamp: msg.rawTranscription.streamInfo.timestamp,
-                          participant: msg.rawTranscription.participant,
-                          // Tentando acessar propriedades não tipadas que podem conter a identidade
-                          participantIdentity: (msg.rawTranscription as any).participantIdentity,
-                          participantSid: (msg.rawTranscription as any).participantSid,
-                        }, null, 2)}
-                      </pre>
-                    </>
-                  )}
-
-                  {msg.dataType === 'chat' && (
-                    <>
-                      <p>Remetente (msg.from):</p>
-                      <pre className="whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
-                        {JSON.stringify({
-                          identity: msg.from?.identity,
-                          isLocal: msg.from?.isLocal,
-                          metadata: msg.from?.metadata,
-                        }, null, 2)}
-                      </pre>
-                    </>
-                  )}
-                </div>
-                {/* FIM DO BLOCO DE DEBUG */}
+          
+          {/* RENDERIZAÇÃO DOS DADOS BRUTOS */}
+          <div className="w-full p-2 my-2 border border-dashed border-cyan-500 rounded">
+            <p className="text-xs font-bold text-cyan-500">--- DADOS BRUTOS DO HOOK useChat() ---</p>
+            {chatMessages.map((msg, index) => (
+              <div key={`chat-${index}`} className="mt-2">
+                <p className="text-xs text-white">Mensagem de Chat [{index}]:</p>
+                <pre className="text-[8px] whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
+                  {JSON.stringify(msg, null, 2)}
+                </pre>
               </div>
-            );
-          })}
+            ))}
+          </div>
+
+          <div className="w-full p-2 my-2 border border-dashed border-yellow-500 rounded">
+            <p className="text-xs font-bold text-yellow-500">--- DADOS BRUTOS DO HOOK useTranscriptions() ---</p>
+            {transcriptions.map((transcription, index) => (
+              <div key={`transcription-${index}`} className="mt-2">
+                <p className="text-xs text-white">Transcrição [{index}]:</p>
+                <pre className="text-[8px] whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
+                  {JSON.stringify(transcription, null, 2)}
+                </pre>
+              </div>
+            ))}
+          </div>
+          {/* FIM DA RENDERIZAÇÃO DOS DADOS BRUTOS */}
+
           <div ref={messagesEndRef} />
         </div>
         <div className="p-2 mt-auto">
@@ -195,18 +144,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
 // --- Componente de UI que usa os hooks do LiveKit ---
 interface VoiceSessionUIProps {
-  // Simplificando o tipo, pois só precisamos reportar 'connected' para o pai
   onConnectionStatusChange: (status: 'connected') => void;
 }
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
-  const [isChatWindowOpen, setIsChatWindowOpen] = useState(true); // Aberto por padrão
+  const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
   }, []);
 
-  // Hook para detectar o primeiro áudio do agente e mudar o status do widget
   const tracks = useTracks([Track.Source.Unknown]);
   useEffect(() => {
     const remoteAudioTrack = tracks.find(
@@ -214,16 +161,13 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
         trackRef.publication.kind === Track.Kind.Audio && !trackRef.participant.isLocal
     );
     if (remoteAudioTrack) {
-      // Reporta que o agente está conectado e falando
       onConnectionStatusChange('connected');
     }
   }, [tracks, onConnectionStatusChange]);
 
   return (
     <>
-      {/* Adicionando RoomAudioRenderer para gerenciar a reprodução de áudio remoto */}
       <RoomAudioRenderer />
-      
       <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} />
       {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
@@ -268,7 +212,7 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
   }, [userId, onConnectionStatusChange]);
 
   if (!token || !wsUrl) {
-    return null; // O estado de "Conectando..." é gerenciado pelo orquestrador
+    return null;
   }
 
   return (
@@ -277,7 +221,6 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
       token={token}
       connect={true}
       audio={true}
-      // Ativa a transcrição para o participante local
       options={{ localTranscription: { language: 'pt-BR' } }}
     >
       <VoiceSessionUI onConnectionStatusChange={onConnectionStatusChange} />
