@@ -105,17 +105,28 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
-            // LÓGICA CORRIGIDA: Comparando a identidade do remetente com a identidade do participante local da sala.
+            // Lógica de estilização atual (que está falhando para transcrições)
             const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
-              <div key={index} className={cn(
-                "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
-                isLocalUser
-                  ? 'bg-gray-800 text-white self-end rounded-br-none' // Usuário (Local)
-                  : 'bg-accent text-black self-start rounded-tl-none' // Agente (Remoto)
-              )}>
-                {msg.message}
+              <div key={index} className="w-full">
+                <div className={cn(
+                  "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
+                  isLocalUser
+                    ? 'bg-gray-800 text-white self-end rounded-br-none ml-auto' // Usuário (Local)
+                    : 'bg-accent text-black self-start rounded-tl-none mr-auto' // Agente (Remoto)
+                )}>
+                  {msg.message}
+                </div>
+                
+                {/* BLOCO DE DEBUG - REMOVER APÓS A CORREÇÃO */}
+                <div className={cn("text-[10px] text-gray-500 mt-1 px-2", isLocalUser ? 'text-right' : 'text-left')}>
+                  <p>Remetente ID: {msg.from?.identity || 'N/A'}</p>
+                  <p>Local ID: {room.localParticipant.identity}</p>
+                  <p>isLocal: {String(msg.from?.isLocal)}</p>
+                  <p>Tipo: {msg.from?.identity === room.localParticipant.identity ? 'LOCAL (CORRETO)' : 'REMOTO (INCORRETO)'}</p>
+                </div>
+                {/* FIM DO BLOCO DE DEBUG */}
               </div>
             );
           })}
