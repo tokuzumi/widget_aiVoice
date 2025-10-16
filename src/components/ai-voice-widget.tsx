@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { ArrowUpRight } from 'lucide-react';
-import { VoiceSession } from './voice-session';
+import { LiveKitWrapper } from './livekit-wrapper'; // Importando o novo wrapper
 
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 
@@ -90,7 +90,7 @@ export const AiVoiceWidget = () => {
         <FloatingButton connectionStatus={isOpen ? connectionStatus : 'idle'} onToggle={handleToggle} />
       </div>
 
-      {isOpen && <VoiceSession onConnectionStatusChange={handleConnectionStatusChange} />}
+      {isOpen && <LiveKitWrapper onConnectionStatusChange={handleConnectionStatusChange} />}
     </>
   );
 };
