@@ -59,19 +59,19 @@ export const PricingSection = () => {
       buttonText: "Fale Conosco",
       buttonVariant: "dark",
       features: {
-        'Widget aiVoice': 'yes',
-        'Navegação Automática': 'no', // Nova funcionalidade
-        'Suporte Técnico': 'yes',
-        'Base de Conhecimento': 'yes',
-        'Dashboard AI': 'yes',
+        'Widget aiVoice': 'no', // Alterado de 'yes' para 'no'
+        'Navegação Automática': 'no', // Alterado de 'no' para 'no' (mantido)
+        'Suporte Técnico': 'no', // Alterado de 'yes' para 'no'
+        'Base de Conhecimento': 'no', // Alterado de 'yes' para 'no'
+        'Dashboard AI': 'no', // Alterado de 'yes' para 'no'
         'Mensais Inclusos': '---',
         'Extras': '---',
-        'Email': 'yes',
-        'Google Agenda': 'yes',
-        'Análise de Sentimento': 'yes',
-        'Análise de Intenção': 'yes',
-        'Análise de Objeções': 'yes',
-        'Inteligência de Negócio': 'yes',
+        'Email': 'no', // Alterado de 'yes' para 'no'
+        'Google Agenda': 'no', // Alterado de 'yes' para 'no'
+        'Análise de Sentimento': 'no', // Alterado de 'yes' para 'no'
+        'Análise de Intenção': 'no', // Alterado de 'yes' para 'no'
+        'Análise de Objeções': 'no', // Alterado de 'yes' para 'no'
+        'Inteligência de Negócio': 'no', // Alterado de 'yes' para 'no'
       },
     },
   ];
