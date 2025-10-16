@@ -149,7 +149,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     <>
       {/* Renderiza o AudioRenderer para cada participante remoto (o agente) */}
       {remoteParticipants.map((participant) => (
-        <AudioRenderer key={participant.identity} participant={participant} is  />
+        <AudioRenderer key={participant.identity} participant={participant} />
       ))}
       
       <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} onConnectionStatusChange={onConnectionStatusChange} />
