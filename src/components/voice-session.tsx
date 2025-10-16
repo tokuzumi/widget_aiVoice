@@ -105,18 +105,16 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [allMessages]);
 
-  // Loga os dados brutos no console para inspeção
+  // Loga os arrays BRUTOS no console para inspeção
   useEffect(() => {
-    if (allMessages.length > 0) {
-      console.log("--- LIVEKIT MESSAGE DEBUG START ---");
+    if (chatMessages.length > 0 || transcriptions.length > 0) {
+      console.log("--- LIVEKIT RAW DATA DEBUG START ---");
       console.log("Local Participant Identity:", room.localParticipant.identity);
-      allMessages.forEach((msg, index) => {
-        console.log(`[${index}] Type: ${msg.dataType}, Message: "${msg.message}"`);
-        console.log(`[${index}] From Participant:`, msg.from);
-      });
-      console.log("--- LIVEKIT MESSAGE DEBUG END ---");
+      console.log("RAW CHAT MESSAGES (useChat hook):", chatMessages);
+      console.log("RAW TRANSCRIPTIONS (useTranscriptions hook):", transcriptions);
+      console.log("--- LIVEKIT RAW DATA DEBUG END ---");
     }
-  }, [allMessages, room.localParticipant.identity]);
+  }, [chatMessages, transcriptions, room.localParticipant.identity]);
 
 
   return (
@@ -133,7 +131,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           {allMessages.map((msg, index) => {
-            // Usando a lógica de comparação de identidade para estilização
+            // Lógica de estilização atual (que está falhando para transcrições)
             const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
@@ -146,16 +144,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                 )}>
                   {msg.message}
                 </div>
-                
-                {/* BLOCO DE DEBUG VISÍVEL */}
-                <div className={cn("text-[10px] text-gray-500 mt-1 px-2", isLocalUser ? 'text-right' : 'text-left')}>
-                  <p className="font-bold text-white">--- DEBUG ---</p>
-                  <p>Tipo de Dado: {msg.dataType}</p>
-                  <p>Remetente ID: {msg.from?.identity || 'N/A'}</p>
-                  <p>isLocal: {String(msg.from?.isLocal)}</p>
-                  <p>Estilo Aplicado: {isLocalUser ? 'LOCAL (Direita)' : 'REMOTO (Esquerda)'}</p>
-                </div>
-                {/* FIM DO BLOCO DE DEBUG */}
               </div>
             );
           })}
