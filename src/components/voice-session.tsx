@@ -159,15 +159,26 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   }, []);
 
   const tracks = useTracks([Track.Source.Unknown]);
+  const transcriptions = useTranscriptions() as TextStreamData[];
+  const room = useRoomContext();
+
   useEffect(() => {
+    // Verifica se existe uma faixa de áudio remota (do agente)
     const remoteAudioTrack = tracks.find(
       (trackRef: { publication: TrackPublication; participant: { isLocal: any; }; }) =>
         trackRef.publication.kind === Track.Kind.Audio && !trackRef.participant.isLocal
     );
-    if (remoteAudioTrack) {
+
+    // Verifica se existe uma transcrição remota (do agente)
+    const remoteTranscription = transcriptions.find(
+      (t) => t.participantInfo?.identity !== room.localParticipant.identity
+    );
+
+    // Se qualquer um dos dois existir, significa que o atendimento começou
+    if (remoteAudioTrack || remoteTranscription) {
       onConnectionStatusChange('connected');
     }
-  }, [tracks, onConnectionStatusChange]);
+  }, [tracks, transcriptions, room.localParticipant.identity, onConnectionStatusChange]);
 
   return (
     <>
