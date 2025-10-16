@@ -105,18 +105,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [allMessages]);
 
-  // Loga os arrays BRUTOS no console para inspeção
-  useEffect(() => {
-    if (chatMessages.length > 0 || transcriptions.length > 0) {
-      console.log("--- LIVEKIT RAW DATA DEBUG START ---");
-      console.log("Local Participant Identity:", room.localParticipant.identity);
-      console.log("RAW CHAT MESSAGES (useChat hook):", chatMessages);
-      console.log("RAW TRANSCRIPTIONS (useTranscriptions hook):", transcriptions);
-      console.log("--- LIVEKIT RAW DATA DEBUG END ---");
-    }
-  }, [chatMessages, transcriptions, room.localParticipant.identity]);
-
-
+  // Removendo logs do console para focar na exibição na tela
+  
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
       <div className="flex-1 flex flex-col overflow-hidden p-2 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
@@ -144,6 +134,23 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                 )}>
                   {msg.message}
                 </div>
+                
+                {/* BLOCO DE DEBUG VISÍVEL COM DADOS BRUTOS */}
+                <div className={cn("text-[8px] text-gray-500 mt-1 px-2 overflow-x-auto max-w-full", isLocalUser ? 'text-right' : 'text-left')}>
+                  <p className="font-bold text-white">--- RAW DEBUG ---</p>
+                  <p>Tipo: {msg.dataType}</p>
+                  <p>Local ID: {room.localParticipant.identity}</p>
+                  <p>Remetente (msg.from):</p>
+                  <pre className="whitespace-pre-wrap break-all text-gray-400 bg-gray-900 p-1 rounded">
+                    {JSON.stringify({
+                      identity: msg.from?.identity,
+                      isLocal: msg.from?.isLocal,
+                      metadata: msg.from?.metadata,
+                      // Adicione outras propriedades que possam ser relevantes
+                    }, null, 2)}
+                  </pre>
+                </div>
+                {/* FIM DO BLOCO DE DEBUG */}
               </div>
             );
           })}
