@@ -27,6 +27,7 @@ export const PricingSection = () => {
         'Navegação Automática': 'no',
         'AG-UI': 'no',
         // Atendimentos
+        'Apenas Texto': 'ilimitado',
         'Mensais Inclusos': '100',
         'Extras': 'R$ 3,40',
         // Notificações
@@ -59,6 +60,7 @@ export const PricingSection = () => {
         'Navegação Automática': 'yes',
         'AG-UI': 'yes',
         // Atendimentos
+        'Apenas Texto': 'ilimitado',
         'Mensais Inclusos': '300',
         'Extras': 'R$ 3,00',
         // Notificações
@@ -91,6 +93,7 @@ export const PricingSection = () => {
         'Navegação Automática': 'no',
         'AG-UI': 'no',
         // Atendimentos
+        'Apenas Texto': 'no', // Usando 'no' para indicar que é customizado/negociável
         'Mensais Inclusos': '---',
         'Extras': '---',
         // Notificações
@@ -110,10 +113,11 @@ export const PricingSection = () => {
     
     // Atendimentos
     { type: 'subtitle', label: 'Atendimentos' },
+    { type: 'feature', label: 'Apenas Texto' }, // Adicionado aqui
     { type: 'feature', label: 'Mensais Inclusos' },
     { type: 'feature', label: 'Extras' },
 
-    // Notificações (Reposicionado)
+    // Notificações
     { type: 'subtitle', label: 'Notificações' },
     { type: 'feature', label: 'Email' },
 
@@ -260,11 +264,11 @@ export const PricingSection = () => {
             <div key={`plan-cta-${planIndex}`} className={`${planIndex < pricingPlans.length - 1 ? 'border-r' : ''} border-border p-4 text-center`}>
               <button
                 className={`w-full py-3 rounded-full text-base font-semibold transition-colors duration-300 flex items-center justify-center gap-2
-                  ${plan.buttonVariant === "light"
-                    ? 'bg-white border border-gray-300 text-black hover:bg-gray-100'
-                    : 'bg-black text-white hover:bg-gray-800'
-                  }
-                `}
+                    ${plan.buttonVariant === "light"
+                      ? 'bg-white border border-gray-300 text-black hover:bg-gray-100'
+                      : 'bg-black text-white hover:bg-gray-800'
+                    }
+                  `}
               >
                 {plan.buttonText} <span className="ml-2">&rarr;</span>
               </button>
