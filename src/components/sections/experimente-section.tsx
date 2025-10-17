@@ -15,23 +15,23 @@ export const ExperimenteSection = () => {
         <p className="section-paragraph text-black mb-8">
           Agora você vai experimentar o impacto real. Informe o endereço do seu site e criaremos em alguns segundos um Agente de Voz treinado com o DNA do seu negócio, para você receber um atendimento em tempo-real. Descubra como vamos impactar os seus visitantes
         </p>
-        <p className="impact-text text-black">
+        <p className="impact-text text-black mb-12">
           Conheça a Thais: sua mais nova Funcionária do Ano
         </p>
 
-        {/* O formulário, botão e tooltip foram removidos daqui. */}
+        {/* Imagem do Widget movida para dentro do wrapper de conteúdo */}
+        <div className="relative w-full h-96 md:h-[500px] lg:h-[600px] mx-auto max-w-2xl">
+          <Image
+            src={widgetImageSrc}
+            alt="Preview do widget aiVoice em um celular"
+            fill
+            className="object-contain"
+            sizes="(max-width: 1024px) 90vw, 40vw"
+          />
+        </div>
       </div>
       
-      {/* Imagem do Widget no lado direito (oculta em telas pequenas) */}
-      <div className="hidden lg:block lg:w-[40%] h-full absolute top-0 right-0 z-0">
-        <Image
-          src={widgetImageSrc}
-          alt="Preview do widget aiVoice em um celular"
-          fill
-          className="object-contain object-right p-16"
-          sizes="(max-width: 1024px) 0vw, 40vw"
-        />
-      </div>
+      {/* A div de imagem flutuante anterior foi removida */}
     </section>
   );
 };
