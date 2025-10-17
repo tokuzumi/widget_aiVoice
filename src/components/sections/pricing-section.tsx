@@ -8,24 +8,27 @@ export const PricingSection = () => {
     {
       name: "Basic",
       description: "Ideal para quem está começando e precisa de uma solução robusta para qualificar leads.",
-      price: "R$899", // Alterado de R$499 para R$899
+      price: "R$899",
       priceUnit: "/ mês",
       buttonText: "Experimente",
       buttonVariant: "light",
       features: {
         'Widget aiVoice': 'yes',
-        'Navegação Automática': 'no', // Nova funcionalidade
+        'Navegação Automática': 'no',
         'Suporte Técnico': 'yes',
-        'Base de Conhecimento': 'yes',
-        'Dashboard AI': 'yes',
-        'Mensais Inclusos': '100',
-        'Extras': 'R$ 3,40',
-        'Email': 'yes',
-        'Google Agenda': 'no',
+        // Novas features do Dashboard AI
+        'Gerenciamento da Base de Conhecimento': 'yes',
+        'Histórico de Atendimentos': 'yes',
+        'Métricas': 'yes',
         'Análise de Sentimento': 'no',
         'Análise de Intenção': 'no',
         'Análise de Objeções': 'no',
         'Inteligência de Negócio': 'no',
+        // Features restantes
+        'Mensais Inclusos': '100',
+        'Extras': 'R$ 3,40',
+        'Email': 'yes',
+        'Google Agenda': 'no',
       },
     },
     {
@@ -37,18 +40,21 @@ export const PricingSection = () => {
       buttonVariant: "dark",
       features: {
         'Widget aiVoice': 'yes',
-        'Navegação Automática': 'yes', // Nova funcionalidade
+        'Navegação Automática': 'yes',
         'Suporte Técnico': 'yes',
-        'Base de Conhecimento': 'yes',
-        'Dashboard AI': 'yes',
-        'Mensais Inclusos': '300',
-        'Extras': 'R$ 3,00',
-        'Email': 'yes',
-        'Google Agenda': 'yes',
+        // Novas features do Dashboard AI
+        'Gerenciamento da Base de Conhecimento': 'yes',
+        'Histórico de Atendimentos': 'yes',
+        'Métricas': 'yes',
         'Análise de Sentimento': 'yes',
         'Análise de Intenção': 'yes',
         'Análise de Objeções': 'yes',
         'Inteligência de Negócio': 'yes',
+        // Features restantes
+        'Mensais Inclusos': '300',
+        'Extras': 'R$ 3,00',
+        'Email': 'yes',
+        'Google Agenda': 'yes',
       },
     },
     {
@@ -59,19 +65,22 @@ export const PricingSection = () => {
       buttonText: "Fale Conosco",
       buttonVariant: "dark",
       features: {
-        'Widget aiVoice': 'no', // Alterado de 'yes' para 'no'
-        'Navegação Automática': 'no', // Alterado de 'no' para 'no' (mantido)
-        'Suporte Técnico': 'no', // Alterado de 'yes' para 'no'
-        'Base de Conhecimento': 'no', // Alterado de 'yes' para 'no'
-        'Dashboard AI': 'no', // Alterado de 'yes' para 'no'
+        'Widget aiVoice': 'no',
+        'Navegação Automática': 'no',
+        'Suporte Técnico': 'no',
+        // Novas features do Dashboard AI
+        'Gerenciamento da Base de Conhecimento': 'no',
+        'Histórico de Atendimentos': 'no',
+        'Métricas': 'no',
+        'Análise de Sentimento': 'no',
+        'Análise de Intenção': 'no',
+        'Análise de Objeções': 'no',
+        'Inteligência de Negócio': 'no',
+        // Features restantes
         'Mensais Inclusos': '---',
         'Extras': '---',
-        'Email': 'no', // Alterado de 'yes' para 'no'
-        'Google Agenda': 'no', // Alterado de 'yes' para 'no'
-        'Análise de Sentimento': 'no', // Alterado de 'yes' para 'no'
-        'Análise de Intenção': 'no', // Alterado de 'yes' para 'no'
-        'Análise de Objeções': 'no', // Alterado de 'yes' para 'no'
-        'Inteligência de Negócio': 'no', // Alterado de 'yes' para 'no'
+        'Email': 'no',
+        'Google Agenda': 'no',
       },
     },
   ];
@@ -79,22 +88,28 @@ export const PricingSection = () => {
   const featureTableStructure = [
     { type: 'subtitle', label: 'Funcionalidades' },
     { type: 'feature', label: 'Widget aiVoice' },
-    { type: 'feature', label: 'Navegação Automática' }, // Adicionado aqui
+    { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'Suporte Técnico' },
-    { type: 'feature', label: 'Base de Conhecimento' },
-    { type: 'feature', label: 'Dashboard AI' },
-    { type: 'subtitle', label: 'Atendimentos' },
-    { type: 'feature', label: 'Mensais Inclusos' },
-    { type: 'feature', label: 'Extras' },
-    { type: 'subtitle', label: 'Notificações' },
-    { type: 'feature', label: 'Email' },
-    { type: 'subtitle', label: 'Integrações' },
-    { type: 'feature', label: 'Google Agenda' },
-    { type: 'subtitle', label: 'Análises por IA' },
+    
+    // Nova Categoria Dashboard AI
+    { type: 'subtitle', label: 'Dashboard AI' },
+    { type: 'feature', label: 'Gerenciamento da Base de Conhecimento' },
+    { type: 'feature', label: 'Histórico de Atendimentos' },
+    { type: 'feature', label: 'Métricas' },
     { type: 'feature', label: 'Análise de Sentimento' },
     { type: 'feature', label: 'Análise de Intenção' },
     { type: 'feature', label: 'Análise de Objeções' },
     { type: 'feature', label: 'Inteligência de Negócio' },
+
+    { type: 'subtitle', label: 'Atendimentos' },
+    { type: 'feature', label: 'Mensais Inclusos' },
+    { type: 'feature', label: 'Extras' },
+    
+    { type: 'subtitle', label: 'Notificações' },
+    { type: 'feature', label: 'Email' },
+    
+    { type: 'subtitle', label: 'Integrações' },
+    { type: 'feature', label: 'Google Agenda' },
   ];
 
   const renderDesktopFeatureValue = (value: string) => {
@@ -161,7 +176,10 @@ export const PricingSection = () => {
                   if (row.type === 'subtitle') {
                     return <h4 key={`mobile-subtitle-${rowIndex}`} className="text-lg font-semibold text-gray-700 mt-4 mb-2 first:mt-0">{row.label}</h4>;
                   }
+                  // Acessa a feature usando o label da estrutura
                   const value = plan.features[row.label as keyof typeof plan.features];
+                  if (value === undefined) return null; // Ignora features que não existem mais no plano
+                  
                   return (
                     <div key={`mobile-feature-${rowIndex}`} className="flex items-center justify-between text-gray-700 py-1">
                       <span>{row.label}</span>
@@ -241,13 +259,25 @@ export const PricingSection = () => {
                 </React.Fragment>
               );
             }
+            // Se for uma feature, renderiza a linha
             return (
               <React.Fragment key={`feature-row-${rowIndex}`}>
                 <div className="border-r border-border p-4 text-right">
                   <span className="text-base text-brand-gray">{row.label}</span>
                 </div>
                 {pricingPlans.map((plan, planIndex) => {
+                  // Acessa a feature usando o label da estrutura
                   const value = plan.features[row.label as keyof typeof plan.features];
+                  
+                  // Se a feature não existir no plano (o que não deve acontecer com a nova estrutura), retorna um traço
+                  if (value === undefined) {
+                    return (
+                      <div key={`feature-cell-${planIndex}-${rowIndex}`} className={`${planIndex < pricingPlans.length - 1 ? 'border-r' : ''} border-border p-4 text-center`}>
+                        <Minus className="h-5 w-5 text-gray-500 mx-auto" />
+                      </div>
+                    );
+                  }
+
                   return (
                     <div key={`feature-cell-${planIndex}-${rowIndex}`} className={`${planIndex < pricingPlans.length - 1 ? 'border-r' : ''} border-border p-4 text-center`}>
                       {renderDesktopFeatureValue(value)}
