@@ -23,11 +23,11 @@ export const Footer = () => {
     <footer id="footer" className="bg-black text-brand-gray py-16 lg:py-24">
       <div className="container mx-auto px-8 lg:px-16">
         
-        {/* Main Content Grid: 4 Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 pb-10 border-b border-gray-800">
+        {/* Main Content Grid: 4 Columns Simétricas */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12 pb-10 border-b border-gray-800">
           
           {/* Coluna 1: Logo Spada Global e Texto de Comercialização */}
-          <div className="flex flex-col gap-4 col-span-2 md:col-span-1">
+          <div className="flex flex-col gap-4 col-span-2 lg:col-span-1">
             <a 
               href="https://www.spadaglobal.com" 
               target="_blank" 
@@ -76,7 +76,7 @@ export const Footer = () => {
           </nav>
           
           {/* Coluna 4: Redes Sociais */}
-          <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col items-start lg:items-end">
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-start lg:items-end">
             <h4 className="text-lg font-semibold text-white mb-4 lg:text-right w-full">Siga-nos</h4>
             <SocialIcons />
           </div>
