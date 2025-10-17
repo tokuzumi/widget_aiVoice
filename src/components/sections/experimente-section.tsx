@@ -1,27 +1,15 @@
 "use client";
 
-import Image from "next/image";
+// Removido import Image from "next/image";
 
 export const ExperimenteSection = () => {
-  const backgroundImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760683975/bg_aiVoice_thais_iinwzs.jpg";
+  // Removido const backgroundImageSrc
 
   return (
-    <section className="content-section text-white relative overflow-hidden">
+    <section className="content-section bg-black text-white relative overflow-hidden"> {/* Reintroduzindo bg-black para garantir o fundo escuro da seção */}
       
-      {/* 1. Fundo Preto (z-index mais baixo) */}
-      <div className="absolute inset-0 bg-black -z-20"></div>
-
-      {/* 2. Imagem de Fundo (z-index intermediário) */}
-      <Image
-        src={backgroundImageSrc}
-        alt="Fundo com a imagem da agente de voz Thais"
-        fill
-        className="object-contain object-right -z-10" // Alterado para object-contain
-        sizes="100vw"
-        priority
-      />
+      {/* Fundo preto e imagem de fundo removidos */}
       
-      {/* 3. Conteúdo (z-index mais alto) */}
       <div className="section-content-wrapper relative z-10">
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
         <h2 className="section-title text-white">
