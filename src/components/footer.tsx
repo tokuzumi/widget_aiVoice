@@ -8,6 +8,8 @@ const navigationLinks = [
   { href: "#faq", label: "FAQ" },
   { href: "#pricing", label: "Planos" },
   { href: "#contact", label: "Contato" },
+  { href: "#privacy", label: "Política de Privacidade" },
+  { href: "#terms", label: "Termos de Uso" },
 ];
 
 export const Footer = () => {
@@ -18,11 +20,11 @@ export const Footer = () => {
     <footer id="footer" className="bg-black text-brand-gray py-16 lg:py-24">
       <div className="container mx-auto px-8 lg:px-16">
         
-        {/* Top Section: Logo, Navigation, and Social Icons */}
-        <div className="flex flex-col lg:flex-row justify-between items-start border-b border-gray-800 pb-10 mb-10">
+        {/* Main Content Grid: Logos and Navigation */}
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 pb-10">
           
-          {/* Logo aiVoice */}
-          <div className="mb-8 lg:mb-0">
+          {/* Coluna 1: Logo aiVoice e Redes Sociais */}
+          <div className="flex flex-col gap-6">
             <Image
               src={aiVoiceLogoSrc}
               alt="aiVoice Logo"
@@ -30,11 +32,13 @@ export const Footer = () => {
               height={35}
               className="transition-opacity duration-300 hover:opacity-80"
             />
+            <SocialIcons />
           </div>
 
-          {/* Navigation Links */}
-          <nav className="mb-8 lg:mb-0">
-            <ul className="flex flex-col sm:flex-row sm:space-x-8 space-y-2 sm:space-y-0 text-lg font-medium">
+          {/* Coluna 2: Links de Navegação */}
+          <nav className="md:col-span-1">
+            <h4 className="text-lg font-semibold text-white mb-4">Navegação</h4>
+            <ul className="flex flex-col space-y-3 text-base">
               {navigationLinks.map((link) => (
                 <li key={link.label}>
                   <Link href={link.href} className="hover:text-white transition-colors duration-200 link-underline link-underline-white">
@@ -45,35 +49,30 @@ export const Footer = () => {
             </ul>
           </nav>
 
-          {/* Social Icons */}
-          <SocialIcons />
-        </div>
-
-        {/* Bottom Section: Copyright and Spada Global Info */}
-        <div className="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left">
-          
-          {/* Copyright */}
-          <div className="text-sm text-gray-400 mb-6 sm:mb-0">
-            <p>&copy; {new Date().getFullYear()} aiVoice. Todos os direitos reservados.</p>
-          </div>
-
-          {/* Spada Global Info */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 text-sm text-gray-400">
-            <p className="text-center sm:text-right">Comercializado por:</p>
+          {/* Coluna 3/4: Logo Spada Global e Informação de Comercialização */}
+          <div className="md:col-span-1 lg:col-span-2 flex flex-col gap-4 lg:items-end lg:text-right">
+            <p className="text-sm text-gray-400">Comercializado por:</p>
             <a 
               href="https://www.spadaglobal.com" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              className="flex items-center gap-4 hover:opacity-80 transition-opacity lg:justify-end"
             >
               <Image
                 src={spadaGlobalLogoSrc}
                 alt="Spada Global Logo"
-                width={100}
-                height={25}
-                className="w-24 h-auto"
+                width={150}
+                height={35}
+                className="w-[150px] h-auto"
               />
             </a>
+          </div>
+        </div>
+
+        {/* Bottom Section: Copyright */}
+        <div className="border-t border-gray-800 pt-6 mt-6">
+          <div className="text-center text-sm text-gray-400">
+            <p>&copy; {new Date().getFullYear()} aiVoice. Todos os direitos reservados.</p>
           </div>
         </div>
       </div>
