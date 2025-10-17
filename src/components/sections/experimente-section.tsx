@@ -6,15 +6,22 @@ export const ExperimenteSection = () => {
   const backgroundImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760683975/bg_aiVoice_thais_iinwzs.jpg";
 
   return (
-    <section className="content-section text-white relative overflow-hidden"> {/* bg-black removido */}
+    <section className="content-section text-white relative overflow-hidden">
+      
+      {/* 1. Fundo Preto (z-index mais baixo) */}
+      <div className="absolute inset-0 bg-black -z-20"></div>
+
+      {/* 2. Imagem de Fundo (z-index intermediário) */}
       <Image
         src={backgroundImageSrc}
         alt="Fundo com a imagem da agente de voz Thais"
         fill
-        className="object-cover object-right -z-10"
+        className="object-cover object-right -z-10" // Sem opacidade
         sizes="100vw"
         priority
       />
+      
+      {/* 3. Conteúdo (z-index mais alto) */}
       <div className="section-content-wrapper relative z-10">
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
         <h2 className="section-title text-white">
