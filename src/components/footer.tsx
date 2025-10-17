@@ -37,9 +37,9 @@ export const Footer = () => {
               <Image
                 src={spadaGlobalLogoSrc}
                 alt="Spada Global Logo"
-                width={150}
-                height={35}
-                className="w-[150px] h-auto"
+                width={150} // Mantendo 150px de largura para destaque
+                height={35} // Mantendo 35px de altura (ou o que for necessário para a proporção)
+                className="w-[150px] h-auto" // Usando h-auto para garantir a proporção
               />
             </a>
             <p className="text-sm text-gray-400 max-w-xs">
