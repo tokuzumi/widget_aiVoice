@@ -11,7 +11,7 @@ export const ExperimenteSection = () => {
         src={backgroundImageSrc}
         alt="Fundo com a imagem da agente de voz Thais"
         fill
-        className="object-cover -z-10 opacity-50" // Adicionando opacidade para manter o contraste do texto
+        className="object-cover -z-10" // Opacidade removida para 100%
         sizes="100vw"
       />
       <div className="section-content-wrapper">
