@@ -28,8 +28,8 @@ export const PricingSection = () => {
         'AG-UI': 'no',
         // Atendimentos
         'Apenas Texto': 'ilimitado',
-        'Mensais Inclusos': '100',
-        'Extras': 'R$ 3,40',
+        'Mensais Inclusos (Voz)': '100', // Atualizado aqui
+        'Extras (Voz)': 'R$ 3,40', // Atualizado aqui
         // Notificações
         'Email': 'yes',
         // Integrações
@@ -61,8 +61,8 @@ export const PricingSection = () => {
         'AG-UI': 'yes',
         // Atendimentos
         'Apenas Texto': 'ilimitado',
-        'Mensais Inclusos': '300',
-        'Extras': 'R$ 3,00',
+        'Mensais Inclusos (Voz)': '300', // Atualizado aqui
+        'Extras (Voz)': 'R$ 3,00', // Atualizado aqui
         // Notificações
         'Email': 'yes',
         // Integrações
@@ -93,9 +93,9 @@ export const PricingSection = () => {
         'Navegação Automática': 'no',
         'AG-UI': 'no',
         // Atendimentos
-        'Apenas Texto': 'no', // Usando 'no' para indicar que é customizado/negociável
-        'Mensais Inclusos': '---',
-        'Extras': '---',
+        'Apenas Texto': 'no',
+        'Mensais Inclusos (Voz)': '---', // Atualizado aqui
+        'Extras (Voz)': '---', // Atualizado aqui
         // Notificações
         'Email': 'no',
         // Integrações
@@ -113,9 +113,9 @@ export const PricingSection = () => {
     
     // Atendimentos
     { type: 'subtitle', label: 'Atendimentos' },
-    { type: 'feature', label: 'Apenas Texto' }, // Adicionado aqui
-    { type: 'feature', label: 'Mensais Inclusos' },
-    { type: 'feature', label: 'Extras' },
+    { type: 'feature', label: 'Apenas Texto' },
+    { type: 'feature', label: 'Mensais Inclusos (Voz)' }, // Atualizado aqui
+    { type: 'feature', label: 'Extras (Voz)' }, // Atualizado aqui
 
     // Notificações
     { type: 'subtitle', label: 'Notificações' },
@@ -264,11 +264,11 @@ export const PricingSection = () => {
             <div key={`plan-cta-${planIndex}`} className={`${planIndex < pricingPlans.length - 1 ? 'border-r' : ''} border-border p-4 text-center`}>
               <button
                 className={`w-full py-3 rounded-full text-base font-semibold transition-colors duration-300 flex items-center justify-center gap-2
-                    ${plan.buttonVariant === "light"
-                      ? 'bg-white border border-gray-300 text-black hover:bg-gray-100'
-                      : 'bg-black text-white hover:bg-gray-800'
-                    }
-                  `}
+                  ${plan.buttonVariant === "light"
+                    ? 'bg-white border border-gray-300 text-black hover:bg-gray-100'
+                    : 'bg-black text-white hover:bg-gray-800'
+                  }
+                `}
               >
                 {plan.buttonText} <span className="ml-2">&rarr;</span>
               </button>
