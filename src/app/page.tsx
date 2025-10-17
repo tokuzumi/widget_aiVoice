@@ -3,7 +3,6 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { MadeWithDyad } from "@/components/made-with-dyad";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PainSection } from "@/components/sections/pain-section";
@@ -36,7 +35,6 @@ export default function Home() {
       <FaqSection />
 
       <Footer />
-      <MadeWithDyad />
       
       {/* Renderiza o widget de voz */}
       <AiVoiceWidget />
