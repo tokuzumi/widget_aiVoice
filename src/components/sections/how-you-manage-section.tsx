@@ -9,7 +9,7 @@ export const HowYouManageSection = () => {
     {
       buttonLabel: "O Seu DNA",
       cardTitle: "Personalize seu aiVoice",
-      cardDescription: "Treine seu aiVoice com as informações do seu site automaticamente ou através de PDFs. É rápido, prático e estaremos aqui para te ajudar, se necessário.",
+      cardDescription: "Treine seu aiVoice com as informações do seu site automaticamente ou através de PDFs. É rápido e prático",
       metricIcon: UserCog,
       metricLabel: "seu aiVoice, com o seu DNA",
     },
