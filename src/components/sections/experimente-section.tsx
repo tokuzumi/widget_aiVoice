@@ -28,12 +28,11 @@ export const ExperimenteSection = () => {
           src={agentImageSrc}
           alt="Agente de voz Thais"
           fill
-          className="object-cover object-right" // Mantendo object-right para focar no rosto
+          className="object-cover object-right" // Sem opacidade ou overlay
           sizes="(max-width: 1024px) 100vw, 40vw"
           priority
         />
-        {/* Adicionando um overlay sutil para garantir que a imagem se integre ao fundo preto */}
-        <div className="absolute inset-0 bg-black/30"></div>
+        {/* O overlay foi removido daqui */}
       </div>
     </section>
   );
