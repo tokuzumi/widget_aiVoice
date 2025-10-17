@@ -108,6 +108,11 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Widget aiVoice' },
     { type: 'feature', label: 'Suporte Técnico' },
     
+    // Packs de Atendimentos (Reposicionado)
+    { type: 'subtitle', label: 'Packs de Atendimentos' },
+    { type: 'feature', label: 'Mensais Inclusos' },
+    { type: 'feature', label: 'Extras' },
+
     // Categoria Dashboard AI
     { type: 'subtitle', label: 'Dashboard AI' },
     { type: 'feature', label: 'Gerenciamento da Base de Conhecimento' },
@@ -122,10 +127,6 @@ export const PricingSection = () => {
     { type: 'subtitle', label: 'Interatividade' },
     { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'AG-UI' },
-
-    { type: 'subtitle', label: 'Packs de Atendimentos' },
-    { type: 'feature', label: 'Mensais Inclusos' },
-    { type: 'feature', label: 'Extras' },
     
     { type: 'subtitle', label: 'Notificações' },
     { type: 'feature', label: 'Email' },
