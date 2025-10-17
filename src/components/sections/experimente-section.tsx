@@ -28,7 +28,7 @@ export const ExperimenteSection = () => {
           src={agentImageSrc}
           alt="Agente de voz Thais"
           fill
-          className="object-contain"
+          className="object-contain brightness-110 contrast-110" // Adicionado filtro para aumentar a vivacidade
           sizes="(max-width: 1024px) 100vw, 40vw"
           priority
         />
