@@ -108,8 +108,8 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Widget aiVoice' },
     { type: 'feature', label: 'Suporte Técnico' },
     
-    // Packs de Atendimentos (Reposicionado)
-    { type: 'subtitle', label: 'Packs de Atendimentos' },
+    // Atendimentos (Corrigido)
+    { type: 'subtitle', label: 'Atendimentos' },
     { type: 'feature', label: 'Mensais Inclusos' },
     { type: 'feature', label: 'Extras' },
 
