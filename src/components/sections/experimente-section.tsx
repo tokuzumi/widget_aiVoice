@@ -1,12 +1,19 @@
 "use client";
 
-// Removendo import Image from "next/image";
+import Image from "next/image";
 
 export const ExperimenteSection = () => {
-  // Removendo a constante widgetImageSrc
+  const backgroundImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760683975/bg_aiVoice_thais_iinwzs.jpg";
 
   return (
-    <section className="content-section bg-black text-white relative">
+    <section className="content-section bg-black text-white relative overflow-hidden">
+      <Image
+        src={backgroundImageSrc}
+        alt="Fundo com a imagem da agente de voz Thais"
+        fill
+        className="object-cover -z-10 opacity-50" // Adicionando opacidade para manter o contraste do texto
+        sizes="100vw"
+      />
       <div className="section-content-wrapper">
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
         <h2 className="section-title text-white">
@@ -18,8 +25,6 @@ export const ExperimenteSection = () => {
         <p className="impact-text text-white">
           Conheça a Thais: sua mais nova Funcionária do Ano
         </p>
-
-        {/* A imagem e seu container foram removidos daqui. */}
       </div>
     </section>
   );
