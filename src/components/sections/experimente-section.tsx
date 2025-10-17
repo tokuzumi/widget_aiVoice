@@ -11,11 +11,11 @@ export const ExperimenteSection = () => {
         src={backgroundImageSrc}
         alt="Fundo com a imagem da agente de voz Thais"
         fill
-        className="object-cover object-right -z-10 opacity-50" // object-right e opacity-50 reintroduzidos
+        className="object-cover -z-10 opacity-50" // Removido object-right
         sizes="100vw"
         priority
       />
-      <div className="section-content-wrapper relative z-10"> {/* Garantindo que o conteúdo esteja acima */}
+      <div className="section-content-wrapper relative z-10">
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
         <h2 className="section-title text-white">
           Veja a Mágica Acontecer
