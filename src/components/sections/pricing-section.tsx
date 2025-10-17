@@ -14,9 +14,8 @@ export const PricingSection = () => {
       buttonVariant: "light",
       features: {
         'Widget aiVoice': 'yes',
-        'Navegação Automática': 'no',
         'Suporte Técnico': 'yes',
-        // Novas features do Dashboard AI
+        // Dashboard AI
         'Gerenciamento da Base de Conhecimento': 'yes',
         'Histórico de Atendimentos': 'yes',
         'Métricas': 'yes',
@@ -24,10 +23,15 @@ export const PricingSection = () => {
         'Análise de Intenção': 'no',
         'Análise de Objeções': 'no',
         'Inteligência de Negócio': 'no',
-        // Features restantes
+        // Interatividade
+        'Navegação Automática': 'no',
+        'AG-UI': 'no',
+        // Atendimentos
         'Mensais Inclusos': '100',
         'Extras': 'R$ 3,40',
+        // Notificações
         'Email': 'yes',
+        // Integrações
         'Google Agenda': 'no',
       },
     },
@@ -40,9 +44,8 @@ export const PricingSection = () => {
       buttonVariant: "dark",
       features: {
         'Widget aiVoice': 'yes',
-        'Navegação Automática': 'yes',
         'Suporte Técnico': 'yes',
-        // Novas features do Dashboard AI
+        // Dashboard AI
         'Gerenciamento da Base de Conhecimento': 'yes',
         'Histórico de Atendimentos': 'yes',
         'Métricas': 'yes',
@@ -50,10 +53,15 @@ export const PricingSection = () => {
         'Análise de Intenção': 'yes',
         'Análise de Objeções': 'yes',
         'Inteligência de Negócio': 'yes',
-        // Features restantes
+        // Interatividade
+        'Navegação Automática': 'yes',
+        'AG-UI': 'yes',
+        // Atendimentos
         'Mensais Inclusos': '300',
         'Extras': 'R$ 3,00',
+        // Notificações
         'Email': 'yes',
+        // Integrações
         'Google Agenda': 'yes',
       },
     },
@@ -66,9 +74,8 @@ export const PricingSection = () => {
       buttonVariant: "dark",
       features: {
         'Widget aiVoice': 'no',
-        'Navegação Automática': 'no',
         'Suporte Técnico': 'no',
-        // Novas features do Dashboard AI
+        // Dashboard AI
         'Gerenciamento da Base de Conhecimento': 'no',
         'Histórico de Atendimentos': 'no',
         'Métricas': 'no',
@@ -76,10 +83,15 @@ export const PricingSection = () => {
         'Análise de Intenção': 'no',
         'Análise de Objeções': 'no',
         'Inteligência de Negócio': 'no',
-        // Features restantes
+        // Interatividade
+        'Navegação Automática': 'no',
+        'AG-UI': 'no',
+        // Atendimentos
         'Mensais Inclusos': '---',
         'Extras': '---',
+        // Notificações
         'Email': 'no',
+        // Integrações
         'Google Agenda': 'no',
       },
     },
@@ -88,10 +100,9 @@ export const PricingSection = () => {
   const featureTableStructure = [
     { type: 'subtitle', label: 'Funcionalidades' },
     { type: 'feature', label: 'Widget aiVoice' },
-    { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'Suporte Técnico' },
     
-    // Nova Categoria Dashboard AI
+    // Categoria Dashboard AI
     { type: 'subtitle', label: 'Dashboard AI' },
     { type: 'feature', label: 'Gerenciamento da Base de Conhecimento' },
     { type: 'feature', label: 'Histórico de Atendimentos' },
@@ -100,6 +111,11 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Análise de Intenção' },
     { type: 'feature', label: 'Análise de Objeções' },
     { type: 'feature', label: 'Inteligência de Negócio' },
+
+    // Nova Categoria Interatividade
+    { type: 'subtitle', label: 'Interatividade' },
+    { type: 'feature', label: 'Navegação Automática' },
+    { type: 'feature', label: 'AG-UI' },
 
     { type: 'subtitle', label: 'Atendimentos' },
     { type: 'feature', label: 'Mensais Inclusos' },
@@ -271,6 +287,10 @@ export const PricingSection = () => {
                   
                   // Se a feature não existir no plano (o que não deve acontecer com a nova estrutura), retorna um traço
                   if (value === undefined) {
+                    // Se a feature não existir no objeto features, ela foi removida ou renomeada.
+                    // Neste caso, 'Navegação Automática' foi movida, mas o item antigo foi excluído.
+                    // Se o label for 'Navegação Automática' e não estiver no objeto features, isso significa que o item foi excluído da lista principal.
+                    // Como garantimos que todos os itens da featureTableStructure estão no objeto features, isso não deve ocorrer.
                     return (
                       <div key={`feature-cell-${planIndex}-${rowIndex}`} className={`${planIndex < pricingPlans.length - 1 ? 'border-r' : ''} border-border p-4 text-center`}>
                         <Minus className="h-5 w-5 text-gray-500 mx-auto" />
