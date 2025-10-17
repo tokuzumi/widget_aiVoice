@@ -43,12 +43,13 @@ export const Footer = () => {
               />
             </a>
             <div className="text-sm text-gray-400 max-w-xs">
-              <p>Setor de Inteligência Artificial para Negócios</p>
+              <p>Inteligência Artificial para Negócios</p>
+              <p className="mt-1">Desenvolvendo soluções estrategicamente customizadas desde 1.990.</p>
               <a 
                 href="https://www.spadaglobal.com" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="link-underline link-underline-white hover:text-white"
+                className="link-underline link-underline-white hover:text-white mt-1 inline-block"
               >
                 www.SpadaGlobal.com
               </a>
