@@ -42,9 +42,17 @@ export const Footer = () => {
                 className="w-[150px] h-auto"
               />
             </a>
-            <p className="text-sm text-gray-400 max-w-xs">
-              aiVoice é uma solução comercializada e desenvolvida pela Spada Global.
-            </p>
+            <div className="text-sm text-gray-400 max-w-xs">
+              <p>Setor de Inteligência Artificial para Negócios</p>
+              <a 
+                href="https://www.spadaglobal.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="link-underline link-underline-white hover:text-white"
+              >
+                www.SpadaGlobal.com
+              </a>
+            </div>
           </div>
 
           {/* Coluna 2: Links de Navegação */}
