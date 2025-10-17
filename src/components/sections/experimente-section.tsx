@@ -9,7 +9,7 @@ export const ExperimenteSection = () => {
     <section className="content-section bg-black text-white relative overflow-hidden min-h-screen lg:flex-row lg:items-stretch">
       
       {/* Coluna Esquerda: Conteúdo de Texto (60% em LG) */}
-      <div className="section-content-wrapper relative z-10">
+      <div className="section-content-wrapper relative z-10 pb-0 lg:pb-24"> {/* Adicionado pb-0 para remover padding inferior em telas pequenas */}
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
         <h2 className="section-title text-white">
           Veja a Mágica Acontecer
@@ -23,7 +23,7 @@ export const ExperimenteSection = () => {
       </div>
 
       {/* Coluna Direita: Imagem da Agente (40% em LG) */}
-      <div className="relative w-full h-[40vh] lg:w-[40%] lg:h-auto flex-shrink-0 flex items-center justify-center"> {/* h-[50vh] alterado para h-[40vh] */}
+      <div className="relative w-full h-[30vh] lg:w-[40%] lg:h-auto flex-shrink-0 flex items-center justify-center"> {/* h-[40vh] alterado para h-[30vh] */}
         <Image
           src={agentImageSrc}
           alt="Agente de voz Thais"
