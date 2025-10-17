@@ -26,7 +26,7 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'no',
         'AG-UI': 'no',
-        // Packs de Atendimentos
+        // Atendimentos
         'Mensais Inclusos': '100',
         'Extras': 'R$ 3,40',
         // Notificações
@@ -58,7 +58,7 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'yes',
         'AG-UI': 'yes',
-        // Packs de Atendimentos
+        // Atendimentos
         'Mensais Inclusos': '300',
         'Extras': 'R$ 3,00',
         // Notificações
@@ -90,7 +90,7 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'no',
         'AG-UI': 'no',
-        // Packs de Atendimentos
+        // Atendimentos
         'Mensais Inclusos': '---',
         'Extras': '---',
         // Notificações
@@ -108,10 +108,14 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Widget aiVoice' },
     { type: 'feature', label: 'Suporte Técnico' },
     
-    // Atendimentos (Corrigido)
+    // Atendimentos
     { type: 'subtitle', label: 'Atendimentos' },
     { type: 'feature', label: 'Mensais Inclusos' },
     { type: 'feature', label: 'Extras' },
+
+    // Notificações (Reposicionado)
+    { type: 'subtitle', label: 'Notificações' },
+    { type: 'feature', label: 'Email' },
 
     // Categoria Dashboard AI
     { type: 'subtitle', label: 'Dashboard AI' },
@@ -127,9 +131,6 @@ export const PricingSection = () => {
     { type: 'subtitle', label: 'Interatividade' },
     { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'AG-UI' },
-    
-    { type: 'subtitle', label: 'Notificações' },
-    { type: 'feature', label: 'Email' },
     
     { type: 'subtitle', label: 'Integrações' },
     { type: 'feature', label: 'Google Agenda' },
