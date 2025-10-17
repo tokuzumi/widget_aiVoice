@@ -11,9 +11,9 @@ export const ExperimenteSection = () => {
         src={backgroundImageSrc}
         alt="Fundo com a imagem da agente de voz Thais"
         fill
-        className="object-cover -z-10"
+        className="object-cover object-right -z-10" // Adicionado object-right
         sizes="100vw"
-        priority // Adicionando priority
+        priority
       />
       <div className="section-content-wrapper">
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
