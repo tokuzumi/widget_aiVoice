@@ -26,13 +26,15 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'no',
         'AG-UI': 'no',
-        // Packs de Atendimento
+        // Packs de Atendimentos
         'Mensais Inclusos': '100',
         'Extras': 'R$ 3,40',
         // Notificações
         'Email': 'yes',
         // Integrações
         'Google Agenda': 'no',
+        'Whatsapp': 'no',
+        'CRMs': 'no',
       },
     },
     {
@@ -56,13 +58,15 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'yes',
         'AG-UI': 'yes',
-        // Packs de Atendimento
+        // Packs de Atendimentos
         'Mensais Inclusos': '300',
         'Extras': 'R$ 3,00',
         // Notificações
         'Email': 'yes',
         // Integrações
         'Google Agenda': 'yes',
+        'Whatsapp': 'no',
+        'CRMs': 'no',
       },
     },
     {
@@ -86,13 +90,15 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'no',
         'AG-UI': 'no',
-        // Packs de Atendimento
+        // Packs de Atendimentos
         'Mensais Inclusos': '---',
         'Extras': '---',
         // Notificações
         'Email': 'no',
         // Integrações
-        'Google Agenda': 'no',
+        'Google Agenda': 'yes', // Mantendo Google Agenda como 'yes' para Custom
+        'Whatsapp': 'yes',
+        'CRMs': 'yes',
       },
     },
   ];
@@ -112,12 +118,12 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Análise de Objeções' },
     { type: 'feature', label: 'Inteligência de Negócio' },
 
-    // Nova Categoria Interatividade
+    // Categoria Interatividade
     { type: 'subtitle', label: 'Interatividade' },
     { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'AG-UI' },
 
-    { type: 'subtitle', label: 'Packs de Atendimento' }, // Renomeado aqui
+    { type: 'subtitle', label: 'Packs de Atendimentos' }, // Corrigido para plural
     { type: 'feature', label: 'Mensais Inclusos' },
     { type: 'feature', label: 'Extras' },
     
@@ -126,6 +132,8 @@ export const PricingSection = () => {
     
     { type: 'subtitle', label: 'Integrações' },
     { type: 'feature', label: 'Google Agenda' },
+    { type: 'feature', label: 'Whatsapp' }, // Adicionado
+    { type: 'feature', label: 'CRMs' }, // Adicionado
   ];
 
   const renderDesktopFeatureValue = (value: string) => {
