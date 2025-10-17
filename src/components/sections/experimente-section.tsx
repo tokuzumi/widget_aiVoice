@@ -16,7 +16,7 @@ export const ExperimenteSection = () => {
         src={backgroundImageSrc}
         alt="Fundo com a imagem da agente de voz Thais"
         fill
-        className="object-cover object-right -z-10" // Sem opacidade
+        className="object-contain object-right -z-10" // Alterado para object-contain
         sizes="100vw"
         priority
       />
