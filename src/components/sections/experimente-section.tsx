@@ -1,15 +1,14 @@
 "use client";
 
-// Removido import Image from "next/image";
+import Image from "next/image";
 
 export const ExperimenteSection = () => {
-  // Removido const backgroundImageSrc
+  const agentImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760685315/bg_aiVoice_thais2_e8mf6v.jpg";
 
   return (
-    <section className="content-section bg-black text-white relative overflow-hidden"> {/* Reintroduzindo bg-black para garantir o fundo escuro da seção */}
+    <section className="content-section bg-black text-white relative overflow-hidden min-h-screen lg:flex-row lg:items-stretch">
       
-      {/* Fundo preto e imagem de fundo removidos */}
-      
+      {/* Coluna Esquerda: Conteúdo de Texto (60% em LG) */}
       <div className="section-content-wrapper relative z-10">
         <p className="section-eyebrow !text-brand-gray">experimente agora</p>
         <h2 className="section-title text-white">
@@ -21,6 +20,18 @@ export const ExperimenteSection = () => {
         <p className="impact-text text-white">
           Conheça a Thais: sua mais nova Funcionária do Ano
         </p>
+      </div>
+
+      {/* Coluna Direita: Imagem da Agente (40% em LG) */}
+      <div className="relative w-full h-[50vh] lg:w-[40%] lg:h-auto flex-shrink-0">
+        <Image
+          src={agentImageSrc}
+          alt="Agente de voz Thais"
+          fill
+          className="object-cover object-right"
+          sizes="(max-width: 1024px) 100vw, 40vw"
+          priority
+        />
       </div>
     </section>
   );
