@@ -8,6 +8,9 @@ const navigationLinks = [
   { href: "#faq", label: "FAQ" },
   { href: "#pricing", label: "Planos" },
   { href: "#contact", label: "Contato" },
+];
+
+const legalLinks = [
   { href: "#privacy", label: "Política de Privacidade" },
   { href: "#terms", label: "Termos de Uso" },
 ];
@@ -20,19 +23,28 @@ export const Footer = () => {
     <footer id="footer" className="bg-black text-brand-gray py-16 lg:py-24">
       <div className="container mx-auto px-8 lg:px-16">
         
-        {/* Main Content Grid: Logos and Navigation */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-12 pb-10">
+        {/* Main Content Grid: Spada Global, Navigation, Social Icons */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-10 border-b border-gray-800">
           
-          {/* Coluna 1: Logo aiVoice e Redes Sociais */}
-          <div className="flex flex-col gap-6">
-            <Image
-              src={aiVoiceLogoSrc}
-              alt="aiVoice Logo"
-              width={150}
-              height={35}
-              className="transition-opacity duration-300 hover:opacity-80"
-            />
-            <SocialIcons />
+          {/* Coluna 1: Logo Spada Global e Texto de Comercialização */}
+          <div className="flex flex-col gap-4">
+            <a 
+              href="https://www.spadaglobal.com" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="hover:opacity-80 transition-opacity inline-block max-w-[150px]"
+            >
+              <Image
+                src={spadaGlobalLogoSrc}
+                alt="Spada Global Logo"
+                width={150}
+                height={35}
+                className="w-[150px] h-auto"
+              />
+            </a>
+            <p className="text-sm text-gray-400 max-w-xs">
+              aiVoice é uma solução comercializada e desenvolvida pela Spada Global.
+            </p>
           </div>
 
           {/* Coluna 2: Links de Navegação */}
@@ -49,30 +61,46 @@ export const Footer = () => {
             </ul>
           </nav>
 
-          {/* Coluna 3/4: Logo Spada Global e Informação de Comercialização */}
-          <div className="md:col-span-1 lg:col-span-2 flex flex-col gap-4 lg:items-end lg:text-right">
-            <p className="text-sm text-gray-400">Comercializado por:</p>
-            <a 
-              href="https://www.spadaglobal.com" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              className="flex items-center gap-4 hover:opacity-80 transition-opacity lg:justify-end"
-            >
-              <Image
-                src={spadaGlobalLogoSrc}
-                alt="Spada Global Logo"
-                width={150}
-                height={35}
-                className="w-[150px] h-auto"
-              />
-            </a>
+          {/* Coluna 3: Links Legais e Redes Sociais */}
+          <div className="flex flex-col gap-8 md:items-end md:text-right">
+            {/* Links Legais (Política e Termos) */}
+            <nav>
+              <h4 className="text-lg font-semibold text-white mb-4">Legal</h4>
+              <ul className="flex flex-col space-y-3 text-base">
+                {legalLinks.map((link) => (
+                  <li key={link.label}>
+                    <Link href={link.href} className="hover:text-white transition-colors duration-200 link-underline link-underline-white">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+            
+            {/* Redes Sociais */}
+            <div className="md:self-end">
+              <SocialIcons />
+            </div>
           </div>
         </div>
 
-        {/* Bottom Section: Copyright */}
-        <div className="border-t border-gray-800 pt-6 mt-6">
-          <div className="text-center text-sm text-gray-400">
+        {/* Bottom Section: Copyright e Logo aiVoice */}
+        <div className="pt-6 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          
+          {/* Copyright */}
+          <div className="text-sm text-gray-400 order-2 sm:order-1">
             <p>&copy; {new Date().getFullYear()} aiVoice. Todos os direitos reservados.</p>
+          </div>
+
+          {/* Logo aiVoice */}
+          <div className="order-1 sm:order-2">
+            <Image
+              src={aiVoiceLogoSrc}
+              alt="aiVoice Logo"
+              width={100}
+              height={23}
+              className="transition-opacity duration-300 hover:opacity-80 w-[100px] h-auto"
+            />
           </div>
         </div>
       </div>
