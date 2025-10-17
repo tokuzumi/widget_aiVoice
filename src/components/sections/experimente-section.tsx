@@ -19,13 +19,13 @@ export const ExperimenteSection = () => {
           Conheça a Thais: sua mais nova Funcionária do Ano
         </p>
 
-        {/* Imagem do Widget reinserida */}
+        {/* Imagem do Widget: Removendo qualquer padding explícito */}
         <div className="relative w-full h-96 md:h-[500px] lg:h-[600px] mx-auto max-w-2xl">
           <Image
             src={widgetImageSrc}
             alt="Preview do widget aiVoice em um celular"
             fill
-            className="object-contain"
+            className="object-contain" // Mantendo object-contain para ajuste
             sizes="(max-width: 1024px) 90vw, 40vw"
           />
         </div>
