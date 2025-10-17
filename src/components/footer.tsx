@@ -23,11 +23,11 @@ export const Footer = () => {
     <footer id="footer" className="bg-black text-brand-gray py-16 lg:py-24">
       <div className="container mx-auto px-8 lg:px-16">
         
-        {/* Main Content Grid: Spada Global, Navigation, Social Icons */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 pb-10 border-b border-gray-800">
+        {/* Main Content Grid: 4 Columns */}
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-12 pb-10 border-b border-gray-800">
           
           {/* Coluna 1: Logo Spada Global e Texto de Comercialização */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 col-span-2 md:col-span-1">
             <a 
               href="https://www.spadaglobal.com" 
               target="_blank" 
@@ -38,7 +38,7 @@ export const Footer = () => {
                 src={spadaGlobalLogoSrc}
                 alt="Spada Global Logo"
                 width={150}
-                height={42} // Altura ajustada para 42px
+                height={42}
                 className="w-[150px] h-auto"
               />
             </a>
@@ -48,7 +48,7 @@ export const Footer = () => {
           </div>
 
           {/* Coluna 2: Links de Navegação */}
-          <nav className="md:col-span-1">
+          <nav className="col-span-1">
             <h4 className="text-lg font-semibold text-white mb-4">Navegação</h4>
             <ul className="flex flex-col space-y-3 text-base">
               {navigationLinks.map((link) => (
@@ -61,26 +61,24 @@ export const Footer = () => {
             </ul>
           </nav>
 
-          {/* Coluna 3: Links Legais e Redes Sociais */}
-          <div className="flex flex-col gap-8 md:items-end md:text-right">
-            {/* Links Legais (Política e Termos) */}
-            <nav>
-              <h4 className="text-lg font-semibold text-white mb-4">Legal</h4>
-              <ul className="flex flex-col space-y-3 text-base">
-                {legalLinks.map((link) => (
-                  <li key={link.label}>
-                    <Link href={link.href} className="hover:text-white transition-colors duration-200 link-underline link-underline-white">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            
-            {/* Redes Sociais */}
-            <div className="md:self-end">
-              <SocialIcons />
-            </div>
+          {/* Coluna 3: Links Legais */}
+          <nav className="col-span-1">
+            <h4 className="text-lg font-semibold text-white mb-4">Legal</h4>
+            <ul className="flex flex-col space-y-3 text-base">
+              {legalLinks.map((link) => (
+                <li key={link.label}>
+                  <Link href={link.href} className="hover:text-white transition-colors duration-200 link-underline link-underline-white">
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          
+          {/* Coluna 4: Redes Sociais */}
+          <div className="col-span-2 md:col-span-3 lg:col-span-1 flex flex-col items-start lg:items-end">
+            <h4 className="text-lg font-semibold text-white mb-4 lg:text-right w-full">Siga-nos</h4>
+            <SocialIcons />
           </div>
         </div>
 
