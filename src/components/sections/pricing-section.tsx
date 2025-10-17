@@ -96,9 +96,9 @@ export const PricingSection = () => {
         // Notificações
         'Email': 'no',
         // Integrações
-        'Google Agenda': 'yes', // Mantendo Google Agenda como 'yes' para Custom
-        'Whatsapp': 'yes',
-        'CRMs': 'yes',
+        'Google Agenda': 'no',
+        'Whatsapp': 'no',
+        'CRMs': 'no',
       },
     },
   ];
@@ -123,7 +123,7 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'AG-UI' },
 
-    { type: 'subtitle', label: 'Packs de Atendimentos' }, // Corrigido para plural
+    { type: 'subtitle', label: 'Packs de Atendimentos' },
     { type: 'feature', label: 'Mensais Inclusos' },
     { type: 'feature', label: 'Extras' },
     
@@ -132,8 +132,8 @@ export const PricingSection = () => {
     
     { type: 'subtitle', label: 'Integrações' },
     { type: 'feature', label: 'Google Agenda' },
-    { type: 'feature', label: 'Whatsapp' }, // Adicionado
-    { type: 'feature', label: 'CRMs' }, // Adicionado
+    { type: 'feature', label: 'Whatsapp' },
+    { type: 'feature', label: 'CRMs' },
   ];
 
   const renderDesktopFeatureValue = (value: string) => {
