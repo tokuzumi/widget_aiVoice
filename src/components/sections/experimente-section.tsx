@@ -6,12 +6,12 @@ export const ExperimenteSection = () => {
   const backgroundImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760683975/bg_aiVoice_thais_iinwzs.jpg";
 
   return (
-    <section className="content-section bg-black text-white relative overflow-hidden">
+    <section className="content-section text-white relative overflow-hidden"> {/* bg-black removido */}
       <Image
         src={backgroundImageSrc}
         alt="Fundo com a imagem da agente de voz Thais"
         fill
-        className="object-cover object-right -z-10" // Sem opacidade ou overlay
+        className="object-cover object-right -z-10"
         sizes="100vw"
         priority
       />
