@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
+// Removendo import Image from "next/image";
 
 export const ExperimenteSection = () => {
-  const widgetImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/f_auto,q_auto,w_800/v1760598050/widget_aiVoice_xpowr8.png";
+  // Removendo a constante widgetImageSrc
 
   return (
     <section className="content-section bg-white text-black relative">
@@ -15,23 +15,12 @@ export const ExperimenteSection = () => {
         <p className="section-paragraph text-black mb-8">
           Agora você vai experimentar o impacto real. Informe o endereço do seu site e criaremos em alguns segundos um Agente de Voz treinado com o DNA do seu negócio, para você receber um atendimento em tempo-real. Descubra como vamos impactar os seus visitantes
         </p>
-        <p className="impact-text text-black mb-12">
+        <p className="impact-text text-black">
           Conheça a Thais: sua mais nova Funcionária do Ano
         </p>
 
-        {/* Imagem do Widget movida para dentro do wrapper de conteúdo */}
-        <div className="relative w-full h-96 md:h-[500px] lg:h-[600px] mx-auto max-w-2xl">
-          <Image
-            src={widgetImageSrc}
-            alt="Preview do widget aiVoice em um celular"
-            fill
-            className="object-contain"
-            sizes="(max-width: 1024px) 90vw, 40vw"
-          />
-        </div>
+        {/* A imagem foi removida daqui. */}
       </div>
-      
-      {/* A div de imagem flutuante anterior foi removida */}
     </section>
   );
 };
