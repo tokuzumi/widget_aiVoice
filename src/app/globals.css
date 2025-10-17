@@ -155,7 +155,7 @@
     @apply min-h-screen flex flex-col items-center justify-center relative lg:items-start;
   }
   .section-content-wrapper {
-    @apply w-full lg:w-[60%] flex flex-col justify-center px-8 lg:px-16 py-16 lg:py-24; /* Aumentado o padding vertical */
+    @apply w-full lg:w-[60%] flex flex-col justify-center px-8 lg:px-16 py-8 lg:py-24; /* Alterado de py-16 para py-8 em telas pequenas */
   }
 }
 

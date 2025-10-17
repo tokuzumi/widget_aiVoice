@@ -23,12 +23,12 @@ export const ExperimenteSection = () => {
       </div>
 
       {/* Coluna Direita: Imagem da Agente (40% em LG) */}
-      <div className="relative w-full h-[50vh] lg:w-[40%] lg:h-auto flex-shrink-0 flex items-center justify-center"> {/* Adicionado flex items-center justify-center para centralizar o conteúdo */}
+      <div className="relative w-full h-[40vh] lg:w-[40%] lg:h-auto flex-shrink-0 flex items-center justify-center"> {/* h-[50vh] alterado para h-[40vh] */}
         <Image
           src={agentImageSrc}
           alt="Agente de voz Thais"
           fill
-          className="object-contain" // Alterado para object-contain
+          className="object-contain"
           sizes="(max-width: 1024px) 100vw, 40vw"
           priority
         />
