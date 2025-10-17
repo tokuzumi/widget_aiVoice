@@ -7,9 +7,9 @@ import { UserCog, History, BrainCircuit, Infinity } from 'lucide-react'; // Impo
 export const HowYouManageSection = () => {
   const galleryItems = [
     {
-      buttonLabel: "O Seu DNA", // Alterado de "Personalização" para "O Seu DNA"
+      buttonLabel: "O Seu DNA",
       cardTitle: "Personalize seu aiVoice",
-      cardDescription: "Personalize o comportamento da sua agente, atualize a Base de Conhecimento do seu negócio e as informações de contato",
+      cardDescription: "Treine seu aiVoice com as informações do seu site automaticamente ou através de PDFs. É rápido, prático e estaremos aqui para te ajudar, se necessário.",
       metricIcon: UserCog,
       metricLabel: "seu aiVoice, com o seu DNA",
     },
