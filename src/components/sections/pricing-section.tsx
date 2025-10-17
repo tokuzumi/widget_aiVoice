@@ -26,7 +26,7 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'no',
         'AG-UI': 'no',
-        // Atendimentos
+        // Packs de Atendimento
         'Mensais Inclusos': '100',
         'Extras': 'R$ 3,40',
         // Notificações
@@ -56,7 +56,7 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'yes',
         'AG-UI': 'yes',
-        // Atendimentos
+        // Packs de Atendimento
         'Mensais Inclusos': '300',
         'Extras': 'R$ 3,00',
         // Notificações
@@ -86,7 +86,7 @@ export const PricingSection = () => {
         // Interatividade
         'Navegação Automática': 'no',
         'AG-UI': 'no',
-        // Atendimentos
+        // Packs de Atendimento
         'Mensais Inclusos': '---',
         'Extras': '---',
         // Notificações
@@ -117,7 +117,7 @@ export const PricingSection = () => {
     { type: 'feature', label: 'Navegação Automática' },
     { type: 'feature', label: 'AG-UI' },
 
-    { type: 'subtitle', label: 'Atendimentos' },
+    { type: 'subtitle', label: 'Packs de Atendimento' }, // Renomeado aqui
     { type: 'feature', label: 'Mensais Inclusos' },
     { type: 'feature', label: 'Extras' },
     
@@ -287,10 +287,6 @@ export const PricingSection = () => {
                   
                   // Se a feature não existir no plano (o que não deve acontecer com a nova estrutura), retorna um traço
                   if (value === undefined) {
-                    // Se a feature não existir no objeto features, ela foi removida ou renomeada.
-                    // Neste caso, 'Navegação Automática' foi movida, mas o item antigo foi excluído.
-                    // Se o label for 'Navegação Automática' e não estiver no objeto features, isso significa que o item foi excluído da lista principal.
-                    // Como garantimos que todos os itens da featureTableStructure estão no objeto features, isso não deve ocorrer.
                     return (
                       <div key={`feature-cell-${planIndex}-${rowIndex}`} className={`${planIndex < pricingPlans.length - 1 ? 'border-r' : ''} border-border p-4 text-center`}>
                         <Minus className="h-5 w-5 text-gray-500 mx-auto" />
