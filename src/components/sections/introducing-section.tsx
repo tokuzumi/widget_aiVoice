@@ -115,7 +115,7 @@ export const IntroducingSection = () => {
   }, [emblaApi, setScrollSnaps, onSelect]);
 
   return (
-    <section className="content-section bg-black text-white relative items-start justify-start pb-24 lg:pb-0">
+    <section id="introducing" className="content-section bg-black text-white relative items-start justify-start pb-24 lg:pb-0">
       <Image
         src={backgroundImage}
         alt="Background image for aiVoice Introducing Section"

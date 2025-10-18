@@ -155,7 +155,7 @@ export const PricingSection = () => {
   };
 
   return (
-    <section className="content-section bg-black text-brand-gray relative items-start justify-start">
+    <section id="pricing" className="content-section bg-black text-brand-gray relative items-start justify-start">
       {/* Bloco de texto introdutório */}
       <div className="section-content-wrapper text-center lg:text-left relative z-10 pb-4 lg:pb-8">
         <p className="section-eyebrow">nossos planos</p>

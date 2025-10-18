@@ -27,7 +27,7 @@ export const PainSection = () => {
   }, []);
 
   return (
-    <section className="content-section bg-pain-bg text-black min-h-[70vh]"> {/* Alterado min-h-[50vh] para min-h-[70vh] */}
+    <section id="pain" className="content-section bg-pain-bg text-black min-h-[70vh]"> {/* Alterado min-h-[50vh] para min-h-[70vh] */}
       <div className="section-content-wrapper text-left">
         <p className="section-eyebrow !text-black">sobre sites com formulários ...</p>
         <p ref={textRef} className="impact-text text-black mb-8">

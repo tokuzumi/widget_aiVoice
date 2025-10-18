@@ -5,6 +5,7 @@ export const HeroSection = () => {
 
   return (
     <section
+      id="hero"
       className="relative min-h-screen text-white flex flex-col items-center justify-center lg:flex-row lg:justify-start overflow-hidden"
     >
       <Image

@@ -4,10 +4,10 @@ import Link from 'next/link';
 import { SocialIcons } from './social-icons';
 
 const navigationLinks = [
-  { href: "#", label: "Home" },
+  { href: "#hero", label: "Home" },
   { href: "#faq", label: "FAQ" },
   { href: "#pricing", label: "Planos" },
-  { href: "#contact", label: "Contato" },
+  { href: "#footer", label: "Contato" },
 ];
 
 const legalLinks = [

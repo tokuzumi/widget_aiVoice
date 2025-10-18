@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
@@ -9,6 +9,7 @@ import { cn } from './lib/utils';
 import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
+import { scrollToSection } from './lib/navigation';
 
 // --- Tipos e Interfaces ---
 export interface TextStreamData {
@@ -16,11 +17,9 @@ export interface TextStreamData {
   streamInfo: {
     timestamp: number;
   };
-  // Adicionando a estrutura correta observada nos logs
   participantInfo: {
     identity: string;
   };
-  // Mantendo 'participant' como opcional/any para compatibilidade com o hook
   participant?: Participant;
 }
 
@@ -31,7 +30,7 @@ export interface VoiceSessionProps {
   clientId: string;
 }
 
-// --- Componentes de UI Internos (movidos para cá para manter o escopo) ---
+// --- Componentes de UI Internos ---
 
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 
@@ -42,11 +41,10 @@ interface ActionButtonsProps {
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow }) => {
-  const [isMicEnabled, setIsMicEnabled] = useState(true); // Microfone ativo por padrão
+  const [isMicEnabled, setIsMicEnabled] = useState(true);
 
   const handleMicToggle = useCallback(() => {
     setIsMicEnabled(prev => !prev);
-    // Lógica para mutar/desmutar o microfone via LiveKit context virá aqui
   }, []);
 
   return (
@@ -117,7 +115,6 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           
           {allMessages.map((msg, index) => {
-            // Agora, msg.from.identity deve estar populado para todas as mensagens (chat e transcrição)
             const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
@@ -125,8 +122,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
                 <div className={cn(
                   "av-message-bubble p-3 rounded-xl max-w-[85%] text-sm",
                   isLocalUser
-                    ? 'bg-gray-800 text-white rounded-br-none' // Usuário (Local)
-                    : 'bg-accent text-black rounded-tl-none' // Agente (Remoto)
+                    ? 'bg-gray-800 text-white rounded-br-none'
+                    : 'bg-accent text-black rounded-tl-none'
                 )}>
                   {msg.message}
                 </div>
@@ -156,28 +153,51 @@ interface VoiceSessionUIProps {
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
+  const [isAutoNavEnabled, setIsAutoNavEnabled] = useState(false);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
   }, []);
+
+  // Hook para receber a configuração inicial do widget
+  useDataChannel('config_widget', (msg) => {
+    try {
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      if (data.autonav === true) {
+        setIsAutoNavEnabled(true);
+        console.log('AutoNav Habilitado pelo Agente.');
+      }
+    } catch (e) {
+      console.error('Erro ao processar mensagem de configuração:', e);
+    }
+  });
+
+  // Hook para receber comandos de navegação
+  useDataChannel('navigation_command', (msg) => {
+    if (!isAutoNavEnabled) return; // Só executa se a navegação estiver habilitada
+
+    try {
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      if (data.action === 'scroll_to' && data.target) {
+        console.log(`Comando de navegação recebido: rolar para ${data.target}`);
+        scrollToSection(data.target);
+      }
+    } catch (e) {
+      console.error('Erro ao processar comando de navegação:', e);
+    }
+  });
 
   const tracks = useTracks([Track.Source.Unknown]);
   const transcriptions = useTranscriptions() as TextStreamData[];
   const room = useRoomContext();
 
   useEffect(() => {
-    // Verifica se existe uma faixa de áudio remota (do agente)
     const remoteAudioTrack = tracks.find(
-      (trackRef: { publication: TrackPublication; participant: { isLocal: any; }; }) =>
-        trackRef.publication.kind === Track.Kind.Audio && !trackRef.participant.isLocal
+      (trackRef) => trackRef.publication.kind === Track.Kind.Audio && !trackRef.participant.isLocal
     );
-
-    // Verifica se existe uma transcrição remota (do agente)
     const remoteTranscription = transcriptions.find(
       (t) => t.participantInfo?.identity !== room.localParticipant.identity
     );
-
-    // Se qualquer um dos dois existir, significa que o atendimento começou
     if (remoteAudioTrack || remoteTranscription) {
       onConnectionStatusChange('connected');
     }
@@ -191,7 +211,6 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     </>
   );
 };
-
 
 // --- Componente Principal da Sessão ---
 export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange, tokenApiUrl, solution, clientId }) => {
