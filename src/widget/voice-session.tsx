@@ -153,36 +153,14 @@ interface VoiceSessionUIProps {
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
-  const [isAutoNavEnabled, setIsAutoNavEnabled] = useState(false);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
   }, []);
 
-  // Hook para receber a configuração inicial do widget
-  useDataChannel('config_widget', (msg) => {
-    console.log('DEBUG: Mensagem recebida no tópico "config_widget":', msg);
-    try {
-      const decodedPayload = new TextDecoder().decode(msg.payload);
-      console.log('DEBUG: Payload decodificado (config_widget):', decodedPayload);
-      const data = JSON.parse(decodedPayload);
-      if (data.autonav === true) {
-        setIsAutoNavEnabled(true);
-        console.log('DEBUG: AutoNav Habilitado pelo Agente.');
-      }
-    } catch (e) {
-      console.error('DEBUG: Erro ao processar mensagem de configuração:', e);
-    }
-  });
-
-  // Hook para receber comandos de navegação
+  // Hook para receber comandos de navegação (sempre habilitado)
   useDataChannel('navigation_command', (msg) => {
     console.log('DEBUG: Mensagem recebida no tópico "navigation_command":', msg);
-    if (!isAutoNavEnabled) {
-      console.log('DEBUG: Navegação automática desabilitada. Comando ignorado.');
-      return;
-    }
-
     try {
       const decodedPayload = new TextDecoder().decode(msg.payload);
       console.log('DEBUG: Payload decodificado (navigation_command):', decodedPayload);
