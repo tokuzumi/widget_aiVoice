@@ -161,29 +161,38 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   // Hook para receber a configuração inicial do widget
   useDataChannel('config_widget', (msg) => {
+    console.log('DEBUG: Mensagem recebida no tópico "config_widget":', msg);
     try {
-      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      const decodedPayload = new TextDecoder().decode(msg.payload);
+      console.log('DEBUG: Payload decodificado (config_widget):', decodedPayload);
+      const data = JSON.parse(decodedPayload);
       if (data.autonav === true) {
         setIsAutoNavEnabled(true);
+        console.log('DEBUG: AutoNav Habilitado pelo Agente.');
       }
     } catch (e) {
-      console.error('Erro ao processar mensagem de configuração:', e);
+      console.error('DEBUG: Erro ao processar mensagem de configuração:', e);
     }
   });
 
   // Hook para receber comandos de navegação
   useDataChannel('navigation_command', (msg) => {
+    console.log('DEBUG: Mensagem recebida no tópico "navigation_command":', msg);
     if (!isAutoNavEnabled) {
+      console.log('DEBUG: Navegação automática desabilitada. Comando ignorado.');
       return;
     }
 
     try {
-      const data = JSON.parse(new TextDecoder().decode(msg.payload));
+      const decodedPayload = new TextDecoder().decode(msg.payload);
+      console.log('DEBUG: Payload decodificado (navigation_command):', decodedPayload);
+      const data = JSON.parse(decodedPayload);
       if (data.navigateTo) {
+        console.log(`DEBUG: Comando de navegação recebido: rolar para ${data.navigateTo}`);
         scrollToSection(data.navigateTo);
       }
     } catch (e) {
-      console.error('Erro ao processar comando de navegação:', e);
+      console.error('DEBUG: Erro ao processar comando de navegação:', e);
     }
   });
 
