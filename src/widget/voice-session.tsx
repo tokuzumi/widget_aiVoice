@@ -160,17 +160,13 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   // Hook para receber comandos de navegação (sempre habilitado)
   useDataChannel('navigation_command', (msg) => {
-    console.log('DEBUG: Mensagem recebida no tópico "navigation_command":', msg);
     try {
-      const decodedPayload = new TextDecoder().decode(msg.payload);
-      console.log('DEBUG: Payload decodificado (navigation_command):', decodedPayload);
-      const data = JSON.parse(decodedPayload);
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
       if (data.navigateTo) {
-        console.log(`DEBUG: Comando de navegação recebido: rolar para ${data.navigateTo}`);
         scrollToSection(data.navigateTo);
       }
     } catch (e) {
-      console.error('DEBUG: Erro ao processar comando de navegação:', e);
+      // Silenciosamente ignora erros de parsing em produção
     }
   });
 
@@ -227,7 +223,6 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
         setToken(data.token);
         setWsUrl(data.ws_url);
       } catch (error) {
-        console.error("Error getting LiveKit token:", error);
         onConnectionStatusChange('error');
       }
     };
