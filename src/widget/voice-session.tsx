@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
-import { Track } from 'livekit-client';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel, useConnectionState } from '@livekit/components-react';
+import { Track, ConnectionState } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
@@ -154,6 +154,12 @@ interface VoiceSessionUIProps {
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
   const [isAutoNavEnabled, setIsAutoNavEnabled] = useState(false);
+  const connectionState = useConnectionState();
+
+  // Log para o estado da conexão
+  useEffect(() => {
+    console.log(`[DEBUG] Room Connection State: ${connectionState}`);
+  }, [connectionState]);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
