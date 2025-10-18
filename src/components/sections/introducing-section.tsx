@@ -115,7 +115,7 @@ export const IntroducingSection = () => {
   }, [emblaApi, setScrollSnaps, onSelect]);
 
   return (
-    <section id="introducing" className="content-section bg-black text-white relative items-start justify-start pb-24 lg:pb-0">
+    <section className="content-section bg-black text-white relative items-start justify-start pb-24 lg:pb-0">
       <Image
         src={backgroundImage}
         alt="Background image for aiVoice Introducing Section"
@@ -124,7 +124,7 @@ export const IntroducingSection = () => {
         priority
       />
 
-      <div className="section-content-wrapper text-center lg:text-left relative z-10 pb-4 lg:pb-8">
+      <div id="introducing" className="section-content-wrapper text-center lg:text-left relative z-10 pb-4 lg:pb-8">
         <p className="section-eyebrow">por que aiVoice?</p>
         <h2 className="section-title text-white">
           A Melhor Solução de Atendimento com IA para Sites
