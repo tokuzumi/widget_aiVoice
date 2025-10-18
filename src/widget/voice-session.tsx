@@ -5,10 +5,10 @@ import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, 
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from './lib/utils';
 import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
-import { usePersistentUserId } from '@/hooks/use-persistent-user-id';
-import { transcriptionToChatMessage } from '@/lib/livekit-utils';
+import { usePersistentUserId } from './hooks/use-persistent-user-id';
+import { transcriptionToChatMessage } from './lib/livekit-utils';
 
 // --- Tipos e Interfaces ---
 export interface TextStreamData {
@@ -26,6 +26,9 @@ export interface TextStreamData {
 
 export interface VoiceSessionProps {
   onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
+  tokenApiUrl: string;
+  solution: string;
+  clientId: string;
 }
 
 // --- Componentes de UI Internos (movidos para cá para manter o escopo) ---
@@ -191,7 +194,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
 
 // --- Componente Principal da Sessão ---
-export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange }) => {
+export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange, tokenApiUrl, solution, clientId }) => {
   const [token, setToken] = useState<string | null>(null);
   const [wsUrl, setWsUrl] = useState<string | null>(null);
   const userId = usePersistentUserId();
@@ -202,12 +205,12 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
     const fetchToken = async () => {
       onConnectionStatusChange('connecting');
       try {
-        const response = await fetch(process.env.NEXT_PUBLIC_TOKEN_API_URL!, {
+        const response = await fetch(tokenApiUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            solution: process.env.NEXT_PUBLIC_SOLUTION,
-            clientId: process.env.NEXT_PUBLIC_CLIENTID,
+            solution: solution,
+            clientId: clientId,
             userId: userId,
           }),
         });
@@ -224,7 +227,7 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
     };
 
     fetchToken();
-  }, [userId, onConnectionStatusChange]);
+  }, [userId, onConnectionStatusChange, tokenApiUrl, solution, clientId]);
 
   if (!token || !wsUrl) {
     return null;

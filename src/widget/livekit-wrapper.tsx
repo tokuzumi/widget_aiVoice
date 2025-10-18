@@ -6,6 +6,9 @@ import React from 'react';
 // Redefinindo o tipo de props localmente para evitar a importação direta do módulo 'voice-session'
 interface VoiceSessionProps {
   onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
+  tokenApiUrl: string;
+  solution: string;
+  clientId: string;
 }
 
 // Importa VoiceSession dinamicamente com SSR desativado

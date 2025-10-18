@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer } from "@/components/footer";
@@ -12,7 +12,7 @@ import { HowYouManageSection } from "@/components/sections/how-you-manage-sectio
 import { PricingSection } from "@/components/sections/pricing-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { LenisProvider } from "@/components/lenis-provider";
-import { AiVoiceWidget } from "@/components/ai-voice-widget";
+import { AiVoiceWidget } from "@/widget/ai-voice-widget";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,8 +36,12 @@ export default function Home() {
 
       <Footer />
       
-      {/* Renderiza o widget de voz */}
-      <AiVoiceWidget />
+      {/* Renderiza o widget de voz, passando a configuração via props */}
+      <AiVoiceWidget 
+        tokenApiUrl={process.env.NEXT_PUBLIC_TOKEN_API_URL!}
+        solution={process.env.NEXT_PUBLIC_SOLUTION!}
+        clientId={process.env.NEXT_PUBLIC_CLIENTID!}
+      />
     </LenisProvider>
   );
 }

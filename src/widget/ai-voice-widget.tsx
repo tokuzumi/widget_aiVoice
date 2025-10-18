@@ -2,9 +2,10 @@
 
 import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import { cn } from './lib/utils';
 import { ArrowUpRight } from 'lucide-react';
-import { LiveKitWrapper } from './livekit-wrapper'; // Importando o novo wrapper
+import { LiveKitWrapper } from './livekit-wrapper';
+import './widget.css';
 
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 
@@ -65,7 +66,13 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ connectionStatus, onTog
 };
 
 // --- Main Widget Orchestrator ---
-export const AiVoiceWidget = () => {
+interface AiVoiceWidgetProps {
+  tokenApiUrl: string;
+  solution: string;
+  clientId: string;
+}
+
+export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solution, clientId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
 
@@ -90,7 +97,14 @@ export const AiVoiceWidget = () => {
         <FloatingButton connectionStatus={isOpen ? connectionStatus : 'idle'} onToggle={handleToggle} />
       </div>
 
-      {isOpen && <LiveKitWrapper onConnectionStatusChange={handleConnectionStatusChange} />}
+      {isOpen && (
+        <LiveKitWrapper
+          onConnectionStatusChange={handleConnectionStatusChange}
+          tokenApiUrl={tokenApiUrl}
+          solution={solution}
+          clientId={clientId}
+        />
+      )}
     </>
   );
 };

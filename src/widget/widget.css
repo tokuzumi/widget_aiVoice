@@ -1,0 +1,24 @@
+/* Custom Scrollbar Styling for Webkit browsers (Chrome, Safari) */
+.av-custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.av-custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.av-custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #374151; /* gray-700 */
+    border-radius: 3px;
+}
+
+/* Marquee Animation Keyframes */
+@keyframes marquee {
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* Marquee Utility Class */
+.av-animate-marquee {
+    animation: marquee 15s linear infinite;
+}
