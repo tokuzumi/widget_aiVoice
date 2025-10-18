@@ -174,13 +174,17 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   // Hook para receber comandos de navegação
   useDataChannel('navigation_command', (msg) => {
-    if (!isAutoNavEnabled) return; // Só executa se a navegação estiver habilitada
+    if (!isAutoNavEnabled) {
+      console.log('Navegação automática desabilitada. Comando ignorado.');
+      return;
+    }
 
     try {
       const data = JSON.parse(new TextDecoder().decode(msg.payload));
-      if (data.action === 'scroll_to' && data.target) {
-        console.log(`Comando de navegação recebido: rolar para ${data.target}`);
-        scrollToSection(data.target);
+      // Agora esperamos pela chave 'navigateTo'
+      if (data.navigateTo) {
+        console.log(`Comando de navegação recebido: rolar para ${data.navigateTo}`);
+        scrollToSection(data.navigateTo);
       }
     } catch (e) {
       console.error('Erro ao processar comando de navegação:', e);
