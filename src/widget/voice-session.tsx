@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel, useConnectionState } from '@livekit/components-react';
-import { Track, ConnectionState } from 'livekit-client';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
+import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
@@ -154,12 +154,6 @@ interface VoiceSessionUIProps {
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
   const [isAutoNavEnabled, setIsAutoNavEnabled] = useState(false);
-  const connectionState = useConnectionState();
-
-  // Log para o estado da conexão
-  useEffect(() => {
-    console.log(`[DEBUG] Room Connection State: ${connectionState}`);
-  }, [connectionState]);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
@@ -167,38 +161,29 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   // Hook para receber a configuração inicial do widget
   useDataChannel('config_widget', (msg) => {
-    console.log('DEBUG: Mensagem recebida no tópico "config_widget":', msg);
     try {
-      const decodedPayload = new TextDecoder().decode(msg.payload);
-      console.log('DEBUG: Payload decodificado (config_widget):', decodedPayload);
-      const data = JSON.parse(decodedPayload);
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
       if (data.autonav === true) {
         setIsAutoNavEnabled(true);
-        console.log('DEBUG: AutoNav Habilitado pelo Agente.');
       }
     } catch (e) {
-      console.error('DEBUG: Erro ao processar mensagem de configuração:', e);
+      console.error('Erro ao processar mensagem de configuração:', e);
     }
   });
 
   // Hook para receber comandos de navegação
   useDataChannel('navigation_command', (msg) => {
-    console.log('DEBUG: Mensagem recebida no tópico "navigation_command":', msg);
     if (!isAutoNavEnabled) {
-      console.log('DEBUG: Navegação automática desabilitada. Comando ignorado.');
       return;
     }
 
     try {
-      const decodedPayload = new TextDecoder().decode(msg.payload);
-      console.log('DEBUG: Payload decodificado (navigation_command):', decodedPayload);
-      const data = JSON.parse(decodedPayload);
+      const data = JSON.parse(new TextDecoder().decode(msg.payload));
       if (data.navigateTo) {
-        console.log(`DEBUG: Comando de navegação recebido: rolar para ${data.navigateTo}`);
         scrollToSection(data.navigateTo);
       }
     } catch (e) {
-      console.error('DEBUG: Erro ao processar comando de navegação:', e);
+      console.error('Erro ao processar comando de navegação:', e);
     }
   });
 
