@@ -1,15 +1,26 @@
 "use client";
 
 import dynamic from 'next/dynamic';
-import type { VoiceSessionProps } from './types';
+import React from 'react';
 
-// Importa dinamicamente o VoiceSession, garantindo que ele nunca seja incluído no build do servidor.
-const VoiceSession = dynamic(
+// Redefinindo o tipo de props localmente para evitar a importação direta do módulo 'voice-session'
+interface VoiceSessionProps {
+  onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
+  tokenApiUrl: string;
+  solution: string;
+  clientId: string;
+}
+
+// Importa VoiceSession dinamicamente com SSR desativado
+const DynamicVoiceSession = dynamic<VoiceSessionProps>(
+  // Agora usamos mod.default para carregar a exportação padrão
   () => import('./voice-session').then((mod) => mod.default),
   { ssr: false }
 );
 
-// Este wrapper atua como uma "barreira" segura para o componente principal do LiveKit.
-export const LiveKitWrapper = (props: VoiceSessionProps) => {
-  return <VoiceSession {...props} />;
+interface LiveKitWrapperProps extends VoiceSessionProps {}
+
+export const LiveKitWrapper: React.FC<LiveKitWrapperProps> = (props) => {
+  // Renderiza o componente LiveKitSession apenas no cliente
+  return <DynamicVoiceSession {...props} />;
 };
