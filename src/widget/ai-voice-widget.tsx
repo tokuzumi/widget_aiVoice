@@ -77,28 +77,24 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
 
   const handleToggle = useCallback(() => {
-    setIsOpen(prev => !prev);
+    setIsOpen(prev => {
+      const nextState = !prev;
+      if (!nextState) {
+        // Se está fechando, reseta o status
+        setConnectionStatus('idle');
+      }
+      return nextState;
+    });
   }, []);
 
   const handleConnectionStatusChange = useCallback((status: 'connecting' | 'connected' | 'error') => {
     setConnectionStatus(status);
-    // Se o widget for fechado enquanto estiver conectado, resete o status para idle
-    if (!isOpen && status !== 'idle') {
-        setConnectionStatus('idle');
-    }
-  }, [isOpen]);
-
-  // Efeito para resetar o status quando o widget é fechado
-  useEffect(() => {
-    if (!isOpen) {
-      setConnectionStatus('idle');
-    }
-  }, [isOpen]);
+  }, []);
 
   return (
     <>
       <div id="ai-voice-widget" className="fixed bottom-4 right-4 z-[1000] max-md:right-1/2 max-md:transform max-md:translate-x-1/2">
-        <FloatingButton connectionStatus={connectionStatus} onToggle={handleToggle} />
+        <FloatingButton connectionStatus={isOpen ? connectionStatus : 'idle'} onToggle={handleToggle} />
       </div>
 
       {isOpen && (
