@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useRoomContext, RoomAudioRenderer, useDataChannel } from '@livekit/components-react';
-import { Track } from 'livekit-client';
+import { LiveKitRoom, useRoomContext, RoomAudioRenderer, useDataChannel } from '@livekit-components-react';
+import { RoomEvent, Track } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
 import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
@@ -155,17 +155,30 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   // --- RPC e Lógica de Comunicação ---
 
   useEffect(() => {
-    // Apenas registra o handler se o participante local estiver pronto
-    if (room.localParticipant) {
-      const handler = (payload: Uint8Array) => {
-        const data = JSON.parse(new TextDecoder().decode(payload));
-        const agentMessage: ChatMessage = { sender: 'agent', text: data.text };
-        setChatMessages((prev) => [...prev, agentMessage]);
-      };
-      room.localParticipant.registerRpcHandler('client.display_message', handler);
-      return () => room.localParticipant.unregisterRpcHandler('client.display_message');
+    const rpcHandler = (payload: Uint8Array) => {
+      const data = JSON.parse(new TextDecoder().decode(payload));
+      const agentMessage: ChatMessage = { sender: 'agent', text: data.text };
+      setChatMessages((prev) => [...prev, agentMessage]);
+    };
+
+    const setupRpc = () => {
+      room.localParticipant.registerRpcHandler('client.display_message', rpcHandler);
+    };
+
+    // Se já estiver conectado quando o componente montar, configure o RPC imediatamente.
+    if (room.state === 'connected') {
+      setupRpc();
     }
-  }, [room, room.localParticipant]); // Depende do localParticipant para re-executar quando estiver pronto
+
+    // Ouça o evento de conexão para configurar o RPC assim que estiver pronto.
+    room.on(RoomEvent.Connected, setupRpc);
+
+    return () => {
+      room.off(RoomEvent.Connected, setupRpc);
+      // Garante que o handler seja removido se o participante local existir
+      room.localParticipant?.unregisterRpcHandler('client.display_message');
+    };
+  }, [room, setChatMessages]);
 
   const handleSendTextMessage = useCallback(async (text: string) => {
     const userMessage: ChatMessage = { sender: 'user', text };
