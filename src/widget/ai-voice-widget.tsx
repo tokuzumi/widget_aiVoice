@@ -4,7 +4,7 @@ import React, { useState, useCallback } from 'react';
 import Image from 'next/image';
 import { cn } from './lib/utils';
 import { ArrowUpRight } from 'lucide-react';
-import dynamic from 'next/dynamic';
+import { LiveKitWrapper } from './livekit-wrapper';
 import './widget.css';
 
 const AI_VOICE_LOGO_SRC = "/widget_logo.png";
@@ -72,17 +72,6 @@ interface AiVoiceWidgetProps {
   clientId: string;
 }
 
-// Redefine props for dynamic import
-interface VoiceSessionProps extends AiVoiceWidgetProps {
-  onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
-}
-
-// Dynamically import VoiceSession to ensure it's client-side only
-const DynamicVoiceSession = dynamic<VoiceSessionProps>(
-  () => import('./voice-session').then((mod) => mod.default),
-  { ssr: false }
-);
-
 export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solution, clientId }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
@@ -109,7 +98,7 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
       </div>
 
       {isOpen && (
-        <DynamicVoiceSession
+        <LiveKitWrapper
           onConnectionStatusChange={handleConnectionStatusChange}
           tokenApiUrl={tokenApiUrl}
           solution={solution}

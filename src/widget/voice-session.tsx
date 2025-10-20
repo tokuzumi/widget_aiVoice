@@ -8,18 +8,12 @@ import { cn } from './lib/utils';
 import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { scrollToSection } from './lib/navigation';
+import type { VoiceSessionProps } from './types';
 
 // --- Tipos e Interfaces ---
 interface ChatMessage {
   sender: 'user' | 'agent';
   text: string;
-}
-
-export interface VoiceSessionProps {
-  onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
-  tokenApiUrl: string;
-  solution: string;
-  clientId: string;
 }
 
 // --- Componentes de UI Internos ---
@@ -233,7 +227,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 };
 
 // --- Componente Principal da Sessão ---
-export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange, tokenApiUrl, solution, clientId }) => {
+const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange, tokenApiUrl, solution, clientId }) => {
   const [token, setToken] = useState<string | null>(null);
   const [wsUrl, setWsUrl] = useState<string | null>(null);
   const userId = usePersistentUserId();
