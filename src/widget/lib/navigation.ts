@@ -15,7 +15,7 @@ export const scrollToSection = (sectionId: string) => {
     duration: 1.5, // Duração da animação em segundos
     scrollTo: {
       y: sectionId,
-      offsetY: 0 // Corrigido para 0 para um alinhamento exato
+      offsetY: 50 // Deixa um pequeno espaço no topo da seção
     },
     ease: 'power2.inOut', // Easing para uma animação suave
   });
