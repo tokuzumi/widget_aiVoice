@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant } from 'livekit-client';
 import Image from 'next/image';
@@ -22,9 +22,6 @@ export interface TextStreamData {
   };
   participant?: Participant;
 }
-
-// NOVO: Tipo para unificar mensagens de texto e transcrições
-type UnifiedMessage = ReceivedChatMessage & { type: 'chat' | 'transcription' };
 
 export interface VoiceSessionProps {
   onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
@@ -70,27 +67,41 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isVoiceEnabled, onToggleV
 
 // --- Chat Window Component ---
 interface ChatWindowProps {
-  messages: UnifiedMessage[];
-  onSendMessage: (message: string) => void;
   isVoiceEnabled: boolean;
 }
 
-const ChatWindow: React.FC<ChatWindowProps> = ({ messages, onSendMessage, isVoiceEnabled }) => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ isVoiceEnabled }) => {
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const room = useRoomContext();
 
+  // RESTAURADO: useChat gerencia o envio e recebimento de texto
+  const { chatMessages, send } = useChat();
+  const transcriptions = useTranscriptions() as TextStreamData[];
+
+  // A lógica para combinar mensagens de texto e transcrições de voz agora está aqui
+  const allMessages = useMemo(() => {
+    const formattedTranscriptions: ReceivedChatMessage[] = transcriptions.map(t =>
+      transcriptionToChatMessage(t)
+    );
+    
+    const combined = [...chatMessages, ...formattedTranscriptions];
+    combined.sort((a, b) => a.timestamp - b.timestamp);
+    return combined;
+  }, [chatMessages, transcriptions]);
+
+  // RESTAURADO: O envio de formulário usa a função 'send' do useChat
   const handleFormSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    if (inputMessage.trim() !== '') {
-      onSendMessage(inputMessage);
+    if (inputMessage.trim() !== '' && send) {
+      send(inputMessage);
       setInputMessage('');
     }
-  }, [inputMessage, onSendMessage]);
+  }, [inputMessage, send]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [allMessages]);
 
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
@@ -103,7 +114,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ messages, onSendMessage, isVoic
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           
-          {messages.map((msg, index) => {
+          {allMessages.map((msg, index) => {
             const isLocalUser = msg.from?.identity === room.localParticipant.identity;
 
             return (
@@ -142,40 +153,9 @@ interface VoiceSessionUIProps {
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
-  const [chatMessages, setChatMessages] = useState<UnifiedMessage[]>([]);
   const room = useRoomContext();
-  const transcriptions = useTranscriptions() as TextStreamData[];
 
-  // ALTERADO: Combina mensagens de chat (estado local) e transcrições de voz
-  const allMessages = useMemo(() => {
-    const formattedTranscriptions: UnifiedMessage[] = transcriptions.map(t => ({
-      ...transcriptionToChatMessage(t),
-      type: 'transcription',
-    }));
-    
-    const combined = [...chatMessages, ...formattedTranscriptions];
-    combined.sort((a, b) => a.timestamp - b.timestamp);
-    return combined;
-  }, [chatMessages, transcriptions]);
-
-  // NOVO: Manipulador para receber texto do agente via RPC
-  useDataChannel('client.receive_text', (msg) => {
-    try {
-      const data = JSON.parse(new TextDecoder().decode(msg.payload));
-      if (data.text) {
-        const agentMessage: UnifiedMessage = {
-          id: Math.random().toString(),
-          timestamp: Date.now(),
-          message: data.text,
-          from: { identity: msg.from?.identity ?? 'agent', isLocal: false } as any,
-          type: 'chat',
-        };
-        setChatMessages(prev => [...prev, agentMessage]);
-      }
-    } catch (e) {
-      console.error("Erro ao processar RPC client.receive_text:", e);
-    }
-  });
+  // REMOVIDO: Estado de chat e handlers de RPC para texto.
 
   useEffect(() => {
     room.localParticipant.setMicrophoneEnabled(false);
@@ -194,26 +174,6 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     }
   }, [isVoiceEnabled, room]);
 
-  // NOVO: Manipulador para enviar texto do usuário via RPC
-  const handleSendMessage = useCallback(async (message: string) => {
-    if (isVoiceEnabled) return; // Não envia texto se a voz estiver ativa
-
-    const userMessage: UnifiedMessage = {
-      id: Math.random().toString(),
-      timestamp: Date.now(),
-      message: message,
-      from: room.localParticipant,
-      type: 'chat',
-    };
-    setChatMessages(prev => [...prev, userMessage]);
-
-    try {
-      await room.localParticipant.perform_rpc("agent.send_text", JSON.stringify({ text: message }));
-    } catch (error) {
-      console.error("Erro ao enviar RPC agent.send_text:", error);
-    }
-  }, [isVoiceEnabled, room]);
-
   useDataChannel('navigation_command', (msg) => {
     try {
       const data = JSON.parse(new TextDecoder().decode(msg.payload));
@@ -224,6 +184,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   });
 
   const tracks = useTracks([Track.Source.Unknown]);
+  const transcriptions = useTranscriptions() as TextStreamData[];
   useEffect(() => {
     const remoteAudioTrack = tracks.find(
       (trackRef) => trackRef.publication.kind === Track.Kind.Audio && !trackRef.participant.isLocal
@@ -240,7 +201,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     <>
       <RoomAudioRenderer />
       <ActionButtons isVoiceEnabled={isVoiceEnabled} onToggleVoice={handleVoiceToggle} />
-      <ChatWindow messages={allMessages} onSendMessage={handleSendMessage} isVoiceEnabled={isVoiceEnabled} />
+      <ChatWindow isVoiceEnabled={isVoiceEnabled} />
     </>
   );
 };
