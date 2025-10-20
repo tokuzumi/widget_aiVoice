@@ -38,15 +38,11 @@ const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 interface ActionButtonsProps {
   isChatWindowOpen: boolean;
   onToggleChatWindow: () => void;
+  isVoiceModeActive: boolean;
+  onVoiceToggle: () => void;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow }) => {
-  const [isMicEnabled, setIsMicEnabled] = useState(true);
-
-  const handleMicToggle = useCallback(() => {
-    setIsMicEnabled(prev => !prev);
-  }, []);
-
+const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow, isVoiceModeActive, onVoiceToggle }) => {
   return (
     <div className="av-action-buttons-container fixed bottom-[77px] right-4 z-[1001] flex flex-col gap-2 flex-shrink-0 w-12">
       <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Volume">
@@ -58,7 +54,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
       <button onClick={onToggleChatWindow} className={cn('av-action-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', isChatWindowOpen ? 'bg-accent hover:bg-accent/90 text-black border-black' : 'bg-black border-gray-700 text-white hover:bg-gray-800')} aria-label={isChatWindowOpen ? 'Fechar chat' : 'Abrir chat'}>
         <MessageSquare className="h-5 w-5" />
       </button>
-      <button onClick={handleMicToggle} className={cn('av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', isMicEnabled ? 'bg-accent hover:bg-accent/90 text-black border-black' : 'bg-black border-gray-700 text-white hover:bg-gray-800')} aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}>
+      <button onClick={onVoiceToggle} className={cn('av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', isVoiceModeActive ? 'bg-accent hover:bg-accent/90 text-black border-black' : 'bg-black border-gray-700 text-white hover:bg-gray-800')} aria-label={isVoiceModeActive ? 'Desativar microfone' : 'Ativar microfone'}>
         <Mic className="h-5 w-5" />
       </button>
     </div>
@@ -153,10 +149,22 @@ interface VoiceSessionUIProps {
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
+  const [isVoiceModeActive, setIsVoiceModeActive] = useState(false);
+  const room = useRoomContext();
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
   }, []);
+
+  const handleVoiceToggle = useCallback(() => {
+    const newVoiceState = !isVoiceModeActive;
+    if (newVoiceState) {
+      room.localParticipant.sendRPC('enable_voice_mode');
+    } else {
+      room.localParticipant.sendRPC('disable_voice_mode');
+    }
+    setIsVoiceModeActive(newVoiceState);
+  }, [isVoiceModeActive, room.localParticipant]);
 
   // Hook para receber comandos de navegação (sempre habilitado)
   useDataChannel('navigation_command', (msg) => {
@@ -172,7 +180,6 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   const tracks = useTracks([Track.Source.Unknown]);
   const transcriptions = useTranscriptions() as TextStreamData[];
-  const room = useRoomContext();
 
   useEffect(() => {
     const remoteAudioTrack = tracks.find(
@@ -189,7 +196,12 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   return (
     <>
       <RoomAudioRenderer />
-      <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} />
+      <ActionButtons 
+        isChatWindowOpen={isChatWindowOpen} 
+        onToggleChatWindow={handleToggleChatWindow}
+        isVoiceModeActive={isVoiceModeActive}
+        onVoiceToggle={handleVoiceToggle}
+      />
       {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
   );
