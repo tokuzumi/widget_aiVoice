@@ -155,15 +155,17 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   // --- RPC e Lógica de Comunicação ---
 
   useEffect(() => {
-    // Registra o "ouvinte" para mensagens recebidas do agente
-    const handler = (payload: Uint8Array) => {
-      const data = JSON.parse(new TextDecoder().decode(payload));
-      const agentMessage: ChatMessage = { sender: 'agent', text: data.text };
-      setChatMessages((prev) => [...prev, agentMessage]);
-    };
-    room.localParticipant.registerRpcHandler('client.display_message', handler);
-    return () => room.localParticipant.unregisterRpcHandler('client.display_message');
-  }, [room]);
+    // Apenas registra o handler se o participante local estiver pronto
+    if (room.localParticipant) {
+      const handler = (payload: Uint8Array) => {
+        const data = JSON.parse(new TextDecoder().decode(payload));
+        const agentMessage: ChatMessage = { sender: 'agent', text: data.text };
+        setChatMessages((prev) => [...prev, agentMessage]);
+      };
+      room.localParticipant.registerRpcHandler('client.display_message', handler);
+      return () => room.localParticipant.unregisterRpcHandler('client.display_message');
+    }
+  }, [room, room.localParticipant]); // Depende do localParticipant para re-executar quando estiver pronto
 
   const handleSendTextMessage = useCallback(async (text: string) => {
     const userMessage: ChatMessage = { sender: 'user', text };
