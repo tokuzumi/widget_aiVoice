@@ -3,10 +3,10 @@
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
 import { Track } from 'livekit-client';
-import type { Participant } from 'livekit-client';
+import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
-import { Mic, Volume2, Phone, ArrowUp } from 'lucide-react';
+import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus } from 'lucide-react';
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
 import { scrollToSection } from './lib/navigation';
@@ -36,11 +36,17 @@ const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 
 // --- Action Buttons Component ---
 interface ActionButtonsProps {
-  isVoiceEnabled: boolean;
-  onToggleVoice: () => void;
+  isChatWindowOpen: boolean;
+  onToggleChatWindow: () => void;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({ isVoiceEnabled, onToggleVoice }) => {
+const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow }) => {
+  const [isMicEnabled, setIsMicEnabled] = useState(true);
+
+  const handleMicToggle = useCallback(() => {
+    setIsMicEnabled(prev => !prev);
+  }, []);
+
   return (
     <div className="av-action-buttons-container fixed bottom-[77px] right-4 z-[1001] flex flex-col gap-2 flex-shrink-0 w-12">
       <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Volume">
@@ -49,16 +55,10 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isVoiceEnabled, onToggleV
       <button className="av-action-button w-12 h-12 rounded-full bg-black border border-gray-700 text-white hover:bg-gray-800 transition-colors flex items-center justify-center" aria-label="Encerrar chamada">
         <Phone className="h-5 w-5" />
       </button>
-      <button
-        onClick={onToggleVoice}
-        className={cn(
-          'av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center',
-          isVoiceEnabled
-            ? 'bg-accent hover:bg-accent/90 text-black border-black'
-            : 'bg-black border-gray-700 text-white hover:bg-gray-800'
-        )}
-        aria-label={isVoiceEnabled ? 'Desativar voz' : 'Ativar voz'}
-      >
+      <button onClick={onToggleChatWindow} className={cn('av-action-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', isChatWindowOpen ? 'bg-accent hover:bg-accent/90 text-black border-black' : 'bg-black border-gray-700 text-white hover:bg-gray-800')} aria-label={isChatWindowOpen ? 'Fechar chat' : 'Abrir chat'}>
+        <MessageSquare className="h-5 w-5" />
+      </button>
+      <button onClick={handleMicToggle} className={cn('av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', isMicEnabled ? 'bg-accent hover:bg-accent/90 text-black border-black' : 'bg-black border-gray-700 text-white hover:bg-gray-800')} aria-label={isMicEnabled ? 'Desativar microfone' : 'Ativar microfone'}>
         <Mic className="h-5 w-5" />
       </button>
     </div>
@@ -66,9 +66,11 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isVoiceEnabled, onToggleV
 };
 
 // --- Chat Window Component ---
-interface ChatWindowProps {}
+interface ChatWindowProps {
+  onClose: () => void;
+}
 
-const ChatWindow: React.FC<ChatWindowProps> = () => {
+const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
   const [inputMessage, setInputMessage] = useState('');
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
@@ -106,6 +108,9 @@ const ChatWindow: React.FC<ChatWindowProps> = () => {
             <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={24} height={24} className="w-6 h-6" />
             <span className="text-sm font-semibold text-white">Thais</span>
           </div>
+          <button onClick={onClose} className="text-gray-500 hover:text-white transition-colors p-1 rounded-full" aria-label="Minimizar chat">
+            <Minus className="h-5 w-5" />
+          </button>
         </div>
         <div className="av-chat-messages-area flex-1 overflow-y-auto flex flex-col gap-2 p-2 av-custom-scrollbar">
           
@@ -147,40 +152,11 @@ interface VoiceSessionUIProps {
 }
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange }) => {
-  const [isVoiceEnabled, setIsVoiceEnabled] = useState(false);
-  const room = useRoomContext();
+  const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
 
-  useEffect(() => {
-    // Desativa o microfone local assim que a conexão estiver pronta
-    room.localParticipant.setMicrophoneEnabled(false);
-
-    // Função de limpeza (opcional, mas boa prática)
-    return () => {
-       // Pode reativar se necessário ao desmontar, mas geralmente não é preciso
-       // room.localParticipant.setMicrophoneEnabled(true);
-    };
-  }, [room]); // Executa quando 'room' estiver disponível
-
-  const handleVoiceToggle = useCallback(async () => {
-    const nextVoiceState = !isVoiceEnabled;
-    setIsVoiceEnabled(nextVoiceState);
-
-    // Controla o microfone local
-    await room.localParticipant.setMicrophoneEnabled(nextVoiceState);
-
-    // Envia o comando RPC para o backend
-    const rpcMethod = nextVoiceState ? "agent.activate_voice" : "agent.deactivate_voice";
-    try {
-      // perform_rpc não retorna valor significativo diretamente, mas pode lançar erro
-       await room.localParticipant.perform_rpc(rpcMethod, "{}"); // Envia payload JSON vazio
-      console.log(`RPC ${rpcMethod} enviado com sucesso.`);
-    } catch (error) {
-      console.error(`Erro ao enviar RPC ${rpcMethod}:`, error);
-      // Opcional: Reverter o estado visual se o RPC falhar?
-      // setIsVoiceEnabled(!nextVoiceState);
-      // await room.localParticipant.setMicrophoneEnabled(!nextVoiceState);
-    }
-  }, [isVoiceEnabled, room]);
+  const handleToggleChatWindow = useCallback(() => {
+    setIsChatWindowOpen(prev => !prev);
+  }, []);
 
   // Hook para receber comandos de navegação (sempre habilitado)
   useDataChannel('navigation_command', (msg) => {
@@ -196,6 +172,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
   const tracks = useTracks([Track.Source.Unknown]);
   const transcriptions = useTranscriptions() as TextStreamData[];
+  const room = useRoomContext();
 
   useEffect(() => {
     const remoteAudioTrack = tracks.find(
@@ -212,8 +189,8 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   return (
     <>
       <RoomAudioRenderer />
-      <ActionButtons isVoiceEnabled={isVoiceEnabled} onToggleVoice={handleVoiceToggle} />
-      <ChatWindow />
+      <ActionButtons isChatWindowOpen={isChatWindowOpen} onToggleChatWindow={handleToggleChatWindow} />
+      {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
   );
 };
