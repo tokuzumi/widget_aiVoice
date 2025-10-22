@@ -107,20 +107,23 @@ export const EvolutionSection = () => {
             </div>
           </div>
 
-          {/* Coluna 2: 70% - Timeline e Conteúdo */}
-          <div className="lg:col-span-7 px-8 lg:px-16 mt-12 lg:mt-0">
+          {/* Coluna 2: 70% - Timeline e Conteúdo (sem padding aqui) */}
+          <div className="lg:col-span-7 mt-12 lg:mt-0">
             <EvolutionTimeline 
               stages={evolutionStages}
               activeIndex={activeIndex} 
               onStageChange={changeStage} 
             />
-            <div ref={contentRef} className="w-full lg:w-3/4 text-center lg:text-left mt-16 lg:mt-24">
-              <h4 className="text-3xl md:text-4xl font-medium mb-4">
-                {currentStage.title}
-              </h4>
-              <p className="section-paragraph text-brand-gray">
-                {currentStage.paragraph}
-              </p>
+            {/* Wrapper para o conteúdo com o padding necessário */}
+            <div className="px-8 lg:px-16">
+              <div ref={contentRef} className="w-full lg:w-3/4 text-center lg:text-left mt-16 lg:mt-24">
+                <h4 className="text-3xl md:text-4xl font-medium mb-4">
+                  {currentStage.title}
+                </h4>
+                <p className="section-paragraph text-brand-gray">
+                  {currentStage.paragraph}
+                </p>
+              </div>
             </div>
           </div>
         </div>
