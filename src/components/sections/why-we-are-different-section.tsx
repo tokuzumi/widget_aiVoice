@@ -4,11 +4,11 @@ import React from 'react';
 
 const PlaceholderItem = ({ title, text }: { title: string, text: string }) => (
   <div className="flex flex-col">
-    <h3 className="text-xl font-medium mb-4 text-white">
+    <h4 className="text-3xl md:text-4xl font-medium mb-4 text-white">
       {title}
-    </h3>
+    </h4>
     <div className="w-full h-px bg-white mb-4"></div>
-    <p className="section-paragraph !text-sm text-brand-gray">
+    <p className="section-paragraph text-brand-gray">
       {text}
     </p>
   </div>
@@ -50,6 +50,18 @@ export const WhyWeAreDifferentSection = () => {
             <PlaceholderItem 
               title="Placeholder Title 3"
               text="This is a placeholder paragraph for the third item."
+            />
+            <PlaceholderItem 
+              title="Placeholder Title 4"
+              text="This is a placeholder paragraph for the fourth item."
+            />
+            <PlaceholderItem 
+              title="Placeholder Title 5"
+              text="This is a placeholder paragraph for the fifth item."
+            />
+            <PlaceholderItem 
+              title="Placeholder Title 6"
+              text="This is a placeholder paragraph for the sixth item."
             />
           </div>
         </div>
