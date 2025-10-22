@@ -90,8 +90,20 @@ export const EvolutionSection = () => {
 
       {/* Container principal para o layout de duas colunas */}
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-10 lg:items-center">
-          
+        
+        {/* LINHA 1: TIMELINE */}
+        <div className="grid grid-cols-1 lg:grid-cols-10">
+          <div className="lg:col-start-4 lg:col-span-7">
+            <EvolutionTimeline 
+              stages={evolutionStages}
+              activeIndex={activeIndex} 
+              onStageChange={changeStage} 
+            />
+          </div>
+        </div>
+
+        {/* LINHA 2: CONTEÚDO */}
+        <div className="grid grid-cols-1 lg:grid-cols-10 mt-16 lg:mt-24">
           {/* Coluna 1: 30% - Impact Text e Navegação */}
           <div className="lg:col-span-3 px-8 lg:px-16 flex flex-col justify-center">
             <h3 className="impact-text text-white mb-8 text-center lg:text-left">
@@ -107,23 +119,15 @@ export const EvolutionSection = () => {
             </div>
           </div>
 
-          {/* Coluna 2: 70% - Timeline e Conteúdo (sem padding aqui) */}
-          <div className="lg:col-span-7 mt-12 lg:mt-0">
-            <EvolutionTimeline 
-              stages={evolutionStages}
-              activeIndex={activeIndex} 
-              onStageChange={changeStage} 
-            />
-            {/* Wrapper para o conteúdo com o padding necessário */}
-            <div className="px-8 lg:px-16">
-              <div ref={contentRef} className="w-full lg:w-3/4 text-center lg:text-left mt-16 lg:mt-24">
-                <h4 className="text-3xl md:text-4xl font-medium mb-4">
-                  {currentStage.title}
-                </h4>
-                <p className="section-paragraph text-brand-gray">
-                  {currentStage.paragraph}
-                </p>
-              </div>
+          {/* Coluna 2: 70% - Conteúdo */}
+          <div className="lg:col-span-7 px-8 lg:px-16">
+            <div ref={contentRef} className="w-full lg:w-3/4 text-center lg:text-left">
+              <h4 className="text-3xl md:text-4xl font-medium mb-4">
+                {currentStage.title}
+              </h4>
+              <p className="section-paragraph text-brand-gray">
+                {currentStage.paragraph}
+              </p>
             </div>
           </div>
         </div>
