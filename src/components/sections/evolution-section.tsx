@@ -86,6 +86,9 @@ export const EvolutionSection = () => {
         <h2 className="section-title text-white">
           A Nova Geração de Sites
         </h2>
+        <p className="section-paragraph text-brand-gray">
+          A verdadeira questão não é mais SE você vai usar IA no seu site, mas COMO vai usá-la para criar uma vantagem real sobre seus concorrentes.
+        </p>
       </div>
 
       {/* Container principal para o layout de duas colunas */}
