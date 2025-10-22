@@ -2,46 +2,36 @@
 
 import React from 'react';
 
-const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, subtitle: string, text: string, keywords: string[] }) => {
+const PlaceholderItem = ({ title, text, keywords }: { title: string, text: string, keywords: string[] }) => {
   const half = Math.ceil(keywords.length / 2);
   const firstHalf = keywords.slice(0, half);
   const secondHalf = keywords.slice(half);
 
   return (
-    <div className="w-full">
-      {/* Título e Linha (Estrutura vertical) */}
-      <h4 className="text-3xl md:text-4xl font-medium mb-4 text-white">{title}</h4>
-      <div className="w-full h-px bg-white mb-4"></div>
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-8 lg:gap-x-16 gap-y-4 items-start">
+      {/* Left Column: Title */}
+      <div className="lg:col-span-1">
+        <h4 className="text-4xl md:text-5xl font-medium text-white leading-tight">{title}</h4>
+      </div>
 
-      {/* Box de Conteúdo do Ítem (Estrutura de 3 colunas) */}
-      <div className="grid grid-cols-1 lg:grid-cols-20 gap-x-4 gap-y-4 lg:items-start">
-        {/* Coluna 1: Subtítulo (25%) */}
-        <div className="lg:col-span-5">
-          <h5 className="text-2xl md:text-3xl font-medium text-white">{subtitle}</h5>
-        </div>
-
-        {/* Coluna 2: Espaço Negativo (10%) */}
-        <div className="hidden lg:block lg:col-span-2"></div>
-
-        {/* Coluna 3: Parágrafo e Keywords (65%) */}
-        <div className="lg:col-span-13">
-          <p className="section-paragraph text-brand-gray mb-6">{text}</p>
-          
-          <div className="grid grid-cols-2 gap-x-4 gap-y-2">
-            <div className="flex flex-col gap-y-2">
-              {firstHalf.map((keyword, index) => (
-                <span key={index} className="text-sm text-gray-400">
-                  {keyword}
-                </span>
-              ))}
-            </div>
-            <div className="flex flex-col gap-y-2">
-              {secondHalf.map((keyword, index) => (
-                <span key={index} className="text-sm text-gray-400">
-                  {keyword}
-                </span>
-              ))}
-            </div>
+      {/* Right Column: Paragraph and Keywords */}
+      <div className="lg:col-span-1">
+        <p className="section-paragraph text-brand-gray mb-12">{text}</p>
+        
+        <div className="grid grid-cols-2 gap-x-8 gap-y-3">
+          <div className="flex flex-col gap-y-3">
+            {firstHalf.map((keyword, index) => (
+              <span key={index} className="text-base text-white">
+                {keyword}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-col gap-y-3">
+            {secondHalf.map((keyword, index) => (
+              <span key={index} className="text-base text-white">
+                {keyword}
+              </span>
+            ))}
           </div>
         </div>
       </div>
@@ -53,39 +43,33 @@ export const WhyWeAreDifferentSection = () => {
   const items = [
     {
       title: "Placeholder Title 1",
-      subtitle: "Subtitle for Item 1",
       text: "This is a placeholder paragraph for the first item.",
-      keywords: ["Keyword A", "Keyword B", "Keyword C", "Keyword D", "Keyword E", "Keyword F"]
+      keywords: ["Keyword A", "Keyword B", "Keyword C"]
     },
     {
       title: "Placeholder Title 2",
-      subtitle: "Subtitle for Item 2",
       text: "This is a placeholder paragraph for the second item.",
-      keywords: ["Keyword G", "Keyword H", "Keyword I", "Keyword J", "Keyword K", "Keyword L"]
+      keywords: ["Keyword G", "Keyword H", "Keyword I"]
     },
     {
       title: "Placeholder Title 3",
-      subtitle: "Subtitle for Item 3",
       text: "This is a placeholder paragraph for the third item.",
-      keywords: ["Keyword M", "Keyword N", "Keyword O", "Keyword P", "Keyword Q", "Keyword R"]
+      keywords: ["Keyword M", "Keyword N", "Keyword O"]
     },
     {
       title: "Placeholder Title 4",
-      subtitle: "Subtitle for Item 4",
       text: "This is a placeholder paragraph for the fourth item.",
-      keywords: ["Keyword S", "Keyword T", "Keyword U", "Keyword V", "Keyword W", "Keyword X"]
+      keywords: ["Keyword S", "Keyword T", "Keyword U"]
     },
     {
       title: "Placeholder Title 5",
-      subtitle: "Subtitle for Item 5",
       text: "This is a placeholder paragraph for the fifth item.",
-      keywords: ["Keyword Y", "Keyword Z", "Keyword AA", "Keyword BB", "Keyword CC", "Keyword DD"]
+      keywords: ["Keyword Y", "Keyword Z", "Keyword AA"]
     },
     {
       title: "Placeholder Title 6",
-      subtitle: "Subtitle for Item 6",
       text: "This is a placeholder paragraph for the sixth item.",
-      keywords: ["Keyword EE", "Keyword FF", "Keyword GG", "Keyword HH", "Keyword II", "Keyword JJ"]
+      keywords: ["Keyword EE", "Keyword FF", "Keyword GG"]
     },
   ];
 
@@ -112,12 +96,11 @@ export const WhyWeAreDifferentSection = () => {
           <div className="hidden lg:block lg:col-span-3"></div>
 
           {/* 70% Content Area */}
-          <div className="lg:col-span-7 flex flex-col gap-y-12">
+          <div className="lg:col-span-7 flex flex-col gap-y-20">
             {items.map((item, index) => (
               <PlaceholderItem 
                 key={index}
                 title={item.title}
-                subtitle={item.subtitle}
                 text={item.text}
                 keywords={item.keywords}
               />
