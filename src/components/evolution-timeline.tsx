@@ -1,0 +1,129 @@
+"use client";
+
+import React, { useState, useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
+import { cn } from '@/lib/utils';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
+
+const evolutionStages = [
+  {
+    timelineLabel: "Sites com Formulários",
+    impactText: "O Ponto de Partida",
+    title: "A Era da Fricção",
+    paragraph: "A primeira geração de sites focava em apresentar informações. A interação era limitada a formulários estáticos, criando uma barreira entre a empresa e o cliente, resultando em altas taxas de abandono e uma experiência unilateral."
+  },
+  {
+    timelineLabel: "Smart Sites",
+    impactText: "A Primeira Evolução",
+    title: "A Chegada da Interatividade",
+    paragraph: "Com a ascensão dos chatbots de texto, os sites se tornaram mais inteligentes e proativos. A automação permitiu respostas instantâneas, quebrando a barreira inicial e provando que a interatividade era o caminho para o engajamento."
+  },
+  {
+    timelineLabel: "aiVoice",
+    impactText: "O Salto Quântico",
+    title: "A Conexão Humana em Escala",
+    paragraph: "A voz elimina a última barreira: o teclado. Ao permitir uma comunicação natural e emocional, a aiVoice transforma a experiência do visitante, criando uma conexão autêntica que acelera a confiança e maximiza a conversão."
+  }
+];
+
+export const EvolutionTimeline = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (contentRef.current) {
+      const contentElements = contentRef.current.children;
+      gsap.fromTo(contentElements, 
+        { autoAlpha: 0, y: 20 },
+        { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+      );
+    }
+  }, [activeIndex]);
+
+  const changeStage = (newIndex: number) => {
+    if (newIndex === activeIndex || !contentRef.current) return;
+
+    const contentElements = contentRef.current.children;
+    gsap.to(contentElements, {
+      autoAlpha: 0,
+      y: -20,
+      duration: 0.3,
+      stagger: 0.05,
+      ease: 'power2.in',
+      onComplete: () => {
+        setActiveIndex(newIndex);
+      }
+    });
+  };
+
+  const handleNext = () => {
+    changeStage((activeIndex + 1) % evolutionStages.length);
+  };
+
+  const handlePrev = () => {
+    changeStage((activeIndex - 1 + evolutionStages.length) % evolutionStages.length);
+  };
+
+  const currentStage = evolutionStages[activeIndex];
+
+  return (
+    <div className="w-full h-full flex flex-col justify-center items-center text-white relative z-10 px-8 lg:px-16 py-24">
+      
+      {/* Timeline Component - Alinhado à Direita */}
+      <div className="w-full max-w-7xl mx-auto flex justify-end mb-16 lg:mb-24">
+        <div className="flex items-center gap-4 md:gap-6">
+          {evolutionStages.map((stage, index) => (
+            <div key={index} className="flex items-center gap-4 md:gap-6">
+              <button 
+                onClick={() => changeStage(index)}
+                className="flex flex-col items-center gap-2 text-right group"
+              >
+                <span className={cn(
+                  "text-xs md:text-sm font-medium transition-colors duration-300",
+                  activeIndex === index ? "text-white" : "text-gray-500 group-hover:text-white"
+                )}>
+                  {stage.timelineLabel}
+                </span>
+                <div className={cn(
+                  "w-3 h-3 rounded-full transition-all duration-300",
+                  activeIndex === index ? "bg-accent scale-125" : "bg-gray-700 group-hover:bg-gray-500"
+                )}></div>
+              </button>
+              {index < evolutionStages.length - 1 && (
+                <div className="w-12 md:w-24 h-px bg-gray-700"></div>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Área de Conteúdo - Duas Colunas */}
+      <div ref={contentRef} className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+        {/* Coluna Esquerda: Impact Text e Navegação */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <h3 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tighter leading-none mb-8">
+            {currentStage.impactText}
+          </h3>
+          <div className="flex items-center gap-4">
+            <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-gray-700 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+              <ArrowLeft className="w-6 h-6" />
+            </button>
+            <button onClick={handleNext} className="w-12 h-12 rounded-full border border-gray-700 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+              <ArrowRight className="w-6 h-6" />
+            </button>
+          </div>
+        </div>
+
+        {/* Coluna Direita: Título e Parágrafo */}
+        <div className="text-center lg:text-left">
+          <h4 className="text-3xl md:text-4xl font-medium mb-4">
+            {currentStage.title}
+          </h4>
+          <p className="section-paragraph text-brand-gray">
+            {currentStage.paragraph}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
