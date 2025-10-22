@@ -60,14 +60,6 @@ export const EvolutionSection = () => {
     });
   };
 
-  const handleNext = () => {
-    changeStage((activeIndex + 1) % evolutionStages.length);
-  };
-
-  const handlePrev = () => {
-    changeStage((activeIndex - 1 + evolutionStages.length) % evolutionStages.length);
-  };
-
   return (
     <section 
       id="evolution" 
@@ -91,7 +83,7 @@ export const EvolutionSection = () => {
         </p>
       </div>
 
-      {/* Container principal para o layout de duas colunas */}
+      {/* Container principal para o layout */}
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10">
         
         {/* LINHA 1: TIMELINE */}
@@ -105,21 +97,32 @@ export const EvolutionSection = () => {
           </div>
         </div>
 
-        {/* LINHA 2: CONTEÚDO */}
+        {/* LINHA 2: BOTÕES PILL */}
+        <div className="flex justify-center items-center gap-3 mt-8 px-8 lg:px-16">
+          {evolutionStages.map((stage, index) => (
+            <button
+              key={index}
+              onClick={() => changeStage(index)}
+              className={`
+                px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-300
+                ${activeIndex === index
+                  ? 'bg-white border-white text-black'
+                  : 'border-white text-white hover:border-accent hover:text-accent'
+                }
+              `}
+            >
+              {stage.timelineLabel}
+            </button>
+          ))}
+        </div>
+
+        {/* LINHA 3: CONTEÚDO */}
         <div className="grid grid-cols-1 lg:grid-cols-10 mt-10 lg:mt-16">
-          {/* Coluna 1: 30% - Impact Text e Navegação (LG) */}
+          {/* Coluna 1: 30% - Impact Text */}
           <div className="lg:col-span-3 px-8 lg:px-16 flex flex-col justify-center">
             <h3 className="impact-text text-white mb-8 text-center lg:text-left">
               {currentStage.impactText}
             </h3>
-            <div className="hidden lg:flex items-center gap-4 mx-auto lg:mx-0">
-              <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
-                <ArrowLeft className="w-6 h-6" />
-              </button>
-              <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
-                <ArrowRight className="w-6 h-6" />
-              </button>
-            </div>
           </div>
 
           {/* Coluna 2: 70% - Conteúdo */}
@@ -131,15 +134,6 @@ export const EvolutionSection = () => {
               <p className="section-paragraph text-brand-gray">
                 {currentStage.paragraph}
               </p>
-              {/* Navegação para telas pequenas */}
-              <div className="flex lg:hidden items-center gap-4 mx-auto mt-8 justify-center">
-                <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
-                  <ArrowLeft className="w-6 h-6" />
-                </button>
-                <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
-                  <ArrowRight className="w-6 h-6" />
-                </button>
-              </div>
             </div>
           </div>
         </div>
