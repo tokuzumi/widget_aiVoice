@@ -67,7 +67,7 @@ export const EvolutionTimeline = () => {
   const currentStage = evolutionStages[activeIndex];
 
   return (
-    <div className="w-full h-full flex flex-col justify-center items-center text-white relative z-10 px-8 lg:px-16 py-24">
+    <div className="w-full flex flex-col justify-center items-center text-white relative z-10 px-8 lg:px-16">
       
       {/* Timeline Component - Alinhado à Direita */}
       <div className="w-full max-w-7xl mx-auto flex justify-end mb-16 lg:mb-24">
@@ -80,17 +80,17 @@ export const EvolutionTimeline = () => {
               >
                 <span className={cn(
                   "text-xs md:text-sm font-medium transition-colors duration-300",
-                  activeIndex === index ? "text-white" : "text-gray-500 group-hover:text-white"
+                  activeIndex === index ? "text-white" : "text-white/60 group-hover:text-white"
                 )}>
                   {stage.timelineLabel}
                 </span>
                 <div className={cn(
                   "w-3 h-3 rounded-full transition-all duration-300",
-                  activeIndex === index ? "bg-accent scale-125" : "bg-gray-700 group-hover:bg-gray-500"
+                  activeIndex === index ? "bg-white scale-125" : "bg-white/40 group-hover:bg-white/70"
                 )}></div>
               </button>
               {index < evolutionStages.length - 1 && (
-                <div className="w-12 md:w-24 h-px bg-gray-700"></div>
+                <div className="w-12 md:w-24 h-px bg-white/40"></div>
               )}
             </div>
           ))}
@@ -105,10 +105,10 @@ export const EvolutionTimeline = () => {
             {currentStage.impactText}
           </h3>
           <div className="flex items-center gap-4">
-            <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-gray-700 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+            <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white/40 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
               <ArrowLeft className="w-6 h-6" />
             </button>
-            <button onClick={handleNext} className="w-12 h-12 rounded-full border border-gray-700 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+            <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white/40 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
               <ArrowRight className="w-6 h-6" />
             </button>
           </div>
