@@ -10,7 +10,6 @@ import { EvolutionSection } from "@/components/sections/evolution-section";
 import { IntroducingSection } from "@/components/sections/introducing-section";
 import { ExperimenteSection } from "@/components/sections/experimente-section";
 import { HowYouManageSection } from "@/components/sections/how-you-manage-section";
-import { PricingSection } from "@/components/sections/pricing-section";
 import { FaqSection } from "@/components/sections/faq-section";
 import { LenisProvider } from "@/components/lenis-provider";
 import { AiVoiceWidget } from "@/widget/ai-voice-widget";
@@ -33,7 +32,6 @@ export default function Home() {
       <IntroducingSection />
       <ExperimenteSection />
       <HowYouManageSection />
-      <PricingSection />
       <FaqSection />
 
       <Footer />

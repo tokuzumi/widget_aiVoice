@@ -6,7 +6,6 @@ import { SocialIcons } from './social-icons';
 const navigationLinks = [
   { href: "#hero", label: "Home" },
   { href: "#faq", label: "FAQ" },
-  { href: "#pricing", label: "Planos" },
   { href: "#footer", label: "Contato" },
 ];
 
