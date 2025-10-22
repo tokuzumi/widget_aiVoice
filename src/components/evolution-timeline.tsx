@@ -7,7 +7,7 @@ import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const evolutionStages = [
   {
-    timelineLabel: "Sites com Formulários",
+    timelineLabel: "Formulários",
     impactText: "O Ponto de Partida",
     title: "A Era da Fricção",
     paragraph: "A primeira geração de sites focava em apresentar informações. A interação era limitada a formulários estáticos, criando uma barreira entre a empresa e o cliente, resultando em altas taxas de abandono e uma experiência unilateral."
@@ -70,48 +70,43 @@ export const EvolutionTimeline = () => {
     <div className="w-full flex flex-col justify-center items-center text-white relative">
       
       {/* Timeline Component */}
-      <div className="w-full max-w-7xl mx-auto mb-16 lg:mb-24">
-        <div className="relative">
-          {/* A linha contínua */}
-          <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
-          
-          {/* Container para os pontos e labels */}
-          <div className="flex justify-between">
-            {evolutionStages.map((stage, index) => (
-              <div key={index} className="relative flex flex-col items-center">
-                
-                {/* Label que aparece apenas no item ativo */}
-                {activeIndex === index && (
-                  <div className="absolute bottom-full mb-3 text-center">
-                    <p className="text-sm font-medium text-white whitespace-nowrap">{stage.timelineLabel}</p>
-                  </div>
-                )}
+      <div className="w-full relative mb-16 lg:mb-24">
+        {/* A linha contínua que se estende até o final */}
+        <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
+        
+        {/* Container para os pontos, ocupando 2/3 da largura para agrupar os pontos */}
+        <div className="relative flex justify-between w-full lg:w-2/3">
+          {evolutionStages.map((stage, index) => (
+            <div key={index} className="relative flex flex-col items-center">
+              {/* Label acima do ponto */}
+              <span className="absolute bottom-full mb-3 text-sm font-medium text-white whitespace-nowrap">
+                {stage.timelineLabel}
+              </span>
 
-                {/* Botão do Ponto (dot) */}
-                <button 
-                  onClick={() => changeStage(index)} 
-                  className="relative z-10 flex items-center justify-center w-6 h-6"
-                  aria-label={`Ir para ${stage.timelineLabel}`}
-                >
-                  {activeIndex === index ? (
-                    // Ponto Ativo: maior, com borda, centro transparente
-                    <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
-                  ) : (
-                    // Ponto Inativo: menor, sólido
-                    <div className="w-3 h-3 bg-white rounded-full"></div>
-                  )}
-                </button>
-              </div>
-            ))}
-          </div>
+              {/* Botão do Ponto (dot) */}
+              <button 
+                onClick={() => changeStage(index)} 
+                className="relative z-10 flex items-center justify-center w-6 h-6"
+                aria-label={`Ir para ${stage.timelineLabel}`}
+              >
+                {activeIndex === index ? (
+                  // Ponto Ativo: com borda, centro transparente
+                  <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
+                ) : (
+                  // Ponto Inativo: sólido
+                  <div className="w-3 h-3 bg-white rounded-full"></div>
+                )}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 
       {/* Área de Conteúdo - Duas Colunas */}
-      <div ref={contentRef} className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div ref={contentRef} className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         {/* Coluna Esquerda: Impact Text e Navegação */}
-        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-          <h3 className="text-5xl md:text-6xl lg:text-7xl font-medium tracking-tighter leading-none mb-8">
+        <div className="flex flex-col items-start text-left">
+          <h3 className="impact-text !text-5xl md:!text-6xl lg:!text-7xl !font-medium !leading-none !mb-8 text-white">
             {currentStage.impactText}
           </h3>
           <div className="flex items-center gap-4">
@@ -125,7 +120,7 @@ export const EvolutionTimeline = () => {
         </div>
 
         {/* Coluna Direita: Título e Parágrafo */}
-        <div className="text-center lg:text-left">
+        <div className="text-left">
           <h4 className="text-3xl md:text-4xl font-medium mb-4">
             {currentStage.title}
           </h4>
