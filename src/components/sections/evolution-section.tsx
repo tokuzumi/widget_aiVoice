@@ -107,12 +107,12 @@ export const EvolutionSection = () => {
 
         {/* LINHA 2: CONTEÚDO */}
         <div className="grid grid-cols-1 lg:grid-cols-10 mt-10 lg:mt-16">
-          {/* Coluna 1: 30% - Impact Text e Navegação */}
+          {/* Coluna 1: 30% - Impact Text e Navegação (LG) */}
           <div className="lg:col-span-3 px-8 lg:px-16 flex flex-col justify-center">
             <h3 className="impact-text text-white mb-8 text-center lg:text-left">
               {currentStage.impactText}
             </h3>
-            <div className="flex items-center gap-4 mx-auto lg:mx-0">
+            <div className="hidden lg:flex items-center gap-4 mx-auto lg:mx-0">
               <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
                 <ArrowLeft className="w-6 h-6" />
               </button>
@@ -131,6 +131,15 @@ export const EvolutionSection = () => {
               <p className="section-paragraph text-brand-gray">
                 {currentStage.paragraph}
               </p>
+              {/* Navegação para telas pequenas */}
+              <div className="flex lg:hidden items-center gap-4 mx-auto mt-8 justify-center">
+                <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+                  <ArrowLeft className="w-6 h-6" />
+                </button>
+                <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+                  <ArrowRight className="w-6 h-6" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
