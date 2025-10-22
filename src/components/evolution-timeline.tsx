@@ -71,39 +71,44 @@ export const EvolutionTimeline = () => {
       
       {/* Timeline Component */}
       <div className="w-full relative mb-16 lg:mb-24">
-        {/* A linha contínua que se estende até o final */}
+        {/* A linha contínua que se estende por toda a largura */}
         <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
         
-        {/* Container para os pontos, ocupando 2/3 da largura para agrupar os pontos */}
-        <div className="relative flex justify-between w-full lg:w-2/3">
-          {evolutionStages.map((stage, index) => (
-            <div key={index} className="relative flex flex-col items-center">
-              {/* Label acima do ponto */}
-              <span className="absolute bottom-full mb-3 text-sm font-medium text-white whitespace-nowrap">
-                {stage.timelineLabel}
-              </span>
+        {/* Container para os pontos, centralizado e com padding */}
+        <div className="relative w-full max-w-7xl mx-auto px-8 lg:px-16">
+          {/* Sub-container para agrupar os pontos e definir seu espaçamento */}
+          <div className="w-full lg:w-2/3 mx-auto">
+            <div className="flex justify-between">
+              {evolutionStages.map((stage, index) => (
+                <div key={index} className="relative flex flex-col items-center">
+                  {/* Label acima do ponto */}
+                  <span className="absolute bottom-full mb-3 text-sm font-medium text-white whitespace-nowrap">
+                    {stage.timelineLabel}
+                  </span>
 
-              {/* Botão do Ponto (dot) */}
-              <button 
-                onClick={() => changeStage(index)} 
-                className="relative z-10 flex items-center justify-center w-6 h-6"
-                aria-label={`Ir para ${stage.timelineLabel}`}
-              >
-                {activeIndex === index ? (
-                  // Ponto Ativo: com borda, centro transparente
-                  <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
-                ) : (
-                  // Ponto Inativo: sólido
-                  <div className="w-3 h-3 bg-white rounded-full"></div>
-                )}
-              </button>
+                  {/* Botão do Ponto (dot) */}
+                  <button 
+                    onClick={() => changeStage(index)} 
+                    className="relative z-10 flex items-center justify-center w-6 h-6"
+                    aria-label={`Ir para ${stage.timelineLabel}`}
+                  >
+                    {activeIndex === index ? (
+                      // Ponto Ativo: com borda, centro transparente
+                      <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
+                    ) : (
+                      // Ponto Inativo: sólido
+                      <div className="w-3 h-3 bg-white rounded-full"></div>
+                    )}
+                  </button>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
 
       {/* Área de Conteúdo - Duas Colunas */}
-      <div ref={contentRef} className="w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+      <div ref={contentRef} className="w-full max-w-7xl mx-auto px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
         {/* Coluna Esquerda: Impact Text e Navegação */}
         <div className="flex flex-col items-start text-left">
           <h3 className="impact-text !text-5xl md:!text-6xl lg:!text-7xl !font-medium !leading-none !mb-8 text-white">

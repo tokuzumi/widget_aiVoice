@@ -24,8 +24,8 @@ export const EvolutionSection = () => {
         </h2>
       </div>
 
-      {/* Container para o conteúdo da timeline, seguindo o padrão de outras seções */}
-      <div className="w-full px-8 lg:w-[70%] lg:mx-auto lg:px-0 mt-4 pb-16 lg:pb-24 relative z-10">
+      {/* O container agora é full-width, permitindo que a timeline controle seu próprio layout interno */}
+      <div className="w-full mt-4 pb-16 lg:pb-24 relative z-10">
         <EvolutionTimeline />
       </div>
     </section>
