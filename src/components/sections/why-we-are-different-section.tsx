@@ -37,14 +37,14 @@ export const WhyWeAreDifferentSection = () => {
         </p>
       </div>
 
-      {/* 4-Column Diagram Layout */}
+      {/* Main content area with a 30/70 split */}
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10 px-8 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8">
-          {/* Coluna 1: Espaço Negativo (vazio) */}
-          <div className="hidden lg:block"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-8">
+          {/* 30% Negative Space */}
+          <div className="hidden lg:block lg:col-span-3"></div>
 
-          {/* Colunas 2-4: Conteúdo empilhado */}
-          <div className="lg:col-span-3 flex flex-col gap-y-12">
+          {/* 70% Content Area */}
+          <div className="lg:col-span-7 flex flex-col gap-y-12">
             <PlaceholderItem 
               title="Placeholder Title 1"
               text="This is a placeholder paragraph for the first item."
