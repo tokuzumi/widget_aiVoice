@@ -96,23 +96,7 @@ export const EvolutionSection = () => {
           </div>
         </div>
 
-        {/* LINHA 2: NAVEGAÇÃO POR PONTOS */}
-        <div className="flex justify-center gap-2 mt-8">
-          {evolutionStages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => changeStage(index)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                index === activeIndex
-                  ? 'w-8 bg-white'
-                  : 'w-2 bg-white opacity-50 hover:opacity-100'
-              }`}
-              aria-label={`Ir para o estágio ${index + 1}`}
-            />
-          ))}
-        </div>
-
-        {/* LINHA 3: CONTEÚDO */}
+        {/* LINHA 2: CONTEÚDO */}
         <div className="grid grid-cols-1 lg:grid-cols-10 mt-10 lg:mt-16">
           {/* Coluna 1: 30% - Impact Text */}
           <div className="lg:col-span-3 px-8 lg:px-16 flex flex-col justify-center">
@@ -132,6 +116,22 @@ export const EvolutionSection = () => {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* LINHA 3: NAVEGAÇÃO POR PONTOS */}
+        <div className="flex justify-center gap-2 mt-8">
+          {evolutionStages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => changeStage(index)}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === activeIndex
+                  ? 'w-8 bg-white'
+                  : 'w-2 bg-white opacity-50 hover:opacity-100'
+              }`}
+              aria-label={`Ir para o estágio ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
