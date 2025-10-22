@@ -17,7 +17,7 @@ const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, s
       <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-4 gap-y-4 lg:items-start">
         {/* Coluna 1: Subtítulo (25%) */}
         <div className="lg:col-span-3">
-          <h5 className="text-2xl md:text-3xl font-medium text-brand-gray">{subtitle}</h5>
+          <h5 className="text-2xl md:text-3xl font-medium text-gray-300">{subtitle}</h5>
         </div>
 
         {/* Coluna 2: Espaço Negativo (10%) */}
