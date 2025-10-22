@@ -4,7 +4,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import Image from "next/image";
 import { EvolutionTimeline } from "@/components/evolution-timeline";
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const evolutionStages = [
   {
@@ -97,22 +96,19 @@ export const EvolutionSection = () => {
           </div>
         </div>
 
-        {/* LINHA 2: BOTÕES PILL */}
-        <div className="flex justify-center items-center gap-3 mt-8 px-8 lg:px-16">
-          {evolutionStages.map((stage, index) => (
+        {/* LINHA 2: NAVEGAÇÃO POR PONTOS */}
+        <div className="flex justify-center gap-2 mt-8">
+          {evolutionStages.map((_, index) => (
             <button
               key={index}
               onClick={() => changeStage(index)}
-              className={`
-                px-4 py-2 rounded-full border text-sm font-semibold transition-colors duration-300
-                ${activeIndex === index
-                  ? 'bg-white border-white text-black'
-                  : 'border-white text-white hover:border-accent hover:text-accent'
-                }
-              `}
-            >
-              {stage.timelineLabel}
-            </button>
+              className={`h-2 rounded-full transition-all duration-300 ${
+                index === activeIndex
+                  ? 'w-8 bg-white'
+                  : 'w-2 bg-white opacity-50 hover:opacity-100'
+              }`}
+              aria-label={`Ir para o estágio ${index + 1}`}
+            />
           ))}
         </div>
 
