@@ -1,137 +1,49 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { cn } from '@/lib/utils';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
+import React from 'react';
 
-const evolutionStages = [
-  {
-    timelineLabel: "Formulários",
-    impactText: "O Ponto de Partida",
-    title: "A Era da Fricção",
-    paragraph: "A primeira geração de sites focava em apresentar informações. A interação era limitada a formulários estáticos, criando uma barreira entre a empresa e o cliente, resultando em altas taxas de abandono e uma experiência unilateral."
-  },
-  {
-    timelineLabel: "Smart Sites",
-    impactText: "A Primeira Evolução",
-    title: "A Chegada da Interatividade",
-    paragraph: "Com a ascensão dos chatbots de texto, os sites se tornaram mais inteligentes e proativos. A automação permitiu respostas instantâneas, quebrando a barreira inicial e provando que a interatividade era o caminho para o engajamento."
-  },
-  {
-    timelineLabel: "aiVoice",
-    impactText: "O Salto Quântico",
-    title: "A Conexão Humana em Escala",
-    paragraph: "A voz elimina a última barreira: o teclado. Ao permitir uma comunicação natural e emocional, a aiVoice transforma a experiência do visitante, criando uma conexão autêntica que acelera a confiança e maximiza a conversão."
-  }
-];
+interface Stage {
+  timelineLabel: string;
+}
 
-export const EvolutionTimeline = () => {
-  const [activeIndex, setActiveIndex] = useState(0);
-  const contentRef = useRef<HTMLDivElement>(null);
+interface EvolutionTimelineProps {
+  stages: Stage[];
+  activeIndex: number;
+  onStageChange: (index: number) => void;
+}
 
-  useEffect(() => {
-    if (contentRef.current) {
-      const contentElements = contentRef.current.children;
-      gsap.fromTo(contentElements, 
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
-      );
-    }
-  }, [activeIndex]);
-
-  const changeStage = (newIndex: number) => {
-    if (newIndex === activeIndex || !contentRef.current) return;
-
-    const contentElements = contentRef.current.children;
-    gsap.to(contentElements, {
-      autoAlpha: 0,
-      y: -20,
-      duration: 0.3,
-      stagger: 0.05,
-      ease: 'power2.in',
-      onComplete: () => {
-        setActiveIndex(newIndex);
-      }
-    });
-  };
-
-  const handleNext = () => {
-    changeStage((activeIndex + 1) % evolutionStages.length);
-  };
-
-  const handlePrev = () => {
-    changeStage((activeIndex - 1 + evolutionStages.length) % evolutionStages.length);
-  };
-
-  const currentStage = evolutionStages[activeIndex];
-
+export const EvolutionTimeline: React.FC<EvolutionTimelineProps> = ({ stages, activeIndex, onStageChange }) => {
   return (
-    <div className="w-full flex flex-col justify-center items-center text-white relative">
+    <div className="w-full relative">
+      {/* A linha contínua que se estende por toda a largura */}
+      <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
       
-      {/* Timeline Component */}
-      <div className="w-full relative mb-16 lg:mb-24">
-        {/* A linha contínua que se estende por toda a largura */}
-        <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
-        
-        {/* Container para os pontos, centralizado e com padding */}
-        <div className="relative w-full max-w-7xl mx-auto px-8 lg:px-16">
-          {/* Sub-container para agrupar os pontos e definir seu espaçamento */}
-          <div className="w-5/6 lg:w-1/3 mx-auto">
-            <div className="flex justify-between">
-              {evolutionStages.map((stage, index) => (
-                <div key={index} className="relative flex flex-col items-center">
-                  {/* Label acima do ponto */}
-                  <span className="absolute bottom-full mb-3 text-sm font-medium text-white whitespace-nowrap">
-                    {stage.timelineLabel}
-                  </span>
+      {/* Container para os pontos, alinhado à esquerda */}
+      <div className="relative w-full lg:w-2/3">
+        <div className="flex justify-between">
+          {stages.map((stage, index) => (
+            <div key={index} className="relative flex flex-col items-center">
+              {/* Label acima do ponto */}
+              <span className="absolute bottom-full mb-3 text-sm font-medium text-white whitespace-nowrap">
+                {stage.timelineLabel}
+              </span>
 
-                  {/* Botão do Ponto (dot) */}
-                  <button 
-                    onClick={() => changeStage(index)} 
-                    className="relative z-10 flex items-center justify-center w-6 h-6"
-                    aria-label={`Ir para ${stage.timelineLabel}`}
-                  >
-                    {activeIndex === index ? (
-                      // Ponto Ativo: com borda, centro transparente
-                      <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
-                    ) : (
-                      // Ponto Inativo: sólido
-                      <div className="w-3 h-3 bg-white rounded-full"></div>
-                    )}
-                  </button>
-                </div>
-              ))}
+              {/* Botão do Ponto (dot) */}
+              <button 
+                onClick={() => onStageChange(index)} 
+                className="relative z-10 flex items-center justify-center w-6 h-6"
+                aria-label={`Ir para ${stage.timelineLabel}`}
+              >
+                {activeIndex === index ? (
+                  // Ponto Ativo: com borda, centro transparente
+                  <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
+                ) : (
+                  // Ponto Inativo: sólido
+                  <div className="w-3 h-3 bg-white rounded-full"></div>
+                )}
+              </button>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Área de Conteúdo - Duas Colunas */}
-      <div ref={contentRef} className="w-full max-w-7xl mx-auto px-8 lg:px-16 grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-        {/* Coluna Esquerda: Impact Text e Navegação */}
-        <div className="flex flex-col items-start text-left">
-          <h3 className="impact-text !text-5xl md:!text-6xl lg:!text-7xl !font-medium !leading-none !mb-8 text-white">
-            {currentStage.impactText}
-          </h3>
-          <div className="flex items-center gap-4">
-            <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
-              <ArrowLeft className="w-6 h-6" />
-            </button>
-            <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
-              <ArrowRight className="w-6 h-6" />
-            </button>
-          </div>
-        </div>
-
-        {/* Coluna Direita: Título e Parágrafo */}
-        <div className="text-left">
-          <h4 className="text-3xl md:text-4xl font-medium mb-4">
-            {currentStage.title}
-          </h4>
-          <p className="section-paragraph text-brand-gray">
-            {currentStage.paragraph}
-          </p>
+          ))}
         </div>
       </div>
     </div>
