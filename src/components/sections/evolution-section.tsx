@@ -103,7 +103,7 @@ export const EvolutionSection = () => {
         </div>
 
         {/* LINHA 2: CONTEÚDO */}
-        <div className="grid grid-cols-1 lg:grid-cols-10 mt-16 lg:mt-24">
+        <div className="grid grid-cols-1 lg:grid-cols-10 mt-10 lg:mt-16">
           {/* Coluna 1: 30% - Impact Text e Navegação */}
           <div className="lg:col-span-3 px-8 lg:px-16 flex flex-col justify-center">
             <h3 className="impact-text text-white mb-8 text-center lg:text-left">
