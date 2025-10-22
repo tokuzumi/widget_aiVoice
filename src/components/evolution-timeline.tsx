@@ -77,7 +77,7 @@ export const EvolutionTimeline = () => {
         {/* Container para os pontos, centralizado e com padding */}
         <div className="relative w-full max-w-7xl mx-auto px-8 lg:px-16">
           {/* Sub-container para agrupar os pontos e definir seu espaçamento */}
-          <div className="w-full lg:w-2/3 mx-auto">
+          <div className="w-1/2 lg:w-1/3 mx-auto">
             <div className="flex justify-between">
               {evolutionStages.map((stage, index) => (
                 <div key={index} className="relative flex flex-col items-center">
