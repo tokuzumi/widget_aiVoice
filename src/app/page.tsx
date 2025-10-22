@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PainSection } from "@/components/sections/pain-section";
+import { EvolutionSection } from "@/components/sections/evolution-section";
 import { IntroducingSection } from "@/components/sections/introducing-section";
 import { ExperimenteSection } from "@/components/sections/experimente-section";
 import { HowYouManageSection } from "@/components/sections/how-you-manage-section";
@@ -28,6 +29,7 @@ export default function Home() {
     <LenisProvider>
       <HeroSection />
       <PainSection />
+      <EvolutionSection />
       <IntroducingSection />
       <ExperimenteSection />
       <HowYouManageSection />
