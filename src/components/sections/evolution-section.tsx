@@ -38,8 +38,8 @@ export const EvolutionSection = () => {
     if (contentRef.current) {
       const contentElements = Array.from(contentRef.current.children);
       gsap.fromTo(contentElements, 
-        { autoAlpha: 0, y: 20 },
-        { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+        { autoAlpha: 0, x: 20 },
+        { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
       );
     }
   }, [activeIndex]);
@@ -50,7 +50,7 @@ export const EvolutionSection = () => {
     const contentElements = Array.from(contentRef.current.children);
     gsap.to(contentElements, {
       autoAlpha: 0,
-      y: -20,
+      x: -20,
       duration: 0.3,
       stagger: 0.05,
       ease: 'power2.in',

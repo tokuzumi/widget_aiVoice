@@ -38,7 +38,7 @@ export const EvolutionTimeline: React.FC<EvolutionTimelineProps> = ({ stages, ac
               >
                 {activeIndex === index ? (
                   // Ponto Ativo: com borda, centro transparente
-                  <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
+                  <div className="w-4 h-4 bg-black rounded-full border-2 border-accent"></div>
                 ) : (
                   // Ponto Inativo: sólido
                   <div className="w-3 h-3 bg-white rounded-full"></div>
