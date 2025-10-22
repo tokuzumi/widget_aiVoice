@@ -31,14 +31,14 @@ export const WhyWeAreDifferentSection = () => {
         </p>
       </div>
 
-      {/* Main content area with a 1/3 | 2/3 split */}
+      {/* Main content area with a 30/70 split */}
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10 px-8 lg:px-16">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-x-8">
-          {/* 1/3 Negative Space */}
-          <div className="hidden lg:block lg:col-span-1"></div>
+        <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-8">
+          {/* 30% Negative Space */}
+          <div className="hidden lg:block lg:col-span-3"></div>
 
-          {/* 2/3 Content Area */}
-          <div className="lg:col-span-2 flex flex-col gap-y-12">
+          {/* 70% Content Area */}
+          <div className="lg:col-span-7 flex flex-col gap-y-12">
             <PlaceholderItem 
               title="Placeholder Title 1"
               text="This is a placeholder paragraph for the first item."
