@@ -67,7 +67,7 @@ export const EvolutionTimeline = () => {
   const currentStage = evolutionStages[activeIndex];
 
   return (
-    <div className="w-full flex flex-col justify-center items-center text-white relative z-10 px-8 lg:px-16">
+    <div className="w-full flex flex-col justify-center items-center text-white relative">
       
       {/* Timeline Component */}
       <div className="w-full max-w-7xl mx-auto mb-16 lg:mb-24">

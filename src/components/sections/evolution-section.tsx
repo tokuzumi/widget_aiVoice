@@ -17,14 +17,17 @@ export const EvolutionSection = () => {
         priority
       />
       
-      <div className="section-content-wrapper text-center lg:text-left relative z-10">
+      <div className="section-content-wrapper text-center lg:text-left relative z-10 pb-4 lg:pb-8">
         <p className="section-eyebrow">a evolução</p>
         <h2 className="section-title text-white">
           A Nova Geração de Sites
         </h2>
       </div>
 
-      <EvolutionTimeline />
+      {/* Container para o conteúdo da timeline, seguindo o padrão de outras seções */}
+      <div className="w-full px-8 lg:w-[70%] lg:mx-auto lg:px-0 mt-4 pb-16 lg:pb-24 relative z-10">
+        <EvolutionTimeline />
+      </div>
     </section>
   );
 };
