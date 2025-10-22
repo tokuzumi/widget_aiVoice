@@ -89,8 +89,8 @@ export const EvolutionSection = () => {
       </div>
 
       {/* Container principal para o layout de duas colunas */}
-      <div className="w-full mt-16 lg:mt-24 pb-16 lg:pb-24 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-10">
+      <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-10 lg:items-center">
           
           {/* Coluna 1: 30% - Impact Text e Navegação */}
           <div className="lg:col-span-3 px-8 lg:px-16 flex flex-col justify-center">
