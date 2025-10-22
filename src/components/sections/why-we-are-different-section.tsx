@@ -9,20 +9,15 @@ const PlaceholderItem = ({ title, text, keywords }: { title: string, text: strin
 
   return (
     <div className="w-full">
-      {/* Título e Descrição */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-8 mb-6">
-        <div className="lg:col-span-2">
-          <h4 className="text-3xl md:text-4xl font-medium text-white">{title}</h4>
-        </div>
-        <div className="lg:col-span-3">
-          <p className="section-paragraph text-brand-gray">{text}</p>
-        </div>
-      </div>
+      {/* Título e Linha (Estrutura vertical restaurada) */}
+      <h4 className="text-3xl md:text-4xl font-medium mb-4 text-white">{title}</h4>
+      <div className="w-full h-px bg-white mb-4"></div>
 
-      {/* Palavras-chave */}
-      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-8 gap-y-2">
-        <div className="hidden lg:block lg:col-span-2"></div>
-        <div className="col-span-1 lg:col-span-3 grid grid-cols-2 gap-x-4 gap-y-2">
+      {/* Conteúdo Abaixo da Linha */}
+      <div>
+        <p className="section-paragraph text-brand-gray mb-6">{text}</p>
+        
+        <div className="grid grid-cols-2 gap-x-4 gap-y-2">
           <div className="flex flex-col gap-y-2">
             {firstHalf.map((keyword, index) => (
               <span key={index} className="text-sm text-gray-400">
