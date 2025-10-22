@@ -33,27 +33,25 @@ export const WhyWeAreDifferentSection = () => {
 
       {/* 4-Column Diagram Layout */}
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10 px-8 lg:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-x-8">
           {/* Coluna 1: Espaço Negativo (vazio) */}
           <div className="hidden lg:block"></div>
 
-          {/* Coluna 2 */}
-          <PlaceholderItem 
-            title="Placeholder Title 1"
-            text="This is a placeholder paragraph for the first item."
-          />
-
-          {/* Coluna 3 */}
-          <PlaceholderItem 
-            title="Placeholder Title 2"
-            text="This is a placeholder paragraph for the second item."
-          />
-
-          {/* Coluna 4 */}
-          <PlaceholderItem 
-            title="Placeholder Title 3"
-            text="This is a placeholder paragraph for the third item."
-          />
+          {/* Colunas 2-4: Conteúdo empilhado */}
+          <div className="lg:col-span-3 flex flex-col gap-y-12">
+            <PlaceholderItem 
+              title="Placeholder Title 1"
+              text="This is a placeholder paragraph for the first item."
+            />
+            <PlaceholderItem 
+              title="Placeholder Title 2"
+              text="This is a placeholder paragraph for the second item."
+            />
+            <PlaceholderItem 
+              title="Placeholder Title 3"
+              text="This is a placeholder paragraph for the third item."
+            />
+          </div>
         </div>
       </div>
     </section>
