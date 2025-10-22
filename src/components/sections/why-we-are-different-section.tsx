@@ -3,14 +3,20 @@
 import React from 'react';
 
 const PlaceholderItem = ({ title, text }: { title: string, text: string }) => (
-  <div className="flex flex-col">
-    <h4 className="text-3xl md:text-4xl font-medium mb-4 text-white">
-      {title}
-    </h4>
-    <div className="w-full h-px bg-white mb-4"></div>
-    <p className="section-paragraph text-brand-gray">
-      {text}
-    </p>
+  <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-8 gap-y-4">
+    {/* 30% column for the title */}
+    <div className="lg:col-span-3">
+      <h4 className="text-3xl md:text-4xl font-medium text-white">
+        {title}
+      </h4>
+    </div>
+    {/* 70% column for the line and paragraph */}
+    <div className="lg:col-span-7">
+      <div className="w-full h-px bg-white mb-4"></div>
+      <p className="section-paragraph text-brand-gray">
+        {text}
+      </p>
+    </div>
   </div>
 );
 
