@@ -89,7 +89,7 @@ export const EvolutionSection = () => {
       </div>
 
       {/* Container principal para o layout de duas colunas */}
-      <div className="w-full mt-4 pb-16 lg:pb-24 relative z-10">
+      <div className="w-full mt-16 lg:mt-24 pb-16 lg:pb-24 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-10">
           
           {/* Coluna 1: 30% - Impact Text e Navegação */}
@@ -114,7 +114,7 @@ export const EvolutionSection = () => {
               activeIndex={activeIndex} 
               onStageChange={changeStage} 
             />
-            <div ref={contentRef} className="text-center lg:text-left mt-12">
+            <div ref={contentRef} className="w-full lg:w-3/4 text-center lg:text-left mt-16 lg:mt-24">
               <h4 className="text-3xl md:text-4xl font-medium mb-4">
                 {currentStage.title}
               </h4>

@@ -19,7 +19,7 @@ export const EvolutionTimeline: React.FC<EvolutionTimelineProps> = ({ stages, ac
       <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
       
       {/* Container para os pontos, alinhado à esquerda */}
-      <div className="relative w-full lg:w-2/3">
+      <div className="relative w-full lg:w-3/4">
         <div className="flex justify-between">
           {stages.map((stage, index) => (
             <div key={index} className="relative flex flex-col items-center">
