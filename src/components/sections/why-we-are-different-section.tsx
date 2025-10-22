@@ -14,17 +14,17 @@ const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, s
       <div className="w-full h-px bg-white mb-4"></div>
 
       {/* Box de Conteúdo do Ítem (Estrutura de 3 colunas) */}
-      <div className="grid grid-cols-1 lg:grid-cols-20 gap-x-4 gap-y-4 lg:items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-4 gap-y-4 lg:items-start">
         {/* Coluna 1: Subtítulo (25%) */}
-        <div className="lg:col-span-5">
-          <h5 className="text-2xl md:text-3xl font-medium text-white">{subtitle}</h5>
+        <div className="lg:col-span-3">
+          <h5 className="text-2xl md:text-3xl font-medium text-brand-gray">{subtitle}</h5>
         </div>
 
         {/* Coluna 2: Espaço Negativo (10%) */}
-        <div className="hidden lg:block lg:col-span-2"></div>
+        <div className="hidden lg:block lg:col-span-1"></div>
 
         {/* Coluna 3: Parágrafo e Keywords (65%) */}
-        <div className="lg:col-span-13">
+        <div className="lg:col-span-6">
           <p className="section-paragraph text-brand-gray mb-6">{text}</p>
           
           <div className="grid grid-cols-2 gap-x-4 gap-y-2">
