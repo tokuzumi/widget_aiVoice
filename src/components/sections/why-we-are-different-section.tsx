@@ -14,7 +14,7 @@ const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, s
       <div className="w-full h-px bg-white mb-4"></div>
 
       {/* Box de Conteúdo do Ítem (Estrutura de 3 colunas) */}
-      <div className="grid grid-cols-1 lg:grid-cols-20 gap-x-4 gap-y-4">
+      <div className="grid grid-cols-1 lg:grid-cols-20 gap-x-4 gap-y-4 lg:items-start">
         {/* Coluna 1: Subtítulo (25%) */}
         <div className="lg:col-span-5">
           <h5 className="text-2xl md:text-3xl font-medium text-white">{subtitle}</h5>
