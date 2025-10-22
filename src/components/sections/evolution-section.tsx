@@ -7,7 +7,7 @@ export const EvolutionSection = () => {
   return (
     <section 
       id="evolution" 
-      className="content-section bg-black text-white relative items-center justify-center"
+      className="content-section bg-black text-white relative items-start justify-center"
     >
       <Image
         src={backgroundImage}
