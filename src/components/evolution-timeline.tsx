@@ -69,31 +69,41 @@ export const EvolutionTimeline = () => {
   return (
     <div className="w-full flex flex-col justify-center items-center text-white relative z-10 px-8 lg:px-16">
       
-      {/* Timeline Component - Alinhado à Direita */}
-      <div className="w-full max-w-7xl mx-auto flex justify-end mb-16 lg:mb-24">
-        <div className="flex items-center gap-4 md:gap-6">
-          {evolutionStages.map((stage, index) => (
-            <div key={index} className="flex items-center gap-4 md:gap-6">
-              <button 
-                onClick={() => changeStage(index)}
-                className="flex flex-col items-center gap-2 text-right group"
-              >
-                <span className={cn(
-                  "text-xs md:text-sm font-medium transition-colors duration-300",
-                  activeIndex === index ? "text-white" : "text-white/60 group-hover:text-white"
-                )}>
-                  {stage.timelineLabel}
-                </span>
-                <div className={cn(
-                  "w-3 h-3 rounded-full transition-all duration-300",
-                  activeIndex === index ? "bg-white scale-125" : "bg-white/40 group-hover:bg-white/70"
-                )}></div>
-              </button>
-              {index < evolutionStages.length - 1 && (
-                <div className="w-12 md:w-24 h-px bg-white/40"></div>
-              )}
-            </div>
-          ))}
+      {/* Timeline Component */}
+      <div className="w-full max-w-7xl mx-auto mb-16 lg:mb-24">
+        <div className="relative">
+          {/* A linha contínua */}
+          <div className="absolute top-1/2 left-0 w-full h-px bg-white -translate-y-1/2"></div>
+          
+          {/* Container para os pontos e labels */}
+          <div className="flex justify-between">
+            {evolutionStages.map((stage, index) => (
+              <div key={index} className="relative flex flex-col items-center">
+                
+                {/* Label que aparece apenas no item ativo */}
+                {activeIndex === index && (
+                  <div className="absolute bottom-full mb-3 text-center">
+                    <p className="text-sm font-medium text-white whitespace-nowrap">{stage.timelineLabel}</p>
+                  </div>
+                )}
+
+                {/* Botão do Ponto (dot) */}
+                <button 
+                  onClick={() => changeStage(index)} 
+                  className="relative z-10 flex items-center justify-center w-6 h-6"
+                  aria-label={`Ir para ${stage.timelineLabel}`}
+                >
+                  {activeIndex === index ? (
+                    // Ponto Ativo: maior, com borda, centro transparente
+                    <div className="w-4 h-4 bg-black rounded-full border-2 border-white"></div>
+                  ) : (
+                    // Ponto Inativo: menor, sólido
+                    <div className="w-3 h-3 bg-white rounded-full"></div>
+                  )}
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -105,10 +115,10 @@ export const EvolutionTimeline = () => {
             {currentStage.impactText}
           </h3>
           <div className="flex items-center gap-4">
-            <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white/40 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+            <button onClick={handlePrev} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
               <ArrowLeft className="w-6 h-6" />
             </button>
-            <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white/40 text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
+            <button onClick={handleNext} className="w-12 h-12 rounded-full border border-white text-white hover:bg-white hover:text-black transition-colors flex items-center justify-center">
               <ArrowRight className="w-6 h-6" />
             </button>
           </div>

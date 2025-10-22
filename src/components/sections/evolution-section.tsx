@@ -17,7 +17,7 @@ export const EvolutionSection = () => {
         priority
       />
       
-      <div className="section-content-wrapper text-center lg:text-left relative z-10">
+      <div className="section-content-wrapper relative z-10">
         <p className="section-eyebrow">a evolução</p>
         <h2 className="section-title text-white">
           A Nova Geração de Sites
