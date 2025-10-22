@@ -2,19 +2,81 @@
 
 import React from 'react';
 
-const PlaceholderItem = ({ title, text }: { title: string, text: string }) => (
-  <div className="flex flex-col">
-    <h4 className="text-3xl md:text-4xl font-medium mb-4 text-white">
-      {title}
-    </h4>
-    <div className="w-full h-px bg-white mb-4"></div>
-    <p className="section-paragraph text-brand-gray">
-      {text}
-    </p>
-  </div>
-);
+const PlaceholderItem = ({ title, text, keywords }: { title: string, text: string, keywords: string[] }) => {
+  const half = Math.ceil(keywords.length / 2);
+  const firstHalf = keywords.slice(0, half);
+  const secondHalf = keywords.slice(half);
+
+  return (
+    <div className="w-full">
+      {/* Título e Descrição */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 lg:gap-8 mb-6">
+        <div className="lg:col-span-2">
+          <h4 className="text-3xl md:text-4xl font-medium text-white">{title}</h4>
+        </div>
+        <div className="lg:col-span-3">
+          <p className="section-paragraph text-brand-gray">{text}</p>
+        </div>
+      </div>
+
+      {/* Palavras-chave */}
+      <div className="grid grid-cols-1 lg:grid-cols-5 gap-x-8 gap-y-2">
+        <div className="hidden lg:block lg:col-span-2"></div>
+        <div className="col-span-1 lg:col-span-3 grid grid-cols-2 gap-x-4 gap-y-2">
+          <div className="flex flex-col gap-y-2">
+            {firstHalf.map((keyword, index) => (
+              <span key={index} className="text-sm text-gray-400">
+                {keyword}
+              </span>
+            ))}
+          </div>
+          <div className="flex flex-col gap-y-2">
+            {secondHalf.map((keyword, index) => (
+              <span key={index} className="text-sm text-gray-400">
+                {keyword}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export const WhyWeAreDifferentSection = () => {
+  const items = [
+    {
+      title: "Placeholder Title 1",
+      text: "This is a placeholder paragraph for the first item.",
+      keywords: ["Keyword A", "Keyword B", "Keyword C", "Keyword D", "Keyword E", "Keyword F"]
+    },
+    {
+      title: "Placeholder Title 2",
+      text: "This is a placeholder paragraph for the second item.",
+      keywords: ["Keyword G", "Keyword H", "Keyword I", "Keyword J", "Keyword K", "Keyword L"]
+    },
+    {
+      title: "Placeholder Title 3",
+      text: "This is a placeholder paragraph for the third item.",
+      keywords: ["Keyword M", "Keyword N", "Keyword O", "Keyword P", "Keyword Q", "Keyword R"]
+    },
+    {
+      title: "Placeholder Title 4",
+      text: "This is a placeholder paragraph for the fourth item.",
+      keywords: ["Keyword S", "Keyword T", "Keyword U", "Keyword V", "Keyword W", "Keyword X"]
+    },
+    {
+      title: "Placeholder Title 5",
+      text: "This is a placeholder paragraph for the fifth item.",
+      keywords: ["Keyword Y", "Keyword Z", "Keyword AA", "Keyword BB", "Keyword CC", "Keyword DD"]
+    },
+    {
+      title: "Placeholder Title 6",
+      text: "This is a placeholder paragraph for the sixth item.",
+      keywords: ["Keyword EE", "Keyword FF", "Keyword GG", "Keyword HH", "Keyword II", "Keyword JJ"]
+    },
+  ];
+
   return (
     <section 
       id="why-we-are-different" 
@@ -39,30 +101,14 @@ export const WhyWeAreDifferentSection = () => {
 
           {/* 70% Content Area */}
           <div className="lg:col-span-7 flex flex-col gap-y-12">
-            <PlaceholderItem 
-              title="Placeholder Title 1"
-              text="This is a placeholder paragraph for the first item."
-            />
-            <PlaceholderItem 
-              title="Placeholder Title 2"
-              text="This is a placeholder paragraph for the second item."
-            />
-            <PlaceholderItem 
-              title="Placeholder Title 3"
-              text="This is a placeholder paragraph for the third item."
-            />
-            <PlaceholderItem 
-              title="Placeholder Title 4"
-              text="This is a placeholder paragraph for the fourth item."
-            />
-            <PlaceholderItem 
-              title="Placeholder Title 5"
-              text="This is a placeholder paragraph for the fifth item."
-            />
-            <PlaceholderItem 
-              title="Placeholder Title 6"
-              text="This is a placeholder paragraph for the sixth item."
-            />
+            {items.map((item, index) => (
+              <PlaceholderItem 
+                key={index}
+                title={item.title}
+                text={item.text}
+                keywords={item.keywords}
+              />
+            ))}
           </div>
         </div>
       </div>
