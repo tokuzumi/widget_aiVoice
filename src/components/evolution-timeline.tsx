@@ -24,7 +24,9 @@ export const EvolutionTimeline: React.FC<EvolutionTimelineProps> = ({ stages, ac
           {stages.map((stage, index) => (
             <div key={index} className="relative flex flex-col items-center">
               {/* Label acima do ponto */}
-              <span className="absolute bottom-full mb-3 text-sm font-medium text-white whitespace-nowrap">
+              <span className={`absolute bottom-full mb-3 font-medium text-white whitespace-nowrap ${
+                stage.timelineLabel === "aiVoice" ? "text-lg" : "text-sm"
+              }`}>
                 {stage.timelineLabel}
               </span>
 
