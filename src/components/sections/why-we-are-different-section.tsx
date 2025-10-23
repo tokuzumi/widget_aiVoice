@@ -118,9 +118,9 @@ export const WhyWeAreDifferentSection = () => {
               <Image
                 src={aiVoiceLogoSrc}
                 alt="aiVoice Logo"
-                width={180}
-                height={42}
-                className="w-[180px] h-auto"
+                width={360}
+                height={84}
+                className="w-[360px] h-auto"
               />
             </div>
           </div>
