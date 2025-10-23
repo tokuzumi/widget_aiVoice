@@ -20,9 +20,9 @@ const evolutionStages = [
   },
   {
     timelineLabel: "aiVoice",
-    impactText: "O Salto Quântico",
-    title: "A Conexão Humana em Escala",
-    paragraph: "A voz elimina a última barreira: o teclado. Ao permitir uma comunicação natural e emocional, a aiVoice transforma a experiência do visitante, criando uma conexão autêntica que acelera a confiança e maximiza a conversão."
+    impactText: "Abordagens que conectam e resolvem",
+    title: "Chatbots são funcionais. Nós somos emocionais.",
+    paragraph: "Estudamos o comportamento de bons vendedores e descobrimos o ouro: a importância da conexão emocional. Para construir uma relação memorável, entendemos que uma conversa por voz é inigualável: transmite tom, empatia e confiança, ou seja, conexão autêntica. Dessa forma, tornamos possível não só entregar o conteúdo que seus visitantes procuram, como extrair de forma orgânica informações estratégicas para a sua inteligência de negócio."
   }
 ];
 
