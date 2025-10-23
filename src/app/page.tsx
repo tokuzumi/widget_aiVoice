@@ -31,8 +31,11 @@ export default function Home() {
       <PainSection />
       <EvolutionSection />
       <WhyWeAreDifferentSection />
-      <IntroducingSection />
+      
+      {/* Seção "Experimente Agora" movida para antes de "IntroducingSection" */}
       <ExperimenteSection />
+      <IntroducingSection />
+      
       <HowYouManageSection />
       <FaqSection />
 
