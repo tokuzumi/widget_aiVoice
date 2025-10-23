@@ -52,7 +52,7 @@ const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, s
 
 export const WhyWeAreDifferentSection = () => {
   // Nova URL da imagem Cloudinary
-  const aiVoiceFunctionsImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/f_auto,q_auto/v1761189129/aiVoice_functions_c8pb04.png";
+  const aiVoiceFunctionsImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/f_auto,q_auto/v1761189663/aiVoice_thais2_hkylcx.jpg";
   
   const items = [
     {
@@ -118,7 +118,7 @@ export const WhyWeAreDifferentSection = () => {
             <div className="sticky top-32">
               <Image
                 src={aiVoiceFunctionsImageSrc}
-                alt="aiVoice Functions Logo"
+                alt="Agente de voz Thais"
                 width={270}
                 height={63}
                 className="w-[270px] h-auto"
