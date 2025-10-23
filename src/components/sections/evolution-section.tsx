@@ -14,9 +14,9 @@ const evolutionStages = [
   },
   {
     timelineLabel: "Smart Sites",
-    impactText: "A Primeira Evolução",
-    title: "A Chegada da Interatividade",
-    paragraph: "Com a ascensão dos chatbots de texto, os sites se tornaram mais inteligentes e proativos. A automação permitiu respostas instantâneas, quebrando a barreira inicial e provando que a interatividade era o caminho para o engajamento."
+    impactText: "A ideia era perfeita, mas...",
+    title: "Chatbots de Texto: IA nos sites",
+    paragraph: "A evolução natural foram os chatbots, que provaram o poder da interatividade com raciocínio especializado para engajar visitantes. Iniciaram a transição de conteúdo estático para conteúdo generativo, marcando uma nova era, o fim dos Formulários e um novo desafio: o que vemos são chatbots baseados em scripts, que aposentou os formulários, mas sem a abordagem e o treinamento corretos, são um tiro no pé."
   },
   {
     timelineLabel: "aiVoice",
