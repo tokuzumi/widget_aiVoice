@@ -25,7 +25,7 @@ const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, s
 
         {/* Coluna 3: Parágrafo e Keywords (65%) */}
         <div className="lg:col-span-6">
-          <p className="section-paragraph text-brand-gray mb-6">{text}</p>
+          <p className="section-paragraph text-brand-gray mb-12">{text}</p>
           
           <div className="grid grid-cols-2 gap-x-4 gap-y-2">
             <div className="flex flex-col gap-y-2">
