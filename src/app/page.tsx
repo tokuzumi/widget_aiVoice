@@ -7,7 +7,6 @@ import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PainSection } from "@/components/sections/pain-section";
 import { EvolutionSection } from "@/components/sections/evolution-section";
-import { IntroducingSection } from "@/components/sections/introducing-section";
 import { ExperimenteSection } from "@/components/sections/experimente-section";
 import { HowYouManageSection } from "@/components/sections/how-you-manage-section";
 import { FaqSection } from "@/components/sections/faq-section";
@@ -34,7 +33,6 @@ export default function Home() {
       
       {/* Seção "Experimente Agora" movida para antes de "IntroducingSection" */}
       <ExperimenteSection />
-      <IntroducingSection />
       
       <HowYouManageSection />
       <FaqSection />
