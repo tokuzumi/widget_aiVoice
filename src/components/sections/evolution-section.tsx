@@ -16,7 +16,7 @@ const evolutionStages = [
     timelineLabel: "Smart Sites",
     impactText: "A ideia era perfeita, mas...",
     title: "Chatbots de Texto: IA nos sites",
-    paragraph: "A evolução natural foram os chatbots, que provaram o poder da interatividade com raciocínio especializado para engajar visitantes. Iniciaram a transição de conteúdo estático para conteúdo generativo, marcando uma nova era, o fim dos Formulários e um novo desafio: o que vemos são chatbots baseados em scripts, que aposentou os formulários, mas sem a abordagem e o treinamento corretos, são um tiro no pé."
+    paragraph: "A evolução natural foram os chatbots, que provaram o poder da interatividade com inteligência artificial generativa para engajar visitantes. Iniciaram a transição de conteúdo estático para conteúdo generativo, marcando uma nova era, o fim dos Formulários e um novo desafio: o que vemos são chatbots baseados em scripts, que aposentou os formulários, mas sem a abordagem e o treinamento corretos, são um tiro no pé."
   },
   {
     timelineLabel: "aiVoice",
