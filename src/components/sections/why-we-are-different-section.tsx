@@ -59,7 +59,7 @@ export const WhyWeAreDifferentSection = () => {
     {
       title: "3. Impacto Visual",
       subtitle: "Navegação Automática Contextualizada",
-      text: "O agente não apenas fala, ele age. Com base no contexto da conversa (\"Gostaria de ver os planos...\"), ele guia ativamente o visitante pelo seu site, mudando de página (window.location) e destacando elementos visuais importantes em tempo real. É a diferença entre dizer \"a informação está na página X\" e ativamente levar o cliente pela mão até a resposta, criando uma experiência imersiva e sem atrito.",
+      text: "O agente não apenas fala, ele age. Com base no contexto da conversa (\"Gostaria de ver os planos...\"), ele guia ativamente o visitante pelo seu site, mudando de página e destacando elementos visuais importantes em tempo real. É a diferença entre dizer \"a informação está na página X\" e ativamente levar o cliente pela mão até a resposta, criando uma experiência imersiva e sem atrito.",
       benefit: "Redução Drástica da Taxa de Abandono. Você garante que o visitante encontre a informação que precisa no exato momento de sua intenção, eliminando a confusão da navegação e acelerando a jornada de compra."
     },
     {
