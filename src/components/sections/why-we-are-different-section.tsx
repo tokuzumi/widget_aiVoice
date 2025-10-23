@@ -112,7 +112,7 @@ export const WhyWeAreDifferentSection = () => {
           <div className="hidden lg:block lg:col-span-3"></div>
 
           {/* 70% Content Area */}
-          <div className="lg:col-span-7 flex flex-col gap-y-12">
+          <div className="lg:col-span-7 flex flex-col gap-y-24">
             {items.map((item, index) => (
               <PlaceholderItem 
                 key={index}
