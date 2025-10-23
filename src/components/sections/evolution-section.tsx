@@ -10,7 +10,7 @@ const evolutionStages = [
     timelineLabel: "Formulários",
     impactText: "Eles fizeram a parte deles... Agora é hora de descansar.",
     title: "A Ferramenta dos anos 90",
-    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração, sendo a principal forma de interação para conectar a audiência on-line ao seu negócio. Contudo, essa tecnologia, implementada há duas décadas, não acompanhou a evolução do comportamento do usuário. Com o avanço tecnológico, os visitantes se tornaram mais exigentes e altamente suscetíveis à menor fricção.Os Formulários estáticos foram uma revolução para os sites de primeira geração, sendo a principal forma de interação para conectar a audiência on-line ao seu negócio. Contudo, essa tecnologia, implementada há duas décadas, não acompanhou a evolução do comportamento do usuário. Com o avanço tecnológico, os visitantes se tornaram mais exigentes e altamente suscetíveis à menor fricção."
+    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração. Implementado há duas décadas, não acompanhou a evolução do comportamento do usuário. Com o avanço tecnológico, os visitantes se tornaram mais exigentes, aumentando o valor do \"momentum\". Cada campo a ser preenchido aumenta o atrito, resultando no caminho inevitável do abandono."
   },
   {
     timelineLabel: "Smart Sites",
