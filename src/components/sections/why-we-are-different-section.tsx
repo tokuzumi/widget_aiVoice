@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, subtitle: string, text: string, keywords: string[] }) => {
   const half = Math.ceil(keywords.length / 2);
@@ -50,6 +51,8 @@ const PlaceholderItem = ({ title, subtitle, text, keywords }: { title: string, s
 };
 
 export const WhyWeAreDifferentSection = () => {
+  const aiVoiceLogoSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/f_auto,q_auto,w_225,c_limit,dpr_auto/v1757012939/aiVoice_white_h1iae6.png";
+  
   const items = [
     {
       title: "Placeholder Title 1",
@@ -108,8 +111,19 @@ export const WhyWeAreDifferentSection = () => {
       {/* Main content area with a 30/70 split */}
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10 px-8 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-8">
-          {/* 30% Negative Space */}
-          <div className="hidden lg:block lg:col-span-3"></div>
+          
+          {/* 30% Left Column with Sticky Logo */}
+          <div className="hidden lg:block lg:col-span-3 h-full">
+            <div className="sticky top-32">
+              <Image
+                src={aiVoiceLogoSrc}
+                alt="aiVoice Logo"
+                width={180}
+                height={42}
+                className="w-[180px] h-auto"
+              />
+            </div>
+          </div>
 
           {/* 70% Content Area */}
           <div className="lg:col-span-7 flex flex-col gap-y-24">
