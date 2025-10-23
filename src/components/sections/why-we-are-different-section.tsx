@@ -113,15 +113,15 @@ export const WhyWeAreDifferentSection = () => {
       <div className="w-full mt-16 lg:mt-16 pb-16 lg:pb-24 relative z-10 px-8 lg:px-16">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-x-8">
           
-          {/* 30% Left Column with Sticky Logo */}
+          {/* 30% Left Column with Sticky Image */}
           <div className="hidden lg:block lg:col-span-3 h-full">
             <div className="sticky top-32">
               <Image
                 src={aiVoiceFunctionsImageSrc}
                 alt="Agente de voz Thais"
-                width={270}
-                height={63}
-                className="w-[270px] h-auto"
+                width={540}
+                height={540}
+                className="w-full h-auto object-cover rounded-xl"
               />
             </div>
           </div>
