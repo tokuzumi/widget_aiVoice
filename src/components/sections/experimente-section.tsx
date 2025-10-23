@@ -15,7 +15,7 @@ export const ExperimenteSection = () => {
           Veja a Mágica Acontecer
         </h2>
         <p className="section-paragraph text-brand-gray mb-8">
-          Clique no widget aiVoice e descubra como vamos transformar o seu site em uma poderosa ferramenta de geração de negócios e insights
+          Clique no widget aiVoice e descubra como vamos transformar o seu site em uma poderosa ferramenta de geração de negócios e insights. Repare na naturalidade, proatividade e na forma como nosso agente captura as informações estratégicas que farão toda diferença no seu planejamento.
         </p>
         <p className="impact-text text-white">
           Conheça a Thais: sua mais nova Funcionária do Ano
