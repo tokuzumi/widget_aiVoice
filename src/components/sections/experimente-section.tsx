@@ -15,7 +15,7 @@ export const ExperimenteSection = () => {
           Veja a Mágica Acontecer
         </h2>
         <p className="section-paragraph text-brand-gray mb-8">
-          Agora você vai experimentar o impacto real. Informe o endereço do seu site e criaremos em alguns segundos um Agente de Voz treinado com o DNA do seu negócio, para você receber um atendimento em tempo-real. Descubra como vamos impactar os seus visitantes
+          Clique no widget aiVoice e descubra como vamos transformar o seu site em uma poderosa ferramenta de geração de negócios e insights
         </p>
         <p className="impact-text text-white">
           Conheça a Thais: sua mais nova Funcionária do Ano
