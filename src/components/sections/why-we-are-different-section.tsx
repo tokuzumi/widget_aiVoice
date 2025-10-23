@@ -77,7 +77,7 @@ export const WhyWeAreDifferentSection = () => {
     {
       title: "6. Melhorando suas Campanhas em tempo-real",
       subtitle: "Inteligência de Comunicação (BI)",
-      text: "Durante os atendimentos, os agentes adotam diferentes estratégias de conversa para capturar, de forma orgânica e natural, informações valiosas para sua Inteligência de Negócio. Eles identificam dores, objeções recorrentes, termos de busca e a origem do visitante (ex: \"Vim pelo anúncio do Instagram\"), transformando cada conversa em \"ouro\" puro para você otimizar suas campanhas de marketing e vendas.",
+      text: "Durante os atendimentos, os agentes adotam diferentes estratégias para capturar, de forma orgânica e natural, informações valiosas para sua Inteligência de Negócio. Eles identificam dores, objeções recorrentes, termos de busca e a origem do visitante (ex: \"Vim pelo anúncio do Instagram\"), transformando cada conversa em \"ouro\" puro para você otimizar suas campanhas de marketing e vendas.",
       benefit: "ROI de Marketing Otimizado. Você para de adivinhar. O dashboard revela exatamente o que seus clientes estão pensando e por que eles procuram você, fornecendo dados reais para otimizar o criativo dos anúncios, o texto do site e o foco das suas campanhas."
     },
     {
