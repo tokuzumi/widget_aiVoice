@@ -3,7 +3,8 @@
 import Image from "next/image";
 
 export const ExperimenteSection = () => {
-  const agentImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760685315/bg_aiVoice_thais2_e8mf6v.jpg";
+  // Nova URL da imagem Cloudinary
+  const agentImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1761200423/widget_aiVoice_big_draqam.png";
 
   return (
     <section id="experimente" className="content-section bg-black text-white relative overflow-hidden min-h-screen lg:flex-row lg:items-stretch pb-16 lg:pb-0"> {/* Adicionado pb-16 aqui */}
