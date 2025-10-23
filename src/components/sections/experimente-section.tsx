@@ -10,7 +10,7 @@ export const ExperimenteSection = () => {
       
       {/* Coluna Esquerda: Conteúdo de Texto (60% em LG) */}
       <div className="section-content-wrapper relative z-10 pb-0 lg:pb-24">
-        <p className="section-eyebrow !text-brand-gray">experimente agora</p>
+        <p className="section-eyebrow">experimente agora</p>
         <h2 className="section-title text-white">
           Veja a Mágica Acontecer
         </h2>
