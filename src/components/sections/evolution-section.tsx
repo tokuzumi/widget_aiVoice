@@ -16,7 +16,7 @@ const evolutionStages = [
     timelineLabel: "Smart Sites",
     impactText: "A ideia era perfeita, mas...",
     title: "Chatbots de Texto: IA nos sites",
-    paragraph: "A evolução natural foram os chatbots, que marcaram o início de uma nova era: os Smart Sites. Novas conceitos trouxeram novos desafios: conversas baseadas em scripts, que entregam conteúdo, mas são superficiais e robotizados. A ideia era perfeita, mas a prova de que o desafio estava longe de ser superado, está no fato de ainda estarem utilizando formulários, ou seja, a evolução não foi completa."
+    paragraph: "A evolução natural foram os chatbots, que marcaram o início de uma nova era: os Smart Sites. Novas conceitos trouxeram novos desafios: conversas baseadas em scripts, que entregam conteúdo, mas são superficiais e robotizados. A ideia era perfeita, mas a prova de que o desafio estava longe de ser superado, está no fato de que os Smart Sites ainda ainda usam formulários, ou seja, a evolução não foi completa."
   },
   {
     timelineLabel: "aiVoice",
