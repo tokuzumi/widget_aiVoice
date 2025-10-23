@@ -8,9 +8,9 @@ import { EvolutionTimeline } from "@/components/evolution-timeline";
 const evolutionStages = [
   {
     timelineLabel: "Formulários",
-    impactText: "O Ponto de Partida",
-    title: "A Era da Fricção",
-    paragraph: "A primeira geração de sites focava em apresentar informações. A interação era limitada a formulários estáticos, criando uma barreira entre a empresa e o cliente, resultando em altas taxas de abandono e uma experiência unilateral."
+    impactText: "Eles fizeram a parte deles... Agora é hora de descansar.",
+    title: "A Ferramenta dos anos 90",
+    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração, sendo a principal forma de interação para conectar a audiência on-line ao seu negócio. Contudo, essa tecnologia, implementada há duas décadas, não acompanhou a evolução do comportamento do usuário. Com o avanço tecnológico, os visitantes se tornaram mais exigentes e altamente suscetíveis à menor fricção. O que antes era uma solução, hoje se tornou um problema silencioso, que poucas pessoas perceberam: os formulários funcionam como um monólogo frio e unilateral, barreiras passivas que forçam o visitante a fazer todo o trabalho. Cada campo a ser preenchido aumenta o atrito, resultando no caminho inevitável do abandono. Tudo isso sem contar a perda do momentum, que somados, elevam absurdamente o seu custo de aquisição de clientes."
   },
   {
     timelineLabel: "Smart Sites",
