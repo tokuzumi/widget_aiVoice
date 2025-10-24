@@ -14,14 +14,14 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ title, description, Icon, i
   return (
     <div className="text-white rounded-xl p-0 flex flex-col h-full transition-shadow duration-300 border-t border-gray-800 pt-8">
       <h3 className="text-xl font-semibold mb-4">
-        <span className="text-accent mr-2">{index + 1}.</span>
+        <span className="mr-2">{index + 1}.</span>
         {title}
       </h3>
       <p className="text-sm text-brand-gray leading-relaxed flex-grow mb-6">{description}</p>
       
       {/* Ícone reposicionado abaixo do parágrafo */}
       <div className="mt-auto flex items-center justify-start">
-        <Icon className="h-8 w-8 text-gray-800" />
+        <Icon className="h-8 w-8 text-gray-500" />
       </div>
     </div>
   );
@@ -91,7 +91,7 @@ export const CustomSolutionsSection = () => {
 
       {/* Grid de Cards 3x3 */}
       <div className="w-full max-w-7xl mx-auto px-8 lg:px-16 mt-4 pb-16 lg:pb-24 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
           {solutions.map((solution, index) => (
             <SolutionCard key={index} {...solution} index={index} />
           ))}
