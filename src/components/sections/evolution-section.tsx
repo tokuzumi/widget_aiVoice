@@ -8,21 +8,21 @@ import { EvolutionTimeline } from "@/components/evolution-timeline";
 const evolutionStages = [
   {
     timelineLabel: "Formulários",
-    impactText: "Eles fizeram a parte deles... Agora é hora de descansar.", // MANTIDO
-    title: "A Era do Abandono", // ALTERADO
-    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração. Em uma análise atual, cada campo é uma barreira. Cada clique, uma chance de perder o lead. A Taxa de Abandono chega a 82% dependendo do setor. Os hábitos e o nível de exigência dos seus visitantes evoluiu: o seu site, não." // ALTERADO
+    impactText: "Eles fizeram a parte deles... Agora é hora de descansar.",
+    title: "A Era do Abandono",
+    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração. Em uma análise atual, cada campo é uma barreira. Cada clique, uma chance de perder o lead. A Taxa de Abandono chega a 82% dependendo do setor. Os hábitos e o nível de exigência dos seus visitantes evoluiu: o seu site, não."
   },
   {
     timelineLabel: "Smart Sites",
-    impactText: "A ideia era perfeita, mas...", // MANTIDO
-    title: "Chatbots de Texto: Quase Lá", // ALTERADO
-    paragraph: "A evolução natural foram os chatbots, que marcaram o início de uma nova era: os Smart Sites. Conversas instantâneas, mas sem emoção. Respostas rápidas, mas sem conexão. O visitante ainda precisa digitar, esperar, interpretar texto frio. Resultado? Perda de momentum e 74% preferem ligar para um atendente humano." // ALTERADO
+    impactText: "A ideia era perfeita, mas...",
+    title: "Chatbots de Texto: Quase Lá",
+    paragraph: "A evolução natural foram os chatbots, que marcaram o início de uma nova era: os Smart Sites. Conversas instantâneas, mas sem emoção. Respostas rápidas, mas sem conexão. O visitante ainda precisa digitar, esperar, interpretar texto frio. Resultado? Perda de momentum e 74% preferem ligar para um atendente humano."
   },
   {
     timelineLabel: "aiVoice",
-    impactText: "Conexões para Conversão", // ALTERADO
-    title: "A Primeira Conversa Real no Seu Site", // ALTERADO
-    paragraph: "Voz não é apenas um recurso. É emoção em tempo real. Tom, Pausa, Empatia, Confiança! Estudamos vendedores de alta performance e descobrimos: conexão emocional converte mais que qualquer texto. Agora, essa mesma conexão está no seu site - sem contratar um único atendente, personalizando seu conteúdo e contribuindo com a sua inteligência de negócio." // ALTERADO
+    impactText: "Conexões para Conversão",
+    title: "A Primeira Conversa Real no Seu Site",
+    paragraph: "Voz não é apenas um recurso. É emoção em tempo real. Tom, Pausa, Empatia, Confiança! Estudamos vendedores de alta performance e descobrimos: conexão emocional é o pilar da conversão. Agora, essa mesma conexão está no seu site - sem contratar um único atendente, personalizando seu conteúdo e contribuindo com a sua inteligência de negócio."
   }
 ];
 
