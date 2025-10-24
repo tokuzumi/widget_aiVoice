@@ -43,8 +43,7 @@ interface ActionButtonsProps {
   onToggleChatWindow: () => void;
   isSessionActive: boolean;
   onEndSession: () => void;
-  isVoiceChatEnabled: boolean;
-  onToggleVoiceChat: () => void;
+  // Removidas props de controle de voz
 }
 
 const ActionButtons: React.FC<ActionButtonsProps> = ({ 
@@ -52,8 +51,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
   onToggleChatWindow, 
   isSessionActive, 
   onEndSession,
-  isVoiceChatEnabled,
-  onToggleVoiceChat
+  // Removidas props de controle de voz
 }) => {
 
   return (
@@ -77,16 +75,14 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         <Video className="h-5 w-5" />
       </button>
 
-      {/* 3. Chat de Voz (Volume2) */}
+      {/* 3. Chat de Voz (Volume2) - AGORA INATIVO */}
       <button 
-        onClick={onToggleVoiceChat} 
         className={cn(
           'av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', 
-          isVoiceChatEnabled 
-            ? 'bg-accent hover:bg-accent/90 text-black border-black' 
-            : 'bg-black border-gray-700 text-white hover:bg-gray-800'
+          'bg-black border-gray-700 text-gray-600 cursor-not-allowed' // Estilo Inativo
         )} 
-        aria-label={isVoiceChatEnabled ? 'Desativar Chat de Voz' : 'Ativar Chat de Voz'}
+        aria-label={'Chat de Voz (Indisponível)'}
+        disabled
       >
         <Volume2 className="h-5 w-5" />
       </button>
@@ -214,38 +210,14 @@ interface VoiceSessionUIProps {
 }
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange, onEndSession, isSessionActive, isChatVisible, onToggleChatVisibility }) => {
-  const { localParticipant } = useLocalParticipant();
-  const remoteParticipants = useRemoteParticipants();
-
-  const [isVoiceChatEnabled, setIsVoiceChatEnabled] = useState(true);
+  // Removido useLocalParticipant e useRemoteParticipants, pois não são mais usados aqui.
+  // Removido estado isVoiceChatEnabled e handleToggleVoiceChat.
 
   const handleToggleChatWindow = useCallback(() => {
     onToggleChatVisibility(prev => !prev);
   }, [onToggleChatVisibility]);
 
-  const handleToggleVoiceChat = useCallback(() => {
-    const nextState = !isVoiceChatEnabled;
-    setIsVoiceChatEnabled(nextState);
-
-    // 1. Controlar o microfone local (Input) usando o método setMicrophoneEnabled
-    localParticipant.setMicrophoneEnabled(nextState);
-
-    // 2. Controlar a reprodução de áudio remoto (Output)
-    // Adicionando verificação de segurança para remoteParticipants
-    if (remoteParticipants) {
-      remoteParticipants.forEach(p => {
-        p.audioTracks.forEach(trackPub => {
-          if (trackPub.track) {
-            // setSubscribed controla se o track de áudio remoto será recebido/reproduzido
-            trackPub.track.setSubscribed(nextState);
-          }
-        });
-      });
-    }
-
-  }, [isVoiceChatEnabled, localParticipant, remoteParticipants]);
-
-  // Hook para receber comandos de navegação (sempre habilitado)
+  // Hook para receber comandos de navegação (mantido)
   useDataChannel('navigation_command', (msg) => {
     try {
       const data = JSON.parse(new TextDecoder().decode(msg.payload));
@@ -284,8 +256,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
         onToggleChatWindow={handleToggleChatWindow} 
         isSessionActive={isSessionActive}
         onEndSession={onEndSession}
-        isVoiceChatEnabled={isVoiceChatEnabled}
-        onToggleVoiceChat={handleToggleVoiceChat}
+        // Não passa mais props de controle de voz
       />
       {isChatVisible && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
