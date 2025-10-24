@@ -28,11 +28,11 @@ export const HowYouManageSection = () => {
       metricLabel: "otimize suas campanhas",
     },
     {
-      buttonLabel: "Pós-Processamento", // Alterado
-      cardTitle: "Cada Atendimento", // Alterado
-      cardDescription: "Realizamos uma análise de tudo o que foi dito, identificamos o sentimento, a intenção e extraímos informações estratégicas para planejamentos futuros.", // Alterado
-      metricIcon: Search, // Alterado para Search (lupa)
-      metricLabel: "informações estratégicas", // Alterado
+      buttonLabel: "Pós-Atendimento", // Alterado
+      cardTitle: "Análise Detalhada", // Alterado
+      cardDescription: "Realizamos uma análise de tudo o que foi dito, identificamos o sentimento, a intenção e extraímos informações estratégicas para planejamentos futuros.",
+      metricIcon: Search,
+      metricLabel: "informações estratégicas",
     },
   ];
 
