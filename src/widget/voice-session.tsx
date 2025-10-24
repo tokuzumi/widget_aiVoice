@@ -6,7 +6,7 @@ import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
-import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus, PhoneOff, Monitor, Video } from 'lucide-react';
+import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus, PhoneOff, Monitor, Video, Power } from 'lucide-react'; // Importando Power
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
 import { scrollToSection } from './lib/navigation';
@@ -72,7 +72,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
         <Video className="h-5 w-5" />
       </button>
 
-      {/* 3. Chat de Voz (Microfone) */}
+      {/* 3. Chat de Voz (Volume2) */}
       <button 
         onClick={handleVoiceChatToggle} 
         className={cn(
@@ -83,7 +83,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
         )} 
         aria-label={isVoiceChatEnabled ? 'Desativar Chat de Voz' : 'Ativar Chat de Voz'}
       >
-        <Mic className="h-5 w-5" />
+        <Volume2 className="h-5 w-5" /> {/* Ícone Volume2 para representar voz/fala */}
       </button>
 
       {/* 4. Chat de Texto (Toggle da Janela) */}
@@ -111,7 +111,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
         )} 
         aria-label={isSessionActive ? 'Encerrar Sessão' : 'Sessão Encerrada'}
       >
-        {isSessionActive ? <PhoneOff className="h-5 w-5" /> : <Phone className="h-5 w-5" />}
+        <Power className="h-5 w-5" /> {/* Ícone Power para representar Liga/Desliga */}
       </button>
     </div>
   );
