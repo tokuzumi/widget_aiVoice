@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import gsap from 'gsap'; // Importando GSAP
-import { UserCog, History, BrainCircuit, Infinity } from 'lucide-react'; // Importando os ícones
+import { UserCog, History, BrainCircuit, Search } from 'lucide-react'; // Importando Search no lugar de Infinity
 
 export const HowYouManageSection = () => {
   const galleryItems = [
@@ -28,11 +28,11 @@ export const HowYouManageSection = () => {
       metricLabel: "otimize suas campanhas",
     },
     {
-      buttonLabel: "Autoaprendizado",
-      cardTitle: "Aprende Sozinha!",
-      cardDescription: "No final de cada atendimento, identificamos novos argumentos que obtiveram resultados positivos. Estas informações são implementadas automaticamente.",
-      metricIcon: Infinity,
-      metricLabel: "Ciclo constante de aprendizado",
+      buttonLabel: "Pós-Processamento", // Alterado
+      cardTitle: "Cada Atendimento", // Alterado
+      cardDescription: "Realizamos uma análise de tudo o que foi dito, identificamos o sentimento, a intenção e extraímos informações estratégicas para planejamentos futuros.", // Alterado
+      metricIcon: Search, // Alterado para Search (lupa)
+      metricLabel: "informações estratégicas", // Alterado
     },
   ];
 
