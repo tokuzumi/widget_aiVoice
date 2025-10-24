@@ -30,7 +30,7 @@ const FeatureItem: React.FC<ItemProps> = ({ title, subtitle, text, benefit }) =>
           
           {/* Bloco de Benefício - Aplicando estilo claro */}
           <div className="p-4 bg-white rounded-lg border border-gray-200">
-            <p className="text-base text-gray-700 font-normal leading-relaxed">{benefit}</p>
+            <p className="text-base text-gray-800 font-normal leading-relaxed">{benefit}</p>
           </div>
         </div>
       </div>
