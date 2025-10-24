@@ -22,7 +22,6 @@ const SocialIcon: React.FC<SocialIconProps> = ({ href, Icon, label }) => (
 export const SocialIcons: React.FC = () => {
   const socialLinks = [
     { href: "#", Icon: Instagram, label: "Instagram" },
-    { href: "#", Icon: Linkedin, label: "LinkedIn" },
     { href: "#", Icon: Youtube, label: "YouTube" },
   ];
 
