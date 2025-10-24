@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Zap, MessageSquareText, Brain, Volume2, Monitor, Video, Settings, Link, Smartphone } from 'lucide-react';
+import { Zap, MessageSquareText, BrainCircuit, Volume2, Monitor, Video, Settings, Link, Smartphone } from 'lucide-react';
 
 interface SolutionCardProps {
   title: string;
@@ -42,7 +42,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "Raciocínio Avançado",
       description: "O acesso facilitado a modelos avançados é uma realidade inegável. O problema é a possibilidade de altos volumes de conhecimento específico sem aumentar a chance de alucinações, além da latência.",
-      Icon: Brain,
+      Icon: BrainCircuit,
     },
     {
       title: "Texto para Fala",
