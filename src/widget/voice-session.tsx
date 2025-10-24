@@ -6,7 +6,7 @@ import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
-import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power, Mic } from 'lucide-react';
+import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power } from 'lucide-react'; // Mic e PhoneOff removidos
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
 import { scrollToSection } from './lib/navigation';
@@ -25,11 +25,10 @@ export interface TextStreamData {
 
 export interface VoiceSessionProps {
   onConnectionStatusChange: (status: 'connecting' | 'connected' | 'error') => void;
-  onEndSession: () => void; // Nova prop para encerrar a sessão
+  onEndSession: () => void;
   tokenApiUrl: string;
   solution: string;
   clientId: string;
-  // Novas props de visibilidade
   isChatVisible: boolean;
   onToggleChatVisibility: (isVisible: boolean | ((prev: boolean) => boolean)) => void;
 }
@@ -42,9 +41,8 @@ const AI_VOICE_LOGO_SRC = "/widget_logo.png";
 interface ActionButtonsProps {
   isChatWindowOpen: boolean;
   onToggleChatWindow: () => void;
-  isSessionActive: boolean; // Indica se a sessão está conectada/ativa
-  onEndSession: () => void; // Função para encerrar a sessão
-  // Novas props para controle de áudio
+  isSessionActive: boolean;
+  onEndSession: () => void;
   isVoiceChatEnabled: boolean;
   onToggleVoiceChat: () => void;
 }
@@ -90,7 +88,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         )} 
         aria-label={isVoiceChatEnabled ? 'Desativar Chat de Voz' : 'Ativar Chat de Voz'}
       >
-        <Volume2 className="h-5 w-5" /> {/* Ícone Volume2 para representar voz/fala */}
+        <Volume2 className="h-5 w-5" />
       </button>
 
       {/* 4. Chat de Texto (Toggle da Janela) */}
@@ -118,7 +116,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({
         )} 
         aria-label={isSessionActive ? 'Encerrar Sessão' : 'Sessão Encerrada'}
       >
-        <Power className="h-5 w-5 -ml-px" /> {/* Adicionado -ml-px para ajuste visual */}
+        <Power className="h-5 w-5 -ml-px" />
       </button>
     </div>
   );
@@ -211,21 +209,17 @@ interface VoiceSessionUIProps {
   onConnectionStatusChange: (status: 'connected') => void;
   onEndSession: () => void;
   isSessionActive: boolean;
-  // Novas props
   isChatVisible: boolean;
   onToggleChatVisibility: (isVisible: boolean | ((prev: boolean) => boolean)) => void;
 }
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange, onEndSession, isSessionActive, isChatVisible, onToggleChatVisibility }) => {
-  // O estado de visibilidade do chat agora é gerenciado pelo componente pai (AiVoiceWidget)
   const { localParticipant } = useLocalParticipant();
   const remoteParticipants = useRemoteParticipants();
 
-  // Estado para controlar se o chat de voz está ativo (microfone e som)
   const [isVoiceChatEnabled, setIsVoiceChatEnabled] = useState(true);
 
   const handleToggleChatWindow = useCallback(() => {
-    // Chama a função de toggle do componente pai
     onToggleChatVisibility(prev => !prev);
   }, [onToggleChatVisibility]);
 
@@ -235,14 +229,14 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
 
     // 1. Controlar o microfone local (Input)
     const micTrack = localParticipant.getTrackPublication(Track.Source.Microphone);
-    if (micTrack) {
-      micTrack.setMuted(!nextState);
+    if (micTrack?.track) { // Robustez: verifica se o track existe
+      micTrack.track.setMuted(!nextState);
     }
 
     // 2. Controlar a reprodução de áudio remoto (Output)
     remoteParticipants.forEach(p => {
       p.audioTracks.forEach(trackPub => {
-        if (trackPub.track) {
+        if (trackPub.track) { // Robustez: verifica se o track existe
           trackPub.track.setSubscribed(nextState);
         }
       });
@@ -285,14 +279,14 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     <>
       <RoomAudioRenderer />
       <ActionButtons 
-        isChatWindowOpen={isChatVisible} // Usando a prop isChatVisible
+        isChatWindowOpen={isChatVisible} 
         onToggleChatWindow={handleToggleChatWindow} 
         isSessionActive={isSessionActive}
         onEndSession={onEndSession}
         isVoiceChatEnabled={isVoiceChatEnabled}
         onToggleVoiceChat={handleToggleVoiceChat}
       />
-      {isChatVisible && <ChatWindow onClose={handleToggleChatWindow} />} {/* Renderização condicional */}
+      {isChatVisible && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
   );
 };
@@ -327,7 +321,6 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
       const data = await response.json();
       setToken(data.token);
       setWsUrl(data.ws_url);
-      // O status 'connected' será disparado pelo VoiceSessionUI quando o agente for detectado
     } catch (error) {
       onConnectionStatusChange('error');
       setToken(null);
@@ -361,7 +354,7 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
       connect={true}
       audio={true}
       options={{ localTranscription: { language: 'pt-BR' } }}
-      onDisconnected={handleEndSession} // Garante que se a conexão cair, o estado local é resetado
+      onDisconnected={handleEndSession}
     >
       <VoiceSessionUI 
         onConnectionStatusChange={onConnectionStatusChange} 
