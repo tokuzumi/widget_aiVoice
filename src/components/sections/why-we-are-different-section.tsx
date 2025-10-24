@@ -28,10 +28,9 @@ const FeatureItem: React.FC<ItemProps> = ({ title, subtitle, text, benefit }) =>
         <div className="lg:col-span-7">
           <p className="section-paragraph text-brand-gray mb-8">{text}</p>
           
-          {/* Bloco de Benefício */}
-          <div className="p-4 bg-gray-900 rounded-lg border border-gray-800">
-            {/* O termo "Benefício" foi removido daqui */}
-            <p className="text-base text-white font-normal leading-relaxed">{benefit}</p>
+          {/* Bloco de Benefício - Aplicando estilo claro */}
+          <div className="p-4 bg-white rounded-lg border border-gray-200">
+            <p className="text-base text-gray-700 font-normal leading-relaxed">{benefit}</p>
           </div>
         </div>
       </div>
@@ -53,7 +52,7 @@ export const WhyWeAreDifferentSection = () => {
     {
       title: "2. Atendimento Global",
       subtitle: "Multi-idiomas Dinâmico",
-      text: "Quebre as barreiras geográficas instantaneamente. Nossa IA identifica dinamicamente o idioma de preferência do seu visitante (se seja pela configuração do navegador ou pelas primeiras palavras ditas) e assume automaticamente a conversa. O sistema traduz e responde em tempo real, de forma contextualizada e fluida, permitindo que seu negócio atenda em escala global, 24/7, parecendo um nativo em qualquer língua.",
+      text: "Quebre as barreiras geográficas instantaneamente. Nossa IA identifica dinamicamente o idioma de preferência do seu visitante (seja pela configuração do navegador ou pelas primeiras palavras ditas) e assume automaticamente a conversa. O sistema traduz e responde em tempo real, de forma contextualizada e fluida, permitindo que seu negócio atenda em escala global, 24/7, parecendo um nativo em qualquer língua.",
       benefit: "Expansão de Mercado e Acessibilidade Total. Você abre seu negócio para o mercado internacional sem precisar contratar equipes multilíngues, oferecendo uma experiência de ponta para todos os visitantes, independentemente de onde venham."
     },
     {
