@@ -8,21 +8,21 @@ import { EvolutionTimeline } from "@/components/evolution-timeline";
 const evolutionStages = [
   {
     timelineLabel: "Formulários",
-    impactText: "Eles fizeram a parte deles... Agora é hora de descansar.",
-    title: "A Ferramenta dos anos 90",
-    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração. Implementado há duas décadas, não acompanhou a evolução do comportamento do usuário. Com o avanço tecnológico, os visitantes se tornaram mais exigentes, aumentando o valor do \"momentum\". Cada campo a ser preenchido aumenta o atrito, resultando no caminho inevitável do abandono."
+    impactText: "Eles fizeram a parte deles... Agora é hora de descansar.", // MANTIDO
+    title: "A Era do Abandono", // ALTERADO
+    paragraph: "Os Formulários estáticos foram uma revolução para os sites de primeira geração. Em uma análise atual, cada campo é uma barreira. Cada clique, uma chance de perder o lead. A Taxa de Abandono chega a 82% dependendo do setor. Os hábitos e o nível de exigência dos seus visitantes evoluiu: o seu site, não." // ALTERADO
   },
   {
     timelineLabel: "Smart Sites",
-    impactText: "A ideia era perfeita, mas...",
-    title: "Chatbots de Texto: IA nos sites",
-    paragraph: "A evolução natural foram os chatbots, que marcaram o início de uma nova era: os Smart Sites. Novas conceitos trouxeram novos desafios: conversas baseadas em scripts, que entregam conteúdo, mas são superficiais e robotizados. A ideia era perfeita, mas a prova de que o desafio estava longe de ser superado, está no fato de que os Smart Sites ainda ainda usam formulários, ou seja, a evolução não foi completa."
+    impactText: "A ideia era perfeita, mas...", // MANTIDO
+    title: "Chatbots de Texto: Quase Lá", // ALTERADO
+    paragraph: "A evolução natural foram os chatbots, que marcaram o início de uma nova era: os Smart Sites. Conversas instantâneas, mas sem emoção. Respostas rápidas, mas sem conexão. O visitante ainda precisa digitar, esperar, interpretar texto frio. Resultado? Perda de momentum e 74% preferem ligar para um atendente humano." // ALTERADO
   },
   {
     timelineLabel: "aiVoice",
-    impactText: "Abordagens que conectam e resolvem",
-    title: "Chatbots nunca serão emocionais",
-    paragraph: "Estudamos o comportamento de bons vendedores e descobrimos o ouro: a importância da conexão emocional. Para construir uma relação memorável, entendemos que uma conversa por voz é inigualável: transmite tom, empatia e confiança, ou seja, conexão autêntica. Dessa forma, tornamos possível não só entregar o conteúdo que seus visitantes procuram, como extrair de forma orgânica informações estratégicas para a sua inteligência de negócio."
+    impactText: "Conexões para Conversão", // ALTERADO
+    title: "A Primeira Conversa Real no Seu Site", // ALTERADO
+    paragraph: "Voz não é apenas um recurso. É emoção em tempo real. Tom, Pausa, Empatia, Confiança! Estudamos vendedores de alta performance e descobrimos: conexão emocional converte mais que qualquer texto. Agora, essa mesma conexão está no seu site - sem contratar um único atendente, personalizando seu conteúdo e contribuindo com a sua inteligência de negócio." // ALTERADO
   }
 ];
 
