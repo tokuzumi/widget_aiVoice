@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Zap, MessageSquareText, Brain, Volume2, Monitor, Video, Settings, Link, Smartphone } from 'lucide-react';
+import { Zap, MessageSquareText, Brain, Volume2, Monitor, Video, Settings, Link, Smartphone, PhoneCall } from 'lucide-react';
 
 interface SolutionCardProps {
   title: string;
@@ -28,12 +28,8 @@ const SolutionCard: React.FC<SolutionCardProps> = ({ title, description, Icon, i
 };
 
 export const CustomSolutionsSection = () => {
+  // Importando PhoneCall para o novo item
   const solutions = [
-    {
-      title: "Conexões em Tempo-Real",
-      description: "Equilibramos uma relação que muitos considerariam impossível: Capacidade de Raciocínio x Latência. Exploramos a nata da performance e produtividade para desenhar uma solução sob medida para o seu negócio.",
-      Icon: Settings,
-    },
     {
       title: "Fala para Texto",
       description: "Converter fala para texto é um processo complexo se considerarmos sotaques e o reconhecimento dinâmico de diferentes idiomas. Multiplique por 20 a complexidade: quando se trata de conversão em tempo-real.",
@@ -60,19 +56,24 @@ export const CustomSolutionsSection = () => {
       Icon: Video,
     },
     {
-      title: "UI Generativa",
-      description: "A inovação da interface de usuário gerada por inteligência artificial, para aplicações que exigem alta flexibilidade de adaptação ao contexto, baseado nas particularidades do seu negócio.",
-      Icon: Zap,
-    },
-    {
       title: "Integrações",
       description: "Integramos com os principais CRM´s do mercado, além de serviços de agendamento, e-mail sistemas customizados, serviços de consulta e navegação na web. Um oceano de possibilidades.",
       Icon: Link,
     },
     {
+      title: "UI Generativa",
+      description: "A inovação da interface de usuário gerada por inteligência artificial, para aplicações que exigem alta flexibilidade de adaptação ao contexto, baseado nas particularidades do seu negócio.",
+      Icon: Zap,
+    },
+    {
       title: "APPs Mobile",
       description: "Embarcamos nossa tecnologia em APPs Mobile para que seus usuários recebam o que existe de melhor em serviços cognitivos em tempo-real.",
       Icon: Smartphone,
+    },
+    {
+      title: "Ligações por Whatsapp",
+      description: "No Brasil, 77% das ligações acontecem via Whatsapp. Por isso, criamos a integração para democratizar o acesso aos seus serviços com a menor fricção possível.",
+      Icon: PhoneCall,
     },
   ];
 
