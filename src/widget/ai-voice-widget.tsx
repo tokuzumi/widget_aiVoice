@@ -41,7 +41,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ connectionStatus, onTog
         "flex items-center cursor-pointer px-4 gap-3 border border-gray-700",
         "transition-colors duration-200 hover:bg-gray-900",
       )}
-      aria-label={connectionStatus === 'idle' ? "Iniciar atendimento" : "Encerrar atendimento"}
+      aria-label={connectionStatus === 'idle' ? "Iniciar atendimento" : "Alternar visibilidade do chat"}
     >
       <div className="flex-shrink-0 p-1">
         <Image src={AI_VOICE_LOGO_SRC} alt="Logo do Widget" width={32} height={32} className="w-8 h-8" />
@@ -73,24 +73,26 @@ interface AiVoiceWidgetProps {
 }
 
 export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solution, clientId }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false); // Estado da sessão LiveKit (Ativa/Inativa)
+  const [isChatVisible, setIsChatVisible] = useState(false); // Estado da visibilidade da janela de chat
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
 
   const handleEndSession = useCallback(() => {
     setIsOpen(false);
+    setIsChatVisible(false);
     setConnectionStatus('idle');
   }, []);
 
   const handleToggle = useCallback(() => {
-    setIsOpen(prev => {
-      const nextState = !prev;
-      if (!nextState) {
-        // Se está fechando pelo botão flutuante, encerra a sessão
-        handleEndSession();
-      }
-      return nextState;
-    });
-  }, [handleEndSession]);
+    if (!isOpen) {
+      // Se a sessão está inativa, inicia a sessão e abre o chat
+      setIsOpen(true);
+      setIsChatVisible(true);
+    } else {
+      // Se a sessão está ativa, apenas alterna a visibilidade do chat
+      setIsChatVisible(prev => !prev);
+    }
+  }, [isOpen]);
 
   const handleConnectionStatusChange = useCallback((status: 'connecting' | 'connected' | 'error') => {
     setConnectionStatus(status);
@@ -109,6 +111,10 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
           tokenApiUrl={tokenApiUrl}
           solution={solution}
           clientId={clientId}
+          
+          // Novas props para controle de visibilidade
+          isChatVisible={isChatVisible}
+          onToggleChatVisibility={setIsChatVisible}
         />
       )}
     </>

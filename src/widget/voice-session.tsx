@@ -29,6 +29,9 @@ export interface VoiceSessionProps {
   tokenApiUrl: string;
   solution: string;
   clientId: string;
+  // Novas props de visibilidade
+  isChatVisible: boolean;
+  onToggleChatVisibility: (isVisible: boolean | ((prev: boolean) => boolean)) => void;
 }
 
 // --- Componentes de UI Internos ---
@@ -208,10 +211,13 @@ interface VoiceSessionUIProps {
   onConnectionStatusChange: (status: 'connected') => void;
   onEndSession: () => void;
   isSessionActive: boolean;
+  // Novas props
+  isChatVisible: boolean;
+  onToggleChatVisibility: (isVisible: boolean | ((prev: boolean) => boolean)) => void;
 }
 
-const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange, onEndSession, isSessionActive }) => {
-  const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
+const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange, onEndSession, isSessionActive, isChatVisible, onToggleChatVisibility }) => {
+  // O estado de visibilidade do chat agora é gerenciado pelo componente pai (AiVoiceWidget)
   const { localParticipant } = useLocalParticipant();
   const remoteParticipants = useRemoteParticipants();
 
@@ -219,8 +225,9 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
   const [isVoiceChatEnabled, setIsVoiceChatEnabled] = useState(true);
 
   const handleToggleChatWindow = useCallback(() => {
-    setIsChatWindowOpen(prev => !prev);
-  }, []);
+    // Chama a função de toggle do componente pai
+    onToggleChatVisibility(prev => !prev);
+  }, [onToggleChatVisibility]);
 
   const handleToggleVoiceChat = useCallback(() => {
     const nextState = !isVoiceChatEnabled;
@@ -233,12 +240,8 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     }
 
     // 2. Controlar a reprodução de áudio remoto (Output)
-    // Silencia/Dessilencia todos os tracks de áudio dos participantes remotos (o agente)
     remoteParticipants.forEach(p => {
       p.audioTracks.forEach(trackPub => {
-        // O LiveKit usa `track.setSubscribed(false)` para parar de receber dados
-        // e `track.setMuted(true)` para silenciar localmente.
-        // Usaremos `track.setSubscribed` para garantir que o áudio não seja reproduzido.
         if (trackPub.track) {
           trackPub.track.setSubscribed(nextState);
         }
@@ -282,20 +285,20 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     <>
       <RoomAudioRenderer />
       <ActionButtons 
-        isChatWindowOpen={isChatWindowOpen} 
+        isChatWindowOpen={isChatVisible} // Usando a prop isChatVisible
         onToggleChatWindow={handleToggleChatWindow} 
         isSessionActive={isSessionActive}
         onEndSession={onEndSession}
         isVoiceChatEnabled={isVoiceChatEnabled}
         onToggleVoiceChat={handleToggleVoiceChat}
       />
-      {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
+      {isChatVisible && <ChatWindow onClose={handleToggleChatWindow} />} {/* Renderização condicional */}
     </>
   );
 };
 
 // --- Componente Principal da Sessão ---
-export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange, onEndSession, tokenApiUrl, solution, clientId }) => {
+export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusChange, onEndSession, tokenApiUrl, solution, clientId, isChatVisible, onToggleChatVisibility }) => {
   const [token, setToken] = useState<string | null>(null);
   const [wsUrl, setWsUrl] = useState<string | null>(null);
   const [isConnecting, setIsConnecting] = useState(false);
@@ -348,8 +351,6 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
   }, [onEndSession]);
 
   if (!token || !wsUrl) {
-    // Se a sessão não está ativa, mas o widget está aberto (o que é gerenciado pelo componente pai),
-    // o componente pai deve estar mostrando o status 'idle' ou 'connecting'.
     return null;
   }
 
@@ -366,6 +367,8 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
         onConnectionStatusChange={onConnectionStatusChange} 
         onEndSession={handleEndSession}
         isSessionActive={isSessionActive}
+        isChatVisible={isChatVisible}
+        onToggleChatVisibility={onToggleChatVisibility}
       />
     </LiveKitRoom>
   );
