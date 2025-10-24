@@ -37,8 +37,8 @@ export const EvolutionTimeline: React.FC<EvolutionTimelineProps> = ({ stages, ac
                 aria-label={`Ir para ${stage.timelineLabel}`}
               >
                 {activeIndex === index ? (
-                  // Ponto Ativo: com borda, centro transparente
-                  <div className="w-4 h-4 bg-black rounded-full border-2 border-accent"></div>
+                  // Ponto Ativo: sólido na cor accent
+                  <div className="w-4 h-4 bg-accent rounded-full"></div>
                 ) : (
                   // Ponto Inativo: sólido
                   <div className="w-3 h-3 bg-white rounded-full"></div>
