@@ -7,16 +7,22 @@ interface SolutionCardProps {
   title: string;
   description: string;
   Icon: React.ElementType;
+  index: number;
 }
 
-const SolutionCard: React.FC<SolutionCardProps> = ({ title, description, Icon }) => {
+const SolutionCard: React.FC<SolutionCardProps> = ({ title, description, Icon, index }) => {
   return (
-    <div className="bg-white text-black rounded-xl p-6 flex flex-col h-full transition-shadow duration-300 hover:shadow-lg hover:shadow-accent/30">
-      <div className="mb-4 flex items-center justify-center w-12 h-12 rounded-full bg-accent/20 text-accent">
-        <Icon className="h-6 w-6" />
+    <div className="text-white rounded-xl p-0 flex flex-col h-full transition-shadow duration-300 border-t border-gray-800 pt-8">
+      <h3 className="text-xl font-semibold mb-4">
+        <span className="text-accent mr-2">{index + 1}.</span>
+        {title}
+      </h3>
+      <p className="text-sm text-brand-gray leading-relaxed flex-grow mb-6">{description}</p>
+      
+      {/* Ícone reposicionado abaixo do parágrafo */}
+      <div className="mt-auto flex items-center justify-start">
+        <Icon className="h-8 w-8 text-gray-800" />
       </div>
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
-      <p className="text-sm text-gray-600 leading-relaxed flex-grow">{description}</p>
     </div>
   );
 };
@@ -87,7 +93,7 @@ export const CustomSolutionsSection = () => {
       <div className="w-full max-w-7xl mx-auto px-8 lg:px-16 mt-4 pb-16 lg:pb-24 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {solutions.map((solution, index) => (
-            <SolutionCard key={index} {...solution} />
+            <SolutionCard key={index} {...solution} index={index} />
           ))}
         </div>
       </div>
