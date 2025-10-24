@@ -13,6 +13,7 @@ import { FaqSection } from "@/components/sections/faq-section";
 import { LenisProvider } from "@/components/lenis-provider";
 import { AiVoiceWidget } from "@/widget/ai-voice-widget";
 import { WhyWeAreDifferentSection } from "@/components/sections/why-we-are-different-section";
+import { CustomSolutionsSection } from "@/components/sections/custom-solutions-section";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,6 +36,7 @@ export default function Home() {
       <ExperimenteSection />
       
       <HowYouManageSection />
+      <CustomSolutionsSection />
       <FaqSection />
 
       <Footer />
