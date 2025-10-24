@@ -41,7 +41,7 @@ const FloatingButton: React.FC<FloatingButtonProps> = ({ connectionStatus, onTog
         "flex items-center cursor-pointer px-4 gap-3 border border-gray-700",
         "transition-colors duration-200 hover:bg-gray-900",
       )}
-      aria-label={connectionStatus === 'idle' ? "Iniciar atendimento" : "Alternar visibilidade do chat"}
+      aria-label={connectionStatus === 'idle' ? "Iniciar atendimento" : "Sessão ativa"}
     >
       <div className="flex-shrink-0 p-1">
         <Image src={AI_VOICE_LOGO_SRC} alt="Logo do Widget" width={32} height={32} className="w-8 h-8" />
@@ -89,8 +89,9 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
       setIsOpen(true);
       setIsChatVisible(true);
     } else {
-      // Se a sessão está ativa, apenas alterna a visibilidade do chat
-      setIsChatVisible(prev => !prev);
+      // Se a sessão está ativa, o clique no botão flutuante não faz nada.
+      // O encerramento é feito apenas pelo botão Power.
+      return;
     }
   }, [isOpen]);
 
@@ -112,7 +113,7 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
           solution={solution}
           clientId={clientId}
           
-          // Novas props para controle de visibilidade
+          // Props para controle de visibilidade
           isChatVisible={isChatVisible}
           onToggleChatVisibility={setIsChatVisible}
         />
