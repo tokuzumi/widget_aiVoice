@@ -5,6 +5,7 @@ import gsap from 'gsap'; // Importando GSAP
 import { UserCog, History, BrainCircuit, Search } from 'lucide-react'; // Importando Search no lugar de Infinity
 
 export const HowYouManageSection = () => {
+  // Reordenando os itens: 0, 1, 3, 2
   const galleryItems = [
     {
       buttonLabel: "O Seu DNA",
@@ -21,18 +22,18 @@ export const HowYouManageSection = () => {
       metricLabel: "acompanhe os atendimentos",
     },
     {
-      buttonLabel: "Insights",
+      buttonLabel: "Pós-Atendimento", // Item 3 (agora 2)
+      cardTitle: "Análise Detalhada",
+      cardDescription: "Realizamos uma análise de tudo o que foi dito, identificamos o sentimento, a intenção e extraímos informações estratégicas para planejamentos futuros.",
+      metricIcon: Search,
+      metricLabel: "informações estratégicas",
+    },
+    {
+      buttonLabel: "Insights", // Item 2 (agora 3)
       cardTitle: "O Mapa da Mina",
       cardDescription: "Aqui você vai encontrar informações extraídas de cada atendimento, permitindo identificar tendências, gargalos de conteúdo e muito mais!",
       metricIcon: BrainCircuit,
       metricLabel: "otimize suas campanhas",
-    },
-    {
-      buttonLabel: "Pós-Atendimento", // Alterado
-      cardTitle: "Análise Detalhada", // Alterado
-      cardDescription: "Realizamos uma análise de tudo o que foi dito, identificamos o sentimento, a intenção e extraímos informações estratégicas para planejamentos futuros.",
-      metricIcon: Search,
-      metricLabel: "informações estratégicas",
     },
   ];
 
