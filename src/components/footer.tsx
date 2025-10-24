@@ -5,11 +5,12 @@ import { SocialIcons } from './social-icons';
 
 const navigationLinks = [
   { href: "#hero", label: "Home" },
+  { href: "#evolution", label: "A Evolução" },
   { href: "#difference", label: "Diferenciais" },
+  { href: "#demo", label: "Experimente Agora" },
   { href: "#dashboard", label: "Dashboard" },
-  { href: "#solutions", label: "Soluções" },
+  { href: "#solutions", label: "Customizações" },
   { href: "#faq", label: "FAQ" },
-  { href: "#contact", label: "Contato" },
 ];
 
 const legalLinks = [
