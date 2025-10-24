@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
-import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel } from '@livekit/components-react';
+import { LiveKitRoom, useChat, useTracks, useTranscriptions, RoomAudioRenderer, useRoomContext, ReceivedChatMessage, useDataChannel, useLocalParticipant, useRemoteParticipants } from '@livekit/components-react';
 import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
-import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power, Mic } from 'lucide-react'; // Removendo imports não utilizados
+import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power, Mic } from 'lucide-react';
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
 import { scrollToSection } from './lib/navigation';
@@ -41,15 +41,19 @@ interface ActionButtonsProps {
   onToggleChatWindow: () => void;
   isSessionActive: boolean; // Indica se a sessão está conectada/ativa
   onEndSession: () => void; // Função para encerrar a sessão
+  // Novas props para controle de áudio
+  isVoiceChatEnabled: boolean;
+  onToggleVoiceChat: () => void;
 }
 
-const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggleChatWindow, isSessionActive, onEndSession }) => {
-  const [isVoiceChatEnabled, setIsVoiceChatEnabled] = useState(true);
-
-  const handleVoiceChatToggle = useCallback(() => {
-    setIsVoiceChatEnabled(prev => !prev);
-    // TODO: Implementar lógica de mute/unmute do microfone LiveKit aqui
-  }, []);
+const ActionButtons: React.FC<ActionButtonsProps> = ({ 
+  isChatWindowOpen, 
+  onToggleChatWindow, 
+  isSessionActive, 
+  onEndSession,
+  isVoiceChatEnabled,
+  onToggleVoiceChat
+}) => {
 
   return (
     <div className="av-action-buttons-container fixed bottom-[77px] right-4 z-[1001] flex flex-col gap-2 flex-shrink-0 w-12">
@@ -74,7 +78,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
 
       {/* 3. Chat de Voz (Volume2) */}
       <button 
-        onClick={handleVoiceChatToggle} 
+        onClick={onToggleVoiceChat} 
         className={cn(
           'av-microphone-button w-12 h-12 rounded-full border transition-colors flex items-center justify-center', 
           isVoiceChatEnabled 
@@ -207,10 +211,40 @@ interface VoiceSessionUIProps {
 
 const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChange, onEndSession, isSessionActive }) => {
   const [isChatWindowOpen, setIsChatWindowOpen] = useState(true);
+  const { localParticipant } = useLocalParticipant();
+  const remoteParticipants = useRemoteParticipants();
+
+  // Estado para controlar se o chat de voz está ativo (microfone e som)
+  const [isVoiceChatEnabled, setIsVoiceChatEnabled] = useState(true);
 
   const handleToggleChatWindow = useCallback(() => {
     setIsChatWindowOpen(prev => !prev);
   }, []);
+
+  const handleToggleVoiceChat = useCallback(() => {
+    const nextState = !isVoiceChatEnabled;
+    setIsVoiceChatEnabled(nextState);
+
+    // 1. Controlar o microfone local (Input)
+    const micTrack = localParticipant.getTrackPublication(Track.Source.Microphone);
+    if (micTrack) {
+      micTrack.setMuted(!nextState);
+    }
+
+    // 2. Controlar a reprodução de áudio remoto (Output)
+    // Silencia/Dessilencia todos os tracks de áudio dos participantes remotos (o agente)
+    remoteParticipants.forEach(p => {
+      p.audioTracks.forEach(trackPub => {
+        // O LiveKit usa `track.setSubscribed(false)` para parar de receber dados
+        // e `track.setMuted(true)` para silenciar localmente.
+        // Usaremos `track.setSubscribed` para garantir que o áudio não seja reproduzido.
+        if (trackPub.track) {
+          trackPub.track.setSubscribed(nextState);
+        }
+      });
+    });
+
+  }, [isVoiceChatEnabled, localParticipant, remoteParticipants]);
 
   // Hook para receber comandos de navegação (sempre habilitado)
   useDataChannel('navigation_command', (msg) => {
@@ -251,6 +285,8 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
         onToggleChatWindow={handleToggleChatWindow} 
         isSessionActive={isSessionActive}
         onEndSession={onEndSession}
+        isVoiceChatEnabled={isVoiceChatEnabled}
+        onToggleVoiceChat={handleToggleVoiceChat}
       />
       {isChatWindowOpen && <ChatWindow onClose={handleToggleChatWindow} />}
     </>
