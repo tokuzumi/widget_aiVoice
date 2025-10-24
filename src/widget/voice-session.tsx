@@ -228,6 +228,7 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     setIsVoiceChatEnabled(nextState);
 
     // 1. Controlar o microfone local (Input) usando o método setMicrophoneEnabled
+    // Este é o método correto e robusto para mutar/desmutar o microfone local.
     localParticipant.setMicrophoneEnabled(nextState);
 
     // 2. Controlar a reprodução de áudio remoto (Output)
