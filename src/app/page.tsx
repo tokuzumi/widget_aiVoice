@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // Importando ScrollToPlugin
 import { Footer } from "@/components/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { PainSection } from "@/components/sections/pain-section";
@@ -15,7 +16,7 @@ import { AiVoiceWidget } from "@/widget/ai-voice-widget";
 import { WhyWeAreDifferentSection } from "@/components/sections/why-we-are-different-section";
 import { CustomSolutionsSection } from "@/components/sections/custom-solutions-section";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin); // Registrando ambos os plugins aqui
 
 export default function Home() {
   useEffect(() => {

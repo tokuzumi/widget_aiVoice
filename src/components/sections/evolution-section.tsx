@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { gsap } from 'gsap';
 import Image from "next/image";
 import { EvolutionTimeline } from "@/components/evolution-timeline";
@@ -33,20 +33,13 @@ export const EvolutionSection = () => {
 
   const currentStage = evolutionStages[activeIndex];
 
-  useEffect(() => {
-    if (contentRef.current) {
-      const contentElements = Array.from(contentRef.current.children);
-      gsap.fromTo(contentElements, 
-        { autoAlpha: 0, x: 20 },
-        { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
-      );
-    }
-  }, [activeIndex]);
-
-  const changeStage = (newIndex: number) => {
+  // Usando useCallback para a função de transição
+  const changeStage = useCallback((newIndex: number) => {
     if (newIndex === activeIndex || !contentRef.current) return;
 
     const contentElements = Array.from(contentRef.current.children);
+    
+    // Animação de saída
     gsap.to(contentElements, {
       autoAlpha: 0,
       x: -20,
@@ -57,7 +50,21 @@ export const EvolutionSection = () => {
         setActiveIndex(newIndex);
       }
     });
-  };
+  }, [activeIndex]);
+
+  // Animação de entrada (disparada pelo useEffect quando activeIndex muda)
+  useEffect(() => {
+    if (contentRef.current) {
+      const contentElements = Array.from(contentRef.current.children);
+      // Garante que os elementos estejam prontos para a animação de entrada
+      gsap.set(contentElements, { autoAlpha: 0, x: 20 }); 
+      
+      gsap.to(contentElements, 
+        { autoAlpha: 1, x: 0, duration: 0.5, stagger: 0.1, ease: 'power2.out' }
+      );
+    }
+  }, [activeIndex]);
+
 
   return (
     <section 

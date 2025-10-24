@@ -124,6 +124,7 @@
   .link-underline:hover::after {
       width: 100%;
   }
+  /* Usando cores mapeadas para o tema */
   .link-underline-black::after {
       background-color: hsl(var(--black));
   }

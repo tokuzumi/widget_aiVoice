@@ -26,16 +26,15 @@ const FeatureItem: React.FC<ItemProps> = ({ title, subtitle, text, benefit }) =>
 
         {/* Coluna 2: Parágrafo e Benefício (70%) */}
         <div className="lg:col-span-7">
-          <p className="section-paragraph text-brand-gray">{text}</p> {/* Removida a margem inferior (mb-8) */}
+          <p className="section-paragraph text-brand-gray">{text}</p>
           
           {/* Bloco de Benefício com Seta */}
-          <div className="relative mt-8"> {/* Adicionada margem superior para espaçamento */}
-            {/* Seta Borda (Triângulo Externo) - 10px de altura/largura, cor da borda */}
-            <div className="absolute top-[-10px] left-8 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-gray-200"></div>
-            
-            {/* Seta Preenchimento (Triângulo Interno) - 9px de altura/largura, cor do fundo, ligeiramente deslocado para cobrir a borda */}
-            {/* left-[33px] = 32px (left-8) + 1px de ajuste para o centro */}
-            <div className="absolute top-[-9px] left-[33px] w-0 h-0 border-l-[9px] border-r-[9px] border-b-[9px] border-l-transparent border-r-transparent border-b-white"></div>
+          <div className="relative mt-8">
+            {/* Seta (Usando apenas um elemento para simplificar, focando no preenchimento branco) */}
+            <div className="absolute top-[-10px] left-8 w-0 h-0 
+                          border-l-[10px] border-r-[10px] border-b-[10px] 
+                          border-l-transparent border-r-transparent border-b-white">
+            </div>
             
             {/* Main content box */}
             <div className="p-4 bg-white rounded-lg border border-gray-200">
@@ -125,7 +124,7 @@ export const WhyWeAreDifferentSection = () => {
           </div>
 
           {/* 70% Content Area */}
-          <div className="lg:col-span-7 flex flex-col gap-y-36"> {/* Alterado de gap-y-24 para gap-y-36 */}
+          <div className="lg:col-span-7 flex flex-col gap-y-36">
             {items.map((item, index) => (
               <FeatureItem 
                 key={index}

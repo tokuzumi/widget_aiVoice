@@ -2,7 +2,7 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import gsap from 'gsap'; // Importando GSAP
-import { UserCog, History, BrainCircuit, Search } from 'lucide-react'; // Importando Search no lugar de Infinity
+import { UserCog, History, BrainCircuit, Search } from 'lucide-react';
 
 export const HowYouManageSection = () => {
   // Reordenando os itens: 0, 1, 3, 2
