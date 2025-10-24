@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Zap, MessageSquareText, Brain, Volume2, Monitor, Video, Settings, Link, LayoutDashboard } from 'lucide-react';
+import { Zap, MessageSquareText, Brain, Volume2, Monitor, Video, Settings, Link, Smartphone } from 'lucide-react';
 
 interface SolutionCardProps {
   title: string;
@@ -62,7 +62,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "UI Generativa",
       description: "A inovação da interface de usuário gerada por inteligência artificial, para aplicações que exigem alta flexibilidade de adaptação ao contexto, baseado nas particularidades do seu negócio.",
-      Icon: Settings, // Ícone reutilizado
+      Icon: Settings,
     },
     {
       title: "Integrações",
@@ -72,7 +72,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "APPs Mobile",
       description: "Embarcamos nossa tecnologia em APPs Mobile para que seus usuários recebam o que existe de melhor em serviços cognitivos em tempo-real.",
-      Icon: LayoutDashboard, // Ícone reutilizado
+      Icon: Smartphone,
     },
   ];
 
