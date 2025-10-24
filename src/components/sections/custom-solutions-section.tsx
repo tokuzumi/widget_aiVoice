@@ -13,7 +13,7 @@ interface SolutionCardProps {
 const SolutionCard: React.FC<SolutionCardProps> = ({ title, description, Icon, index }) => {
   return (
     <div className="text-white rounded-xl p-0 flex flex-col h-full transition-shadow duration-300 border-t border-gray-800 pt-8">
-      <h3 className="text-xl font-semibold mb-4">
+      <h3 className="text-xl font-medium mb-4">
         <span className="mr-2">{index + 1}.</span>
         {title}
       </h3>
@@ -90,7 +90,7 @@ export const CustomSolutionsSection = () => {
       </div>
 
       {/* Grid de Cards 3x3 */}
-      <div className="w-full max-w-7xl mx-auto px-8 lg:px-16 mt-4 pb-16 lg:pb-24 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-8 lg:px-16 mt-16 pb-16 lg:pb-24 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16">
           {solutions.map((solution, index) => (
             <SolutionCard key={index} {...solution} index={index} />
