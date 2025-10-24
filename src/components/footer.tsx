@@ -31,14 +31,14 @@ export const Footer = () => {
               href="https://www.spadaglobal.com" 
               target="_blank" 
               rel="noopener noreferrer" 
-              className="hover:opacity-80 transition-opacity inline-block max-w-[150px]"
+              className="hover:opacity-80 transition-opacity inline-block max-w-[225px]"
             >
               <Image
                 src={spadaGlobalLogoSrc}
                 alt="Spada Global Logo"
-                width={150}
-                height={42}
-                className="w-[150px] h-auto"
+                width={225}
+                height={63}
+                className="w-[225px] h-auto"
               />
             </a>
             <div className="text-sm text-gray-400 max-w-xs">
