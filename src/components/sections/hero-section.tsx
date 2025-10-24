@@ -19,7 +19,7 @@ export const HeroSection = () => {
         <h1 className="hero-title">
           Seu site agora Fala, Navega e Encanta cada Visitante
         </h1>
-        <p className="hero-subtitle">
+        <p className="hero-subtitle mb-20"> {/* Alterado de mb-10 para mb-20 */}
           Transforme visitantes em conversas reais. Nossa IA de voz identifica interesses, responde dúvidas e qualifica leads enquanto seus concorrentes ainda esperam por formulários.
         </p>
         <Image
