@@ -26,11 +26,21 @@ const FeatureItem: React.FC<ItemProps> = ({ title, subtitle, text, benefit }) =>
 
         {/* Coluna 2: Parágrafo e Benefício (70%) */}
         <div className="lg:col-span-7">
-          <p className="section-paragraph text-brand-gray mb-8">{text}</p>
+          <p className="section-paragraph text-brand-gray">{text}</p> {/* Removida a margem inferior (mb-8) */}
           
-          {/* Bloco de Benefício - Aplicando estilo claro */}
-          <div className="p-4 bg-white rounded-lg border border-gray-200">
-            <p className="text-base text-gray-800 font-normal leading-relaxed">{benefit}</p>
+          {/* Bloco de Benefício com Seta */}
+          <div className="relative mt-8"> {/* Adicionada margem superior para espaçamento */}
+            {/* Seta Borda (Triângulo Externo) - 10px de altura/largura, cor da borda */}
+            <div className="absolute top-[-10px] left-8 w-0 h-0 border-l-[10px] border-r-[10px] border-b-[10px] border-l-transparent border-r-transparent border-b-gray-200"></div>
+            
+            {/* Seta Preenchimento (Triângulo Interno) - 9px de altura/largura, cor do fundo, ligeiramente deslocado para cobrir a borda */}
+            {/* left-[33px] = 32px (left-8) + 1px de ajuste para o centro */}
+            <div className="absolute top-[-9px] left-[33px] w-0 h-0 border-l-[9px] border-r-[9px] border-b-[9px] border-l-transparent border-r-transparent border-b-white"></div>
+            
+            {/* Main content box */}
+            <div className="p-4 bg-white rounded-lg border border-gray-200">
+              <p className="text-base text-gray-800 font-normal leading-relaxed">{benefit}</p>
+            </div>
           </div>
         </div>
       </div>
