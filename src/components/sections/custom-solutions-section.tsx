@@ -32,7 +32,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "Conexões em Tempo-Real",
       description: "Equilibramos uma relação que muitos considerariam impossível: Capacidade de Raciocínio x Latência. Exploramos a nata da performance e produtividade para desenhar uma solução sob medida para o seu negócio.",
-      Icon: Zap,
+      Icon: Settings, // Trocado de Zap para Settings
     },
     {
       title: "Fala para Texto",
@@ -62,7 +62,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "UI Generativa",
       description: "A inovação da interface de usuário gerada por inteligência artificial, para aplicações que exigem alta flexibilidade de adaptação ao contexto, baseado nas particularidades do seu negócio.",
-      Icon: Settings,
+      Icon: Zap, // Trocado de Settings para Zap (representa geração/energia)
     },
     {
       title: "Integrações",
