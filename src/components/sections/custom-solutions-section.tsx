@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { Zap, MessageSquareText, BrainCircuit, Volume2, Monitor, Video, Settings, Link, Smartphone } from 'lucide-react';
+import { Zap, MessageSquareText, Brain, Volume2, Monitor, Video, Settings, Link, Smartphone } from 'lucide-react';
 
 interface SolutionCardProps {
   title: string;
@@ -32,7 +32,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "Conexões em Tempo-Real",
       description: "Equilibramos uma relação que muitos considerariam impossível: Capacidade de Raciocínio x Latência. Exploramos a nata da performance e produtividade para desenhar uma solução sob medida para o seu negócio.",
-      Icon: Settings, // Trocado de Zap para Settings
+      Icon: Settings,
     },
     {
       title: "Fala para Texto",
@@ -42,7 +42,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "Raciocínio Avançado",
       description: "O acesso facilitado a modelos avançados é uma realidade inegável. O problema é a possibilidade de altos volumes de conhecimento específico sem aumentar a chance de alucinações, além da latência.",
-      Icon: BrainCircuit,
+      Icon: Brain,
     },
     {
       title: "Texto para Fala",
@@ -62,7 +62,7 @@ export const CustomSolutionsSection = () => {
     {
       title: "UI Generativa",
       description: "A inovação da interface de usuário gerada por inteligência artificial, para aplicações que exigem alta flexibilidade de adaptação ao contexto, baseado nas particularidades do seu negócio.",
-      Icon: Zap, // Trocado de Settings para Zap (representa geração/energia)
+      Icon: Zap,
     },
     {
       title: "Integrações",
