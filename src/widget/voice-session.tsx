@@ -6,7 +6,7 @@ import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
-import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power } from 'lucide-react'; // Mic e PhoneOff removidos
+import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power } from 'lucide-react';
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
 import { scrollToSection } from './lib/navigation';
@@ -227,16 +227,14 @@ const VoiceSessionUI: React.FC<VoiceSessionUIProps> = ({ onConnectionStatusChang
     const nextState = !isVoiceChatEnabled;
     setIsVoiceChatEnabled(nextState);
 
-    // 1. Controlar o microfone local (Input)
-    const micTrack = localParticipant.getTrackPublication(Track.Source.Microphone);
-    if (micTrack?.track) { // Robustez: verifica se o track existe
-      micTrack.track.setMuted(!nextState);
-    }
+    // 1. Controlar o microfone local (Input) usando o método setMicrophoneEnabled
+    localParticipant.setMicrophoneEnabled(nextState);
 
     // 2. Controlar a reprodução de áudio remoto (Output)
     remoteParticipants.forEach(p => {
       p.audioTracks.forEach(trackPub => {
-        if (trackPub.track) { // Robustez: verifica se o track existe
+        if (trackPub.track) {
+          // setSubscribed controla se o track de áudio remoto será recebido/reproduzido
           trackPub.track.setSubscribed(nextState);
         }
       });
