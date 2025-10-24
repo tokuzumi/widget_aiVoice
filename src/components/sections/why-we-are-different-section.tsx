@@ -30,7 +30,7 @@ const FeatureItem: React.FC<ItemProps> = ({ title, subtitle, text, benefit }) =>
           
           {/* Bloco de Benefício */}
           <div className="p-4 bg-gray-900 rounded-lg border border-gray-800">
-            <p className="text-sm font-semibold text-gray-500 uppercase mb-1">Benefício</p>
+            {/* O termo "Benefício" foi removido daqui */}
             <p className="text-base text-white font-normal leading-relaxed">{benefit}</p>
           </div>
         </div>
@@ -60,7 +60,7 @@ export const WhyWeAreDifferentSection = () => {
       title: "3. Impacto Visual",
       subtitle: "Navegação Automática Contextualizada",
       text: "O agente não apenas fala, ele age. Com base no contexto da conversa (\"Gostaria de ver os planos...\"), ele guia ativamente o visitante pelo seu site, mudando de página e destacando elementos visuais importantes em tempo real. É a diferença entre dizer \"a informação está na página X\" e ativamente levar o cliente pela mão até a resposta, criando uma experiência imersiva e sem atrito.",
-      benefit: "Redução Drástica da Taxa de Abandono. Você garante que o visitante encontre a informação que precisa no exato momento de sua intenção, eliminando a confusão da navegação e acelerando a jornada de compra."
+      benefit: "Redução Drástica da Tasa de Abandono. Você garante que o visitante encontre a informação que precisa no exato momento de sua intenção, eliminando a confusão da navegação e acelerando a jornada de compra."
     },
     {
       title: "4. Conteúdo com o DNA do seu negócio",
@@ -73,18 +73,6 @@ export const WhyWeAreDifferentSection = () => {
       subtitle: "Proatividade Conversacional",
       text: "Nossos agentes são proativos e tomam a iniciativa, tornando a experiência radicalmente humana. Se o visitante faz uma pausa longa após uma informação complexa, o agente pode perguntar: \"Fez sentido para você ou prefere que eu explique de outra forma?\". Ele não espera passivamente por comandos, mas guia ativamente o diálogo para os objetivos do negócio.",
       benefit: "Engajamento Contínuo e Percepção Premium. O visitante sente que está sendo ouvido e compreendido por um especialista, não por um robô reativo. Isso eleva a percepção da sua marca e mantém o visitante engajado por mais tempo."
-    },
-    {
-      title: "6. Melhorando suas Campanhas em tempo-real",
-      subtitle: "Inteligência de Comunicação (BI)",
-      text: "Durante os atendimentos, os agentes adotam diferentes estratégias para capturar, de forma orgânica e natural, informações valiosas para sua Inteligência de Negócio. Eles identificam dores, objeções recorrentes, termos de busca e a origem do visitante (ex: \"Vim pelo anúncio do Instagram\"), transformando cada conversa em \"ouro\" puro para você otimizar suas campanhas de marketing e vendas.",
-      benefit: "ROI de Marketing Otimizado. Você para de adivinhar. O dashboard revela exatamente o que seus clientes estão pensando e por que eles procuram você, fornecendo dados reais para otimizar o criativo dos anúncios, o texto do site e o foco das suas campanhas."
-    },
-    {
-      title: "7. Transformando Leads em Clientes",
-      subtitle: "Continuidade Aquecida (Qualificação e Handoff)",
-      text: "O agente é o seu melhor SDR (Representante de Vendas). Com base na intenção e nas respostas do visitante, ele qualifica o lead em tempo real (identificando orçamento, urgência e autoridade). Ao identificar uma oportunidade clara, ele pode agendar uma reunião diretamente na agenda do seu time ou notificar um vendedor humano para uma transferência imediata, integrando-se ao seu CRM com todo o histórico da conversa.",
-      benefit: "Eficiência Comercial e Vendas Mais Rápidas. Seu time de vendas para de perder tempo com leads frios. Eles recebem apenas oportunidades qualificadas, já agendadas e com todo o contexto da conversa, prontos para focar no fechamento."
     },
     {
       title: "8. Melhora a cada atendimento",
