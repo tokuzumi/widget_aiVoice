@@ -2,27 +2,23 @@ import React from 'react';
 import { Instagram, Linkedin, Youtube } from 'lucide-react';
 
 interface SocialIconProps {
-  href: string;
   Icon: React.ElementType;
   label: string;
 }
 
-const SocialIcon: React.FC<SocialIconProps> = ({ href, Icon, label }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    className="text-brand-gray hover:text-white transition-colors duration-200"
+const SocialIcon: React.FC<SocialIconProps> = ({ Icon, label }) => (
+  <div
+    className="text-brand-gray transition-colors duration-200 cursor-default" // Removido hover:text-white e cursor-default para indicar inatividade
     aria-label={label}
   >
     <Icon className="h-6 w-6" />
-  </a>
+  </div>
 );
 
 export const SocialIcons: React.FC = () => {
   const socialLinks = [
-    { href: "#", Icon: Instagram, label: "Instagram" },
-    { href: "#", Icon: Youtube, label: "YouTube" },
+    { Icon: Instagram, label: "Instagram" },
+    { Icon: Youtube, label: "YouTube" },
   ];
 
   return (

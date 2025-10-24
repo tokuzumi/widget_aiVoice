@@ -79,17 +79,18 @@ export const Footer = () => {
             <ul className="flex flex-col space-y-3 text-base">
               {legalLinks.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.href} className="hover:text-white transition-colors duration-200 link-underline link-underline-white">
+                  {/* Substituído Link por span para desativar a navegação */}
+                  <span className="text-brand-gray transition-colors duration-200 cursor-default link-underline link-underline-white">
                     {link.label}
-                  </Link>
+                  </span>
                 </li>
               ))}
             </ul>
           </nav>
           
           {/* Coluna 4: Redes Sociais */}
-          <div className="col-span-2 lg:col-span-1 flex flex-col items-start"> {/* Removido lg:items-end */}
-            <h4 className="text-lg font-semibold text-white mb-4 w-full">Social</h4> {/* Alterado 'Siga-nos' para 'Social' e removido lg:text-right */}
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-start">
+            <h4 className="text-lg font-semibold text-white mb-4 w-full">Social</h4>
             <SocialIcons />
           </div>
         </div>
