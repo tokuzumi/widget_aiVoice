@@ -78,7 +78,7 @@ export const CustomSolutionsSection = () => {
   ];
 
   return (
-    <section id="custom-solutions" className="content-section bg-black text-brand-gray relative items-start justify-start">
+    <section id="solutions" className="content-section bg-black text-brand-gray relative items-start justify-start">
       {/* Wrapper para o título e parágrafo */}
       <div className="section-content-wrapper text-center lg:text-left relative z-10 pb-4 lg:pb-8">
         <p className="section-eyebrow">customizações</p>

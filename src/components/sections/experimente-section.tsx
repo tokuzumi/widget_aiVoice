@@ -7,7 +7,7 @@ export const ExperimenteSection = () => {
   const agentImageSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1761200423/widget_aiVoice_big_draqam.png";
 
   return (
-    <section id="experimente" className="content-section bg-black text-white relative overflow-hidden min-h-screen lg:flex-row lg:items-stretch pb-8 lg:pb-0"> {/* Reduzido pb-16 para pb-8 em mobile */}
+    <section id="demo" className="content-section bg-black text-white relative overflow-hidden min-h-screen lg:flex-row lg:items-stretch pb-8 lg:pb-0"> {/* Reduzido pb-16 para pb-8 em mobile */}
       
       {/* Coluna Esquerda: Conteúdo de Texto (60% em LG) */}
       <div className="section-content-wrapper relative z-10 pb-0 lg:pb-24">

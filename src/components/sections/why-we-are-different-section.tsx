@@ -92,7 +92,7 @@ export const WhyWeAreDifferentSection = () => {
 
   return (
     <section 
-      id="why-we-are-different" 
+      id="difference" 
       className="content-section bg-black text-white relative items-start justify-center"
     >
       {/* Introductory Text Block */}

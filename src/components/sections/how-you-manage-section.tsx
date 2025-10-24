@@ -85,7 +85,7 @@ export const HowYouManageSection = () => {
   }, [updateActiveStatesOnScroll]);
 
   return (
-    <section id="how-you-manage" className="content-section bg-black text-brand-gray relative items-start justify-start">
+    <section id="dashboard" className="content-section bg-black text-brand-gray relative items-start justify-start">
       {/* Bloco de texto introdutório (Pré-título, Título, Parágrafo) */}
       <div className="section-content-wrapper text-center lg:text-left relative z-10 pb-4 lg:pb-8">
         <p className="section-eyebrow">o Centro de Controle</p>
