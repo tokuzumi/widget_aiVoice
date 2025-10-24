@@ -22,7 +22,7 @@ export const HowYouManageSection = () => {
       metricLabel: "acompanhe os atendimentos",
     },
     {
-      buttonLabel: "Pós-Atendimento", // Item 3 (agora 2)
+      buttonLabel: "Processamento", // Alterado de "Pós-Atendimento" para "Processamento"
       cardTitle: "Análise Detalhada",
       cardDescription: "Realizamos uma análise de tudo o que foi dito, identificamos o sentimento, a intenção e extraímos informações estratégicas para planejamentos futuros.",
       metricIcon: Search,
