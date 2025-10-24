@@ -6,7 +6,7 @@ import { Track } from 'livekit-client';
 import type { Participant, TrackPublication } from 'livekit-client';
 import Image from 'next/image';
 import { cn } from './lib/utils';
-import { Mic, Volume2, Phone, MessageSquare, ArrowUp, Minus, PhoneOff, Monitor, Video, Power } from 'lucide-react'; // Importando Power
+import { Volume2, MessageSquare, ArrowUp, Minus, Monitor, Video, Power, Mic } from 'lucide-react'; // Removendo imports não utilizados
 import { usePersistentUserId } from './hooks/use-persistent-user-id';
 import { transcriptionToChatMessage } from './lib/livekit-utils';
 import { scrollToSection } from './lib/navigation';
@@ -111,7 +111,7 @@ const ActionButtons: React.FC<ActionButtonsProps> = ({ isChatWindowOpen, onToggl
         )} 
         aria-label={isSessionActive ? 'Encerrar Sessão' : 'Sessão Encerrada'}
       >
-        <Power className="h-5 w-5" /> {/* Ícone Power para representar Liga/Desliga */}
+        <Power className="h-5 w-5 -ml-px" /> {/* Adicionado -ml-px para ajuste visual */}
       </button>
     </div>
   );
