@@ -20,7 +20,7 @@ export const HeroSection = () => {
           Seu site agora Fala, Navega e Encanta cada Visitante
         </h1>
         <p className="hero-subtitle">
-          Surpreenda sua audiência com nosso Agente Web de Voz, a primeira IA que entende seus visitantes e entrega conteúdo de forma personalizada, em tempo-real, criando uma experiência única e memorável.
+          Transforme visitantes em conversas reais. Nossa IA de voz identifica interesses, responde dúvidas e qualifica leads enquanto seus concorrentes ainda esperam por formulários.
         </p>
         <Image
           src="https://res.cloudinary.com/dco1sm3hy/image/upload/f_auto,q_auto,w_225,c_limit,dpr_auto/v1757012939/aiVoice_white_h1iae6.png"
