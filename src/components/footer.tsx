@@ -23,7 +23,7 @@ export const Footer = () => {
   const spadaGlobalLogoSrc = "https://res.cloudinary.com/dco1sm3hy/image/upload/v1760729731/SpadaGlobal_logo_g9ut0f.png";
 
   return (
-    <footer id="contact" className="bg-black text-brand-gray py-16 lg:py-24">
+    <footer id="footer" className="bg-black text-brand-gray py-16 lg:py-24">
       <div className="container mx-auto px-8 lg:px-16">
         
         {/* Main Content Grid: 4 Columns Simétricas */}
