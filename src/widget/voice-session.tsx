@@ -158,7 +158,8 @@ const ChatWindow: React.FC<ChatWindowProps> = ({ onClose }) => {
 
   return (
     <div className={cn("av-full-chat-container fixed bottom-[77px] z-[1001] flex flex-row gap-2 items-end h-[70vh]", "left-4 right-[72px] h-[50vh]", "lg:w-[400px] lg:right-[72px] lg:left-auto lg:h-[70vh]")}>
-      <div className="flex-1 flex flex-col overflow-hidden p-2 bg-black border border-gray-700 rounded-xl shadow-2xl h-full">
+      {/* Aplicando o efeito glassmorphism aqui */}
+      <div className="flex-1 flex flex-col overflow-hidden p-2 bg-black/70 backdrop-blur-md border border-gray-700 rounded-xl shadow-2xl h-full">
         <div className="flex justify-between items-center p-2 border-b border-gray-800 mb-2">
           <div className="flex items-center gap-2">
             <Image src={AI_VOICE_LOGO_SRC} alt="Logo Thais" width={24} height={24} className="w-6 h-6" />
