@@ -125,7 +125,7 @@ export const WhyWeAreDifferentSection = () => {
           </div>
 
           {/* 70% Content Area */}
-          <div className="lg:col-span-7 flex flex-col gap-y-24">
+          <div className="lg:col-span-7 flex flex-col gap-y-36"> {/* Alterado de gap-y-24 para gap-y-36 */}
             {items.map((item, index) => (
               <FeatureItem 
                 key={index}
