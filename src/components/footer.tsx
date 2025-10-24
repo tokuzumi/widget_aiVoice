@@ -84,8 +84,8 @@ export const Footer = () => {
           </nav>
           
           {/* Coluna 4: Redes Sociais */}
-          <div className="col-span-2 lg:col-span-1 flex flex-col items-start lg:items-end">
-            <h4 className="text-lg font-semibold text-white mb-4 lg:text-right w-full">Siga-nos</h4>
+          <div className="col-span-2 lg:col-span-1 flex flex-col items-start"> {/* Removido lg:items-end */}
+            <h4 className="text-lg font-semibold text-white mb-4 w-full">Social</h4> {/* Alterado 'Siga-nos' para 'Social' e removido lg:text-right */}
             <SocialIcons />
           </div>
         </div>
