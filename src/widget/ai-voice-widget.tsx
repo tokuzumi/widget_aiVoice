@@ -76,16 +76,21 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
   const [isOpen, setIsOpen] = useState(false);
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'connecting' | 'connected' | 'error'>('idle');
 
+  const handleEndSession = useCallback(() => {
+    setIsOpen(false);
+    setConnectionStatus('idle');
+  }, []);
+
   const handleToggle = useCallback(() => {
     setIsOpen(prev => {
       const nextState = !prev;
       if (!nextState) {
-        // Se está fechando, reseta o status
-        setConnectionStatus('idle');
+        // Se está fechando pelo botão flutuante, encerra a sessão
+        handleEndSession();
       }
       return nextState;
     });
-  }, []);
+  }, [handleEndSession]);
 
   const handleConnectionStatusChange = useCallback((status: 'connecting' | 'connected' | 'error') => {
     setConnectionStatus(status);
@@ -100,6 +105,7 @@ export const AiVoiceWidget: React.FC<AiVoiceWidgetProps> = ({ tokenApiUrl, solut
       {isOpen && (
         <LiveKitWrapper
           onConnectionStatusChange={handleConnectionStatusChange}
+          onEndSession={handleEndSession} // Passa a função de encerramento
           tokenApiUrl={tokenApiUrl}
           solution={solution}
           clientId={clientId}
