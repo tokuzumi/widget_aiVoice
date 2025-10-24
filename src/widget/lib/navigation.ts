@@ -1,9 +1,5 @@
 import { gsap } from 'gsap';
-import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
-
-// Registra o plugin do GSAP para a funcionalidade de rolagem.
-// Isso só precisa ser feito uma vez na aplicação.
-gsap.registerPlugin(ScrollToPlugin);
+// Não precisamos importar ScrollToPlugin aqui, pois ele já foi registrado globalmente.
 
 /**
  * Rola suavemente para uma seção específica da página usando GSAP.
