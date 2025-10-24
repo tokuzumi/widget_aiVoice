@@ -53,7 +53,7 @@ export const WhyWeAreDifferentSection = () => {
     {
       title: "2. Atendimento Global",
       subtitle: "Multi-idiomas Dinâmico",
-      text: "Quebre as barreiras geográficas instantaneamente. Nossa IA identifica dinamicamente o idioma de preferência do seu visitante (seja pela configuração do navegador ou pelas primeiras palavras ditas) e assume automaticamente a conversa. O sistema traduz e responde em tempo real, de forma contextualizada e fluida, permitindo que seu negócio atenda em escala global, 24/7, parecendo um nativo em qualquer língua.",
+      text: "Quebre as barreiras geográficas instantaneamente. Nossa IA identifica dinamicamente o idioma de preferência do seu visitante (se seja pela configuração do navegador ou pelas primeiras palavras ditas) e assume automaticamente a conversa. O sistema traduz e responde em tempo real, de forma contextualizada e fluida, permitindo que seu negócio atenda em escala global, 24/7, parecendo um nativo em qualquer língua.",
       benefit: "Expansão de Mercado e Acessibilidade Total. Você abre seu negócio para o mercado internacional sem precisar contratar equipes multilíngues, oferecendo uma experiência de ponta para todos os visitantes, independentemente de onde venham."
     },
     {
@@ -75,7 +75,7 @@ export const WhyWeAreDifferentSection = () => {
       benefit: "Engajamento Contínuo e Percepção Premium. O visitante sente que está sendo ouvido e compreendido por um especialista, não por um robô reativo. Isso eleva a percepção da sua marca e mantém o visitante engajado por mais tempo."
     },
     {
-      title: "8. Melhora a cada atendimento",
+      title: "6. Melhora a cada atendimento",
       subtitle: "Aprendizado Contínuo (Auto-Otimização)",
       text: "O sistema possui um ciclo de autoaprendizado. Ele analisa as interações bem-sucedidas para entender quais argumentos e fluxos de conversa geram os melhores resultados (conversões, agendamentos). Além disso, ele aprende com os ajustes manuais feitos por você no Dashboard, tornando-se mais inteligente, preciso e alinhado à sua estratégia a cada novo atendimento.",
       benefit: "Um Ativo que se Valoriza com o Tempo. Diferente de um funcionário que vai embora, o Agente de IA acumula conhecimento e melhora continuamente. Seu investimento se torna mais inteligente e eficaz a cada dia, garantindo um desempenho de ponta de forma consistente."
