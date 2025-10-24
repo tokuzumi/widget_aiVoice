@@ -31,48 +31,48 @@ export const CustomSolutionsSection = () => {
   const solutions = [
     {
       title: "Conexões em Tempo-Real",
-      description: "Utilizamos a infraestrutura LiveKit para garantir latência ultrabaixa e comunicação bidirecional instantânea, essencial para interações de voz naturais e fluidas.",
+      description: "Equilibramos uma relação que muitos considerariam impossível: Capacidade de Raciocínio x Latência. Exploramos a nata da performance e produtividade para desenhar uma solução sob medida para o seu negócio.",
       Icon: Zap,
     },
     {
       title: "Fala para Texto",
-      description: "Integração com modelos avançados de Speech-to-Text (STT) para transcrever a fala do usuário com alta precisão, mesmo em ambientes ruidosos ou com sotaques variados.",
+      description: "Converter fala para texto é um processo complexo se considerarmos sotaques e o reconhecimento dinâmico de diferentes idiomas. Multiplique por 20 a complexidade: quando se trata de conversão em tempo-real.",
       Icon: MessageSquareText,
     },
     {
       title: "Raciocínio Avançado",
-      description: "Nossos agentes são equipados com LLMs de ponta, permitindo raciocínio complexo, manutenção de contexto e respostas contextuais que simulam a inteligência humana.",
+      description: "O acesso facilitado a modelos avançados é uma realidade inegável. O problema é a possibilidade de altos volumes de conhecimento específico sem aumentar a chance de alucinações, além da latência.",
       Icon: Brain,
     },
     {
       title: "Texto para Fala",
-      description: "Implementação de Text-to-Speech (TTS) com vozes neurais que oferecem entonação e cadência naturais, eliminando a sonoridade robótica e aumentando o engajamento.",
+      description: "Existem centenas de ferramentas de conversão disponíveis, mas poucas oferecem a geração em tempo-real com latência ultra-baixa, com naturalidade e nuances humanas, por um custo viável.",
       Icon: Volume2,
     },
     {
       title: "Compartilhamento de Tela",
-      description: "Capacidade de o agente visualizar e interagir com a tela do usuário (com permissão), permitindo suporte visual e demonstrações guiadas em tempo real.",
+      description: "Oferecemos dois módulos de captura da tela do usuário em tempo-real. o primeiro módulo captura uma imagem da tela e o segundo, extrai o código da tela, permitindo interações mais precisas.",
       Icon: Monitor,
     },
     {
       title: "Compartilhamento de Vídeo",
-      description: "Recursos para incorporar vídeo ao vivo na interação, seja para o agente mostrar um produto ou para o usuário compartilhar sua câmera (opcional).",
+      description: "Soluções que exigem a ingestão de vídeo, capturados através da cãmera do usuário em tempo-real, processados de acordo com a sua demanda.",
       Icon: Video,
     },
     {
-      title: "Pós-Processamento",
-      description: "Análise automática de cada interação para extrair insights, sentimentos, intenções e sumarizar o atendimento, alimentando o ciclo de aprendizado da IA.",
-      Icon: Settings,
+      title: "UI Generativa",
+      description: "A inovação da interface de usuário gerada por inteligência artificial, para aplicações que exigem alta flexibilidade de adaptação ao contexto, baseado nas particularidades do seu negócio.",
+      Icon: Settings, // Ícone reutilizado
     },
     {
       title: "Integrações",
-      description: "Conectamos o aiVoice aos seus sistemas existentes (CRM, ERP, bases de dados) via APIs, permitindo que a IA execute ações e acesse informações em tempo real.",
+      description: "Integramos com os principais CRM´s do mercado, além de serviços de agendamento, e-mail sistemas customizados, serviços de consulta e navegação na web. Um oceano de possibilidades.",
       Icon: Link,
     },
     {
-      title: "Dashboard IA",
-      description: "Um painel de controle completo para monitorar métricas de desempenho, gerenciar o conhecimento da IA e acessar o histórico detalhado de todas as conversas.",
-      Icon: LayoutDashboard,
+      title: "APPs Mobile",
+      description: "Embarcamos nossa tecnologia em APPs Mobile para que seus usuários recebam o que existe de melhor em serviços cognitivos em tempo-real.",
+      Icon: LayoutDashboard, // Ícone reutilizado
     },
   ];
 
