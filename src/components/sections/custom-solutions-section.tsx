@@ -85,7 +85,7 @@ export const CustomSolutionsSection = () => {
           Soluções Customizadas
         </h2>
         <p className="section-paragraph text-brand-gray">
-          Conheça nosso stack e descubra quais recursos usaremos para criar a solução sob-medida que você precisa
+          Cada negócio tem desafios únicos. Por isso, construímos o aiVoice como uma plataforma modular, onde você escolhe exatamente quais recursos ativar. Nosso stack combina IA conversacional de última geração, análise preditiva de comportamento e integração nativa com suas ferramentas existentes. O resultado? Uma solução que se adapta ao seu fluxo de trabalho, não o contrário.
         </p>
       </div>
 
