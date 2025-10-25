@@ -15,7 +15,7 @@ export const scrollToSection = (sectionId: string) => {
     duration: 1.5, // Duração da animação em segundos
     scrollTo: {
       y: sectionId,
-      offsetY: 20 // Reduzido para 20 pixels para que a seção pare mais próxima do topo da tela
+      offsetY: 20 // Valor ajustado para 20 pixels
     },
     ease: 'power2.inOut', // Easing para uma animação suave
   });
