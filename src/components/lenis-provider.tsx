@@ -51,7 +51,8 @@ export const LenisProvider: React.FC<LenisProviderProps> = ({ children }) => {
     // Limpeza ao desmontar o componente
     return () => {
       lenis.destroy();
-      ScrollTrigger.scrollerProxy(document.body, null); // Remove o proxy
+      // Corrigido: Usar undefined para remover o proxy, conforme exigido pelo TypeScript
+      ScrollTrigger.scrollerProxy(document.body, undefined); 
       ScrollTrigger.removeEventListener("refresh", () => lenis.resize());
     };
   }, []);
