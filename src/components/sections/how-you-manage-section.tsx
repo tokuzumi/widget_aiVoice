@@ -136,7 +136,7 @@ export const HowYouManageSection = () => {
               {galleryItems.map((item, index) => (
                 <div
                   key={index}
-                  ref={el => cardRefs.current[index] = el}
+                  ref={el => { cardRefs.current[index] = el; }} // Corrigido: Adicionado chaves para garantir que a função retorne void
                   className="flex-shrink-0 w-full min-w-0 lg:w-[calc(50%-1rem)]"
                 >
                   <div className="card bg-white text-black rounded-3xl p-8 flex flex-col justify-between h-full">
