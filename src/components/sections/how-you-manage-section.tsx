@@ -144,11 +144,8 @@ export const HowYouManageSection = () => {
                     <p className="section-paragraph !text-gray-500 mb-8">{item.cardDescription}</p>
                     <div className="metrics-grid">
                       <div className="metric">
-                        {item.metricIcon ? (
-                          <item.metricIcon className="h-10 w-10 text-gray-700 mb-2" />
-                        ) : (
-                          <div className="text-4xl font-bold text-gray-700 leading-none mb-2">{item.metricValue}</div>
-                        )}
+                        {/* Simplificado: Apenas renderiza o ícone, pois todos os itens o possuem */}
+                        <item.metricIcon className="h-10 w-10 text-gray-700 mb-2" />
                         <div className="text-sm font-semibold text-gray-700 leading-tight">{item.metricLabel}</div>
                       </div>
                     </div>
