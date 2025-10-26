@@ -1,5 +1,5 @@
 import type { ReceivedChatMessage } from '@livekit/components-react';
-import type { TextStreamData } from '@/components/voice-session';
+import type { TextStreamData } from '@/widget/voice-session';
 
 /**
  * Converte um objeto de transcrição de voz do LiveKit para o formato de uma mensagem de chat.
