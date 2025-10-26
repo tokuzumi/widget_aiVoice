@@ -325,7 +325,6 @@ export const VoiceSession: React.FC<VoiceSessionProps> = ({ onConnectionStatusCh
       token={token}
       connect={true}
       audio={true}
-      options={{ localTranscription: { language: 'pt-BR' } }}
       onDisconnected={handleEndSession}
     >
       <VoiceSessionUI 
